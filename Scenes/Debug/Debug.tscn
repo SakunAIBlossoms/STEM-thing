@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://ewjh4lcy76u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0doc6"]
+content_margin_left = 25.0
+content_margin_top = 5.0
+content_margin_right = 25.0
+content_margin_bottom = 5.0
+bg_color = Color(0.21950099, 0.21950105, 0.21950087, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="Debug" type="CanvasLayer" unique_id=1293170827]
+
+[node name="Info" type="RichTextLabel" parent="." unique_id=689210892]
+custom_minimum_size = Vector2(0, 50)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_0doc6")
+text = "FPS: 0 | Memory: 0mb"
+horizontal_alignment = 1
+vertical_alignment = 1
