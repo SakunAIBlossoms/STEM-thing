@@ -37,6 +37,11 @@ project/assembly_name="Stem Game"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/discord-rpc-gd/plugin.cfg", "res://addons/imgui-godot/plugin.cfg", "res://addons/ninepatch_margin_visualizer/plugin.cfg")
+[file_customization]
+
+folder_colors={
+"res://Fonts/": "red"
+}
 
 [physics]
 
@@ -44,6 +49,5 @@ enabled=PackedStringArray("res://addons/discord-rpc-gd/plugin.cfg", "res://addon
 
 [rendering]
 
-rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

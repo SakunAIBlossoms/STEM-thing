@@ -1,14 +1,52 @@
 [gd_scene format=3 uid="uid://bd8vfms1mf8ur"]
 
+[ext_resource type="FontFile" uid="uid://gwngol6ed865" path="res://Fonts/Danger Zone Warning.ttf" id="1_853f1"]
+[ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="2_8saeu"]
+
 [node name="MainMenu" type="Node2D" unique_id=109053222]
 
-[node name="Buttons" type="VBoxContainer" parent="." unique_id=1428457625]
-offset_left = 50.0
-offset_top = 250.0
-offset_right = 390.0
-offset_bottom = 1030.0
+[node name="Title" type="RichTextLabel" parent="." unique_id=1878974856]
+offset_left = 304.0
+offset_top = 48.0
+offset_right = 1624.0
+offset_bottom = 272.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.83571845, 1.732707e-06, 4.813075e-07, 1)
+theme_override_fonts/normal_font = ExtResource("1_853f1")
+theme_override_font_sizes/normal_font_size = 160
+text = "DARKER DEPTHS"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Button" type="Button" parent="Buttons" unique_id=1361644949]
+[node name="Play Button" type="Button" parent="." unique_id=1361644949]
 custom_minimum_size = Vector2(0, 45)
-layout_mode = 2
+offset_left = 728.0
+offset_top = 435.0
+offset_right = 1220.0
+offset_bottom = 576.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_8saeu")
+theme_override_font_sizes/font_size = 100
 text = "PLAY"
+
+[node name="Options Button" type="Button" parent="." unique_id=1006013235]
+custom_minimum_size = Vector2(0, 45)
+offset_left = 728.0
+offset_top = 632.0
+offset_right = 1222.0
+offset_bottom = 776.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_8saeu")
+theme_override_font_sizes/font_size = 100
+text = "OPTIONS"
+
+[node name="Exit Button" type="Button" parent="." unique_id=1714097898]
+custom_minimum_size = Vector2(0, 45)
+offset_left = 728.0
+offset_top = 824.0
+offset_right = 1222.0
+offset_bottom = 968.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_8saeu")
+theme_override_font_sizes/font_size = 100
+text = "EXIT"
