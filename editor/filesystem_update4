@@ -1,0 +1,5 @@
+res://Scenes/MainMenu.tscn
+res://Scripts/esc_back.cs
+res://OptionsButton.cs
+res://Scripts/PlayButton.cs
+res://Scripts/ExitButton.cs

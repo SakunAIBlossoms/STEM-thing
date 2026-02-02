@@ -2,6 +2,9 @@
 
 [ext_resource type="FontFile" uid="uid://gwngol6ed865" path="res://Fonts/Danger Zone Warning.ttf" id="1_853f1"]
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="2_8saeu"]
+[ext_resource type="Script" uid="uid://dkvc2ui17hx5i" path="res://Scripts/ExitButton.cs" id="3_8saeu"]
+[ext_resource type="Script" uid="uid://bu32ppcl84dic" path="res://Scripts/PlayButton.cs" id="3_ghw46"]
+[ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://OptionsButton.cs" id="4_df05h"]
 
 [node name="MainMenu" type="Node2D" unique_id=109053222]
 
@@ -18,7 +21,7 @@ text = "DARKER DEPTHS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Play Button" type="Button" parent="." unique_id=1361644949]
+[node name="PlayButton" type="Button" parent="." unique_id=1361644949]
 custom_minimum_size = Vector2(0, 45)
 offset_left = 728.0
 offset_top = 435.0
@@ -28,8 +31,9 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_8saeu")
 theme_override_font_sizes/font_size = 100
 text = "PLAY"
+script = ExtResource("3_ghw46")
 
-[node name="Options Button" type="Button" parent="." unique_id=1006013235]
+[node name="OptionsButton" type="Button" parent="." unique_id=1006013235]
 custom_minimum_size = Vector2(0, 45)
 offset_left = 728.0
 offset_top = 632.0
@@ -39,8 +43,9 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_8saeu")
 theme_override_font_sizes/font_size = 100
 text = "OPTIONS"
+script = ExtResource("4_df05h")
 
-[node name="Exit Button" type="Button" parent="." unique_id=1714097898]
+[node name="ExitButton" type="Button" parent="." unique_id=1714097898]
 custom_minimum_size = Vector2(0, 45)
 offset_left = 728.0
 offset_top = 824.0
@@ -50,3 +55,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_8saeu")
 theme_override_font_sizes/font_size = 100
 text = "EXIT"
+script = ExtResource("3_8saeu")
+
+[connection signal="pressed" from="PlayButton" to="ExitButton" method="_on_play_button_pressed"]
+[connection signal="pressed" from="OptionsButton" to="PlayButton" method="_on_options_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="ExitButton" method="_on_pressed"]

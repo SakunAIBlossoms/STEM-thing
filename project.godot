@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Stem Game"
+run/main_scene="uid://bd8vfms1mf8ur"
 config/features=PackedStringArray("4.6", "C#")
 boot_splash/show_image=false
 boot_splash/stretch_mode=0
@@ -37,6 +38,7 @@ project/assembly_name="Stem Game"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/discord-rpc-gd/plugin.cfg", "res://addons/imgui-godot/plugin.cfg", "res://addons/ninepatch_margin_visualizer/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
