@@ -11,11 +11,16 @@ config_version=5
 [application]
 
 config/name="Stem Game"
-config/features=PackedStringArray("4.6", "Mobile")
+config/features=PackedStringArray("4.6", "C#")
 boot_splash/show_image=false
 boot_splash/stretch_mode=0
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
+
+[autoload]
+
+DiscordRPCLoader="*uid://cov7rimgxfc33"
+ImGuiRoot="*uid://dugmpnsxaagba"
 
 [display]
 
@@ -29,6 +34,9 @@ window/stretch/mode="viewport"
 
 project/assembly_name="Stem Game"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/discord-rpc-gd/plugin.cfg", "res://addons/imgui-godot/plugin.cfg", "res://addons/ninepatch_margin_visualizer/plugin.cfg")
 [file_customization]
 
 folder_colors={
