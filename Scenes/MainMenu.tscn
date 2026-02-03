@@ -1,10 +1,40 @@
 [gd_scene format=3 uid="uid://bd8vfms1mf8ur"]
 
+[ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shader/VHS.gdshader" id="1_8um5k"]
 [ext_resource type="FontFile" uid="uid://gwngol6ed865" path="res://Fonts/Danger Zone Warning.ttf" id="1_853f1"]
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="2_8saeu"]
 [ext_resource type="Script" uid="uid://dkvc2ui17hx5i" path="res://Scripts/ExitButton.cs" id="3_8saeu"]
 [ext_resource type="Script" uid="uid://bu32ppcl84dic" path="res://Scripts/PlayButton.cs" id="3_ghw46"]
-[ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://OptionsButton.cs" id="4_df05h"]
+[ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://Scripts/OptionsButton.cs" id="4_df05h"]
+[ext_resource type="Shader" uid="uid://dulcirso1mor7" path="res://Shader/DitheredLight.gdshader" id="7_xim88"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xim88"]
+shader = ExtResource("1_8um5k")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.2970000141075
+shader_parameter/scanlines_width = 0.190000009025
+shader_parameter/grille_opacity = 0.12400000589
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 7.0
+shader_parameter/roll_size = 15.0000007125
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.1650000078375
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_koqhg"]
+render_priority = 0
+shader = ExtResource("7_xim88")
 
 [node name="MainMenu" type="Node2D" unique_id=109053222]
 
@@ -56,6 +86,19 @@ theme_override_fonts/font = ExtResource("2_8saeu")
 theme_override_font_sizes/font_size = 100
 text = "EXIT"
 script = ExtResource("3_8saeu")
+
+[node name="VHS" type="ColorRect" parent="." unique_id=848236292]
+material = SubResource("ShaderMaterial_xim88")
+offset_right = 1922.0
+offset_bottom = 1084.0
+mouse_filter = 2
+
+[node name="DitheredLight" type="ColorRect" parent="." unique_id=1828376071]
+material = SubResource("ShaderMaterial_koqhg")
+offset_left = -132.0
+offset_top = -47.0
+offset_right = -92.0
+offset_bottom = -7.0
 
 [connection signal="pressed" from="PlayButton" to="ExitButton" method="_on_play_button_pressed"]
 [connection signal="pressed" from="OptionsButton" to="PlayButton" method="_on_options_button_pressed"]
