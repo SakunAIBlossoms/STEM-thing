@@ -1,16 +1,21 @@
 [gd_scene format=3 uid="uid://c18pkififrbrn"]
 
-[ext_resource type="Script" uid="uid://dayal83n83xih" path="res://Scripts/esc_back.cs" id="1_jrbyj"]
+[ext_resource type="FontFile" path="res://imported/times_new_yorker.ttf-f1e69a362cd9079f7efeeb7a29521684.fontdata" id="1_jrbyj"]
 
 [node name="OptionsMenu" type="Node2D" unique_id=2048902299]
 
-[node name="Node2D" type="Node2D" parent="." unique_id=1746539211]
-script = ExtResource("1_jrbyj")
+[node name="Title" type="RichTextLabel" parent="." unique_id=695976558]
+offset_right = 1921.0
+offset_bottom = 128.0
+theme_override_fonts/normal_font = ExtResource("1_jrbyj")
+theme_override_font_sizes/normal_font_size = 65
+bbcode_enabled = true
+text = "[wave amp=25 freq=3]Options Menu[/wave]"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1993846588]
-offset_left = 356.0
-offset_top = 163.0
-offset_right = 1165.0
-offset_bottom = 534.0
-theme_override_font_sizes/normal_font_size = 160
-text = "OPTIONS"
+[node name="Panel" type="Panel" parent="." unique_id=734032583]
+offset_left = 8.0
+offset_top = 144.0
+offset_right = 1928.0
+offset_bottom = 1062.0
