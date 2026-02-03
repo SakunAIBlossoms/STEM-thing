@@ -20,6 +20,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Debug="*uid://ewjh4lcy76u"
+Autoload="*uid://dj7w55msoi0np"
 DiscordRPCLoader="*uid://cov7rimgxfc33"
 ImGuiRoot="*uid://dugmpnsxaagba"
 
