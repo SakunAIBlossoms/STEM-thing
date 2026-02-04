@@ -1,12 +1,49 @@
 [gd_scene format=3 uid="uid://dav047247xlce"]
 
+[ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shader/VHS.gdshader" id="1_iqps8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_324y2"]
+shader = ExtResource("1_iqps8")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.2970000141075
+shader_parameter/scanlines_width = 0.190000009025
+shader_parameter/grille_opacity = 0.12400000589
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 7.0
+shader_parameter/roll_size = 15.0000007125
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.1650000078375
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
 [node name="Interlude" type="Node2D" unique_id=596893763]
 
+[node name="Panel" type="Panel" parent="." unique_id=1919771089]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=767732483]
-offset_left = 461.0
-offset_top = 331.0
-offset_right = 1423.0
-offset_bottom = 692.0
-theme_override_font_sizes/normal_font_size = 160
-text = "INTERLUDE
+offset_left = 384.0
+offset_top = 192.0
+offset_right = 1563.0
+offset_bottom = 845.0
+scale = Vector2(0.97776365, 0.98035204)
+theme_override_font_sizes/normal_font_size = 60
+text = "lore shit fr weai oieoia oijewa opi efoij opijewf ioapoij  eij jio  wija ioj  aewijo  aopweij feji f  euh   h  e hop a jef i aiodsn cndus gzyx z uhi nmzxck jemwq uisdha  uh uih  weankjl sdaln  ieuwja dsjilofa mihoa sd ih dsnifaewiu sndhjk   uni eawujn nljui n u un el aun nskd u nenla nu sd nuk lu nk kujn sdae kun
 "
+
+[node name="VHS" type="ColorRect" parent="." unique_id=1533885860]
+material = SubResource("ShaderMaterial_324y2")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2

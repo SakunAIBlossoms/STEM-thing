@@ -1,8 +1,39 @@
 [gd_scene format=3 uid="uid://c18pkififrbrn"]
 
+[ext_resource type="Script" uid="uid://dayal83n83xih" path="res://Scripts/esc_back.cs" id="1_1jju4"]
 [ext_resource type="FontFile" path="res://imported/times_new_yorker.ttf-f1e69a362cd9079f7efeeb7a29521684.fontdata" id="1_jrbyj"]
+[ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shader/VHS.gdshader" id="3_ayvsw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3xhb"]
+shader = ExtResource("3_ayvsw")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.2970000141075
+shader_parameter/scanlines_width = 0.190000009025
+shader_parameter/grille_opacity = 0.12400000589
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 7.0
+shader_parameter/roll_size = 15.0000007125
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.1650000078375
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
 
 [node name="OptionsMenu" type="Node2D" unique_id=2048902299]
+script = ExtResource("1_1jju4")
+
+[node name="Panel" type="Panel" parent="." unique_id=734032583]
+offset_right = 1920.0
+offset_bottom = 1080.0
 
 [node name="Title" type="RichTextLabel" parent="." unique_id=695976558]
 offset_right = 1921.0
@@ -14,8 +45,8 @@ text = "[wave amp=25 freq=3]Options Menu[/wave]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="." unique_id=734032583]
-offset_left = 8.0
-offset_top = 144.0
-offset_right = 1928.0
-offset_bottom = 1062.0
+[node name="VHS" type="ColorRect" parent="." unique_id=1863995922]
+material = SubResource("ShaderMaterial_s3xhb")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
