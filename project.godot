@@ -16,7 +16,6 @@ config/features=PackedStringArray("4.6", "C#")
 boot_splash/show_image=false
 boot_splash/stretch_mode=0
 boot_splash/use_filter=false
-config/icon="res://icon.svg"
 
 [autoload]
 
@@ -44,7 +43,10 @@ enabled=PackedStringArray("res://addons/discord-rpc-gd/plugin.cfg", "res://addon
 [file_customization]
 
 folder_colors={
-"res://Fonts/": "red"
+"res://Fonts/": "red",
+"res://Scenes/": "blue",
+"res://Scripts/": "purple",
+"res://Shader/": "gray"
 }
 
 [physics]

@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://dkvc2ui17hx5i" path="res://Scripts/ExitButton.cs" id="3_8saeu"]
 [ext_resource type="Script" uid="uid://bu32ppcl84dic" path="res://Scripts/PlayButton.cs" id="3_ghw46"]
 [ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://Scripts/OptionsButton.cs" id="4_df05h"]
-[ext_resource type="Shader" uid="uid://dulcirso1mor7" path="res://Shader/DitheredLight.gdshader" id="7_xim88"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xim88"]
 shader = ExtResource("1_8um5k")
@@ -31,10 +30,6 @@ shader_parameter/warp_amount = 0.1650000078375
 shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.5
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_koqhg"]
-render_priority = 0
-shader = ExtResource("7_xim88")
 
 [node name="MainMenu" type="Node2D" unique_id=109053222]
 
@@ -97,13 +92,6 @@ material = SubResource("ShaderMaterial_xim88")
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
-
-[node name="DitheredLight" type="ColorRect" parent="." unique_id=1828376071]
-material = SubResource("ShaderMaterial_koqhg")
-offset_left = -132.0
-offset_top = -47.0
-offset_right = -92.0
-offset_bottom = -7.0
 
 [connection signal="pressed" from="PlayButton" to="ExitButton" method="_on_play_button_pressed"]
 [connection signal="pressed" from="OptionsButton" to="PlayButton" method="_on_options_button_pressed"]

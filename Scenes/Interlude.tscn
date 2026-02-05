@@ -34,9 +34,9 @@ offset_bottom = 1080.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=767732483]
 offset_left = 384.0
-offset_top = 192.0
+offset_top = 168.0
 offset_right = 1563.0
-offset_bottom = 845.0
+offset_bottom = 845.481
 scale = Vector2(0.97776365, 0.98035204)
 theme_override_font_sizes/normal_font_size = 60
 text = "lore shit fr weai oieoia oijewa opi efoij opijewf ioapoij  eij jio  wija ioj  aewijo  aopweij feji f  euh   h  e hop a jef i aiodsn cndus gzyx z uhi nmzxck jemwq uisdha  uh uih  weankjl sdaln  ieuwja dsjilofa mihoa sd ih dsnifaewiu sndhjk   uni eawujn nljui n u un el aun nskd u nenla nu sd nuk lu nk kujn sdae kun
