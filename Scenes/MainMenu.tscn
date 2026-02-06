@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bd8vfms1mf8ur"]
 
-[ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shader/VHS.gdshader" id="1_8um5k"]
+[ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="1_8um5k"]
 [ext_resource type="FontFile" uid="uid://gwngol6ed865" path="res://Fonts/Danger Zone Warning.ttf" id="1_853f1"]
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="2_8saeu"]
 [ext_resource type="Script" uid="uid://dkvc2ui17hx5i" path="res://Scripts/ExitButton.cs" id="3_8saeu"]

@@ -46,7 +46,7 @@ folder_colors={
 "res://Fonts/": "red",
 "res://Scenes/": "blue",
 "res://Scripts/": "purple",
-"res://Shader/": "gray"
+"res://Shaders/": "gray"
 }
 
 [physics]
