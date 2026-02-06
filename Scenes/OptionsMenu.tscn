@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dayal83n83xih" path="res://Scripts/esc_back.cs" id="1_1jju4"]
 [ext_resource type="FontFile" path="res://imported/times_new_yorker.ttf-f1e69a362cd9079f7efeeb7a29521684.fontdata" id="1_jrbyj"]
-[ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shader/VHS.gdshader" id="3_ayvsw"]
+[ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="3_ayvsw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s3xhb"]
 shader = ExtResource("3_ayvsw")
