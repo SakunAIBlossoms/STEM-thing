@@ -2,4 +2,52 @@
 
 [node name="Sub" type="Node3D" unique_id=1395666228]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=36830692]
+[node name="DontTouchy" type="Node3D" parent="." unique_id=1919074168]
+
+[node name="BOX" type="CSGBox3D" parent="DontTouchy" unique_id=51732627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04650879, -0.38482666, 0.2843094)
+size = Vector3(3.9450684, 0.23034668, 4.7975006)
+
+[node name="BOX2" type="CSGBox3D" parent="DontTouchy" unique_id=1454100737]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029312134, -0.035888672, -1.4905243)
+size = Vector3(3.5470886, 0.5522461, 1.2478333)
+
+[node name="BOX3" type="CSGBox3D" parent="DontTouchy" unique_id=1011438672]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.031143188, 0.9898172, -2.0378342)
+size = Vector3(3.5434265, 1.5011655, 0.1532135)
+
+[node name="BOX4" type="CSGBox3D" parent="DontTouchy" unique_id=129224201]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.030654907, 1.7001042, 0.34463894)
+size = Vector3(3.544403, 0.001, 4.619419)
+
+[node name="BOX5" type="CSGBox3D" parent="DontTouchy" unique_id=1952399530]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9107056, 0.7109375, 0.2787819)
+size = Vector3(0.2166748, 2.0458984, 4.7864456)
+
+[node name="BOX6" type="CSGBox3D" parent="DontTouchy" unique_id=1100976507]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.039447784, 0.71372986, 2.639883)
+size = Vector3(3.5547562, 2.0514832, 0.06424332)
+
+[node name="BOX7" type="CSGBox3D" parent="DontTouchy" unique_id=1410866687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8161702, 0.71499634, 0.2871437)
+size = Vector3(0.2166748, 2.054016, 4.8031693)
+
+[node name="Alarms" type="Node3D" parent="." unique_id=89599154]
+
+[node name="Obj" type="CSGSphere3D" parent="Alarms" unique_id=49593151]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7851692, 1.6824332, -1.905081)
+radius = 0.25661448
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Alarms/Obj" unique_id=2141328239]
+
+[node name="Obj2" type="CSGSphere3D" parent="Alarms" unique_id=287364590]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7317828, 1.6824332, -1.905081)
+radius = 0.25661448
+
+[node name="Obj3" type="CSGSphere3D" parent="Alarms" unique_id=1057598959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7851692, 1.6824332, 2.6303792)
+radius = 0.25661448
+
+[node name="Obj4" type="CSGSphere3D" parent="Alarms" unique_id=637897869]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7317828, 1.6824332, 2.6303792)
+radius = 0.25661448

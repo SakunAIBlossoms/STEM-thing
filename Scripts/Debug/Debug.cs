@@ -3,20 +3,21 @@ using System;
 
 public partial class Debug : CanvasLayer
 {
+	double ElapsedTime = -1.0;
 	RichTextLabel label;
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		// Lets make sure the label variable isnt null so we can actually display it LMAO
 		label = GetNode("Info") as RichTextLabel;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	// Check every frame for the framerate and current memory usage, then apply it to the FPS counter
 	public override void _Process(double delta)
 	{
-		if (label != null)
+		ElapsedTime += delta;
+		if (label != null && ElapsedTime % 4 == 0)
 		{
 			label.Text = "FPS:" + Engine.GetFramesPerSecond().ToString() + " | Memory: " + (OS.GetStaticMemoryUsage() / 1000000).ToString() + "mb";
-			//Math.Round(Convert.ToDecimal(OS.GetStaticMemoryUsage() / 1000000), 2);
 		}
 	}
 	public override void _Input(InputEvent @event)
