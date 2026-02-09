@@ -38,8 +38,6 @@ size = Vector3(0.2166748, 2.054016, 4.8031693)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7851692, 1.6824332, -1.905081)
 radius = 0.25661448
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Alarms/Obj" unique_id=2141328239]
-
 [node name="Obj2" type="CSGSphere3D" parent="Alarms" unique_id=287364590]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7317828, 1.6824332, -1.905081)
 radius = 0.25661448
