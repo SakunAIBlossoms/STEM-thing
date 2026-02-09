@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dkvc2ui17hx5i" path="res://Scripts/ExitButton.cs" id="3_8saeu"]
 [ext_resource type="Script" uid="uid://bu32ppcl84dic" path="res://Scripts/PlayButton.cs" id="3_ghw46"]
 [ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://Scripts/OptionsButton.cs" id="4_df05h"]
+[ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="7_xim88"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xim88"]
 shader = ExtResource("1_8um5k")
@@ -30,6 +31,37 @@ shader_parameter/warp_amount = 0.1650000078375
 shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xim88"]
+noise_type = 4
+frequency = 0.092
+fractal_gain = -0.43
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_koqhg"]
+noise = SubResource("FastNoiseLite_xim88")
+seamless = true
+seamless_blend_skirt = 0.33
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cmrfp"]
+noise = SubResource("FastNoiseLite_xim88")
+seamless = true
+seamless_blend_skirt = 0.33
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_koqhg"]
+shader = ExtResource("7_xim88")
+shader_parameter/waterNoise = SubResource("NoiseTexture2D_cmrfp")
+shader_parameter/waterDistortionNoise = SubResource("NoiseTexture2D_koqhg")
+shader_parameter/waterColor = Color(0.117, 0.27, 0.58, 1)
+shader_parameter/colorCorection = 0.35
+shader_parameter/distortionForce = 0.01
+shader_parameter/WDBrightness = 1.5
+shader_parameter/WDFreq = 0.6
+shader_parameter/WDSize = 0.9
+shader_parameter/WDSpeed = 4.0
+shader_parameter/tiling = Vector2(1, 1)
+shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
+shader_parameter/backGroundDirX = 0.01
+shader_parameter/backGroundDirY = 0.01
 
 [node name="MainMenu" type="Node2D" unique_id=109053222]
 
@@ -88,7 +120,14 @@ text = "EXIT"
 script = ExtResource("3_8saeu")
 
 [node name="VHS" type="ColorRect" parent="." unique_id=848236292]
+visible = false
 material = SubResource("ShaderMaterial_xim88")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Water" type="ColorRect" parent="." unique_id=1942420695]
+material = SubResource("ShaderMaterial_koqhg")
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2

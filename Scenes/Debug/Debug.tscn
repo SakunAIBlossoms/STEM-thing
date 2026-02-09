@@ -16,6 +16,8 @@ corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
 [node name="Debug" type="CanvasLayer" unique_id=1293170827]
+layer = 99
+visible = false
 script = ExtResource("1_5iemt")
 
 [node name="Info" type="RichTextLabel" parent="." unique_id=689210892]
@@ -29,3 +31,10 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_0doc6")
 text = "FPS: 0 | Memory: 0mb"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Elapsed" type="Label" parent="." unique_id=1511266130]
+offset_left = 54.0
+offset_top = 173.0
+offset_right = 196.0
+offset_bottom = 224.0
+text = "Elapsed Time"

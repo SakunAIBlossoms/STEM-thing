@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://c1oo05qhm7ljq"]
 
 [ext_resource type="Script" uid="uid://car67o2d8aah5" path="res://Scripts/Gameplay.cs" id="1_m34ki"]
-[ext_resource type="Shader" uid="uid://gv7e567o7pcj" path="res://Shader/Static.gdshader" id="1_wbxth"]
+[ext_resource type="Shader" uid="uid://gv7e567o7pcj" path="res://Shaders/Static.gdshader" id="1_wbxth"]
+[ext_resource type="Shader" uid="uid://bcs68mqkk2mtc" path="res://Shaders/PS1.gdshader" id="2_kwrm5"]
 [ext_resource type="PackedScene" uid="uid://qiorwxbtjv15" path="res://Scenes/Env/Sub.tscn" id="2_m34ki"]
+[ext_resource type="Shader" uid="uid://dlsyi36by4ge7" path="res://Shaders/Nebula.gdshader" id="5_r8bcl"]
 
 [sub_resource type="Animation" id="Animation_wbxth"]
 resource_name = "CheckMap"
@@ -65,6 +67,19 @@ _data = {
 &"RESET": SubResource("Animation_m34ki")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r8bcl"]
+shader = ExtResource("2_kwrm5")
+shader_parameter/resolution_x = 1920
+shader_parameter/resolution_y = 1080
+shader_parameter/color_bit_depth = 2
+shader_parameter/dither_strength = 0.03
+shader_parameter/jitter_amount = -0.002
+shader_parameter/jitter_speed = 1.41
+shader_parameter/jitter_frequency = 160.22
+shader_parameter/chromatic_aberration_strength = 0.0110000005225
+shader_parameter/vignette_strength = 0.800000038
+shader_parameter/vignette_radius = 0.658000031255
+
 [sub_resource type="Gradient" id="Gradient_kwrm5"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r8bcl"]
@@ -92,6 +107,13 @@ adjustment_brightness = 1.27
 adjustment_contrast = 1.17
 adjustment_saturation = 0.46
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kwrm5"]
+render_priority = 0
+shader = ExtResource("5_r8bcl")
+shader_parameter/albedo = Color(0.1358982, 0.024955876, 3.008172e-09, 1)
+
+[sub_resource type="CameraTexture" id="CameraTexture_r8bcl"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m34ki"]
 content_margin_left = 5.0
 content_margin_top = 5.0
@@ -115,6 +137,12 @@ libraries/ = SubResource("AnimationLibrary_kwrm5")
 
 [node name="Shaders" type="CanvasLayer" parent="." unique_id=2073417179]
 
+[node name="PS1" type="ColorRect" parent="Shaders" unique_id=190581032]
+visible = false
+material = SubResource("ShaderMaterial_r8bcl")
+offset_right = 1920.0
+offset_bottom = 1080.0
+
 [node name="Static" type="ColorRect" parent="Shaders" unique_id=583774937]
 material = SubResource("ShaderMaterial_1qnfl")
 offset_right = 1920.0
@@ -135,8 +163,17 @@ environment = SubResource("Environment_m34ki")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Environment" unique_id=2136688778]
 transform = Transform3D(1, 0, 0, 0, 0.41402608, 0.910265, 0, -0.910265, 0.41402608, 0, 2.0300894, 0.06141627)
+light_energy = 4.327
 spot_range = 3.051844
 spot_angle = 35.44497
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Environment" unique_id=1652162588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.023907602, 0.6002285, 1.9586213)
+radius = 0.57235646
+material = SubResource("ShaderMaterial_kwrm5")
+
+[node name="Sprite3D" type="Sprite3D" parent="Environment" unique_id=1414223689]
+texture = SubResource("CameraTexture_r8bcl")
 
 [node name="GUI" type="Node2D" parent="." unique_id=1016391380]
 
@@ -183,3 +220,8 @@ bbcode_enabled = true
 text = "[wave]Descending...[/wave]"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Coordinate" type="Node2D" parent="." unique_id=915654849]
+
+[node name="Cam" type="Camera2D" parent="Coordinate" unique_id=1701055758]
+position = Vector2(960, 540)

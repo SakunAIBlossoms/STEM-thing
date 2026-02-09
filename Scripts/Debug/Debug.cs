@@ -9,13 +9,14 @@ public partial class Debug : CanvasLayer
 	{
 		// Lets make sure the label variable isnt null so we can actually display it LMAO
 		label = GetNode("Info") as RichTextLabel;
+		if (!OS.IsDebugBuild()) this.QueueFree();
 	}
 
 	// Check every frame for the framerate and current memory usage, then apply it to the FPS counter
 	public override void _Process(double delta)
 	{
 		ElapsedTime += delta;
-		if (label != null && ElapsedTime % 4 == 0)
+		if (label != null && ElapsedTime % 4 == 1)
 		{
 			label.Text = "FPS:" + Engine.GetFramesPerSecond().ToString() + " | Memory: " + (OS.GetStaticMemoryUsage() / 1000000).ToString() + "mb";
 		}

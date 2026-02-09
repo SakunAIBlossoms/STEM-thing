@@ -9,6 +9,15 @@ public partial class Gameplay : Node
 	Node3D Env;
 	Camera3D Plr;
 
+	// Camera Controls
+	enum CameraFocus {
+		Left,
+		Front, 
+		Right,
+		Map
+	}
+	CameraFocus CurrentCamPosition = CameraFocus.Front;
+
 	public override void _Ready()
 	{
 		// Give variables a value first
