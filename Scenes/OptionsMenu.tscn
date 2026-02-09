@@ -3,6 +3,38 @@
 [ext_resource type="Script" uid="uid://dayal83n83xih" path="res://Scripts/esc_back.cs" id="1_1jju4"]
 [ext_resource type="FontFile" path="res://imported/times_new_yorker.ttf-f1e69a362cd9079f7efeeb7a29521684.fontdata" id="1_jrbyj"]
 [ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="3_ayvsw"]
+[ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="3_s3xhb"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_un4xt"]
+noise_type = 4
+frequency = 0.0423
+fractal_gain = -0.43
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_koqhg"]
+noise = SubResource("FastNoiseLite_un4xt")
+seamless = true
+seamless_blend_skirt = 0.33
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cmrfp"]
+noise = SubResource("FastNoiseLite_un4xt")
+seamless = true
+seamless_blend_skirt = 0.33
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uw46w"]
+shader = ExtResource("3_s3xhb")
+shader_parameter/waterNoise = SubResource("NoiseTexture2D_cmrfp")
+shader_parameter/waterDistortionNoise = SubResource("NoiseTexture2D_koqhg")
+shader_parameter/waterColor = Color(0, 0, 0, 1)
+shader_parameter/colorCorection = 0.11999999731776
+shader_parameter/distortionForce = 0.0510000024225
+shader_parameter/WDBrightness = 0.5000000074506
+shader_parameter/WDFreq = 0.45000000670553
+shader_parameter/WDSize = 1.20000003278258
+shader_parameter/WDSpeed = 6.30000007897636
+shader_parameter/tiling = Vector2(0.2, 0.2)
+shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
+shader_parameter/backGroundDirX = 0.00500000349738
+shader_parameter/backGroundDirY = 0.00500000349738
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s3xhb"]
 shader = ExtResource("3_ayvsw")
@@ -45,13 +77,6 @@ text = "[shake rate=20.0 level=10 connected=1]OPTIONS[/shake]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VHS" type="ColorRect" parent="." unique_id=1863995922]
-visible = false
-material = SubResource("ShaderMaterial_s3xhb")
-offset_right = 1920.0
-offset_bottom = 1080.0
-mouse_filter = 2
-
 [node name="Backpanel" type="Panel" parent="." unique_id=968398094]
 offset_left = 128.0
 offset_top = 128.0
@@ -63,3 +88,17 @@ offset_left = 408.0
 offset_top = 248.0
 offset_right = 1000.0
 offset_bottom = 392.0
+
+[node name="Water" type="ColorRect" parent="." unique_id=715433166]
+visible = false
+material = SubResource("ShaderMaterial_uw46w")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="VHS" type="ColorRect" parent="." unique_id=1863995922]
+visible = false
+material = SubResource("ShaderMaterial_s3xhb")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
