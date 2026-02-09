@@ -2,7 +2,6 @@
 
 [ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="1_iqps8"]
 
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_324y2"]
 shader = ExtResource("1_iqps8")
 shader_parameter/overlay = true
