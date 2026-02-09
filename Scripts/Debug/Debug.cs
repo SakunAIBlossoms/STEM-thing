@@ -1,14 +1,13 @@
 using Godot;
-using System;
+using ImGuiNET;
 
 public partial class Debug : CanvasLayer
 {
 	double ElapsedTime = -1.0;
+	float d;
 	RichTextLabel label;
 	public override void _Ready()
 	{
-		// Lets make sure the label variable isnt null so we can actually display it LMAO
-		label = GetNode("Info") as RichTextLabel;
 		if (!OS.IsDebugBuild()) this.QueueFree();
 	}
 
@@ -16,9 +15,15 @@ public partial class Debug : CanvasLayer
 	public override void _Process(double delta)
 	{
 		ElapsedTime += delta;
-		if (label != null && ElapsedTime % 4 == 1)
+		d = (float) delta;
+		ImGui.SetNextWindowSizeConstraints(new System.Numerics.Vector2(320, 200), new System.Numerics.Vector2(320, 200));
+		if (ImGui.Begin("Debug UI", ImGuiWindowFlags.NoResize))
 		{
-			label.Text = "FPS:" + Engine.GetFramesPerSecond().ToString() + " | Memory: " + (OS.GetStaticMemoryUsage() / 1000000).ToString() + "mb";
+			ImGui.SetWindowFontScale(1.2f);
+			ImGui.Text("FPS: " + Engine.GetFramesPerSecond().ToString());
+			ImGui.Text("Memory Usage: "+(OS.GetStaticMemoryUsage() / 1000000).ToString() + "mb");
+			ImGui.PlotLines("Frame Times", ref d, 60);
+        	ImGui.End();
 		}
 	}
 	public override void _Input(InputEvent @event)

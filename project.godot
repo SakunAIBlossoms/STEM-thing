@@ -13,6 +13,7 @@ config_version=5
 config/name="Stem Game"
 run/main_scene="uid://bd8vfms1mf8ur"
 config/features=PackedStringArray("4.6", "C#")
+run/max_fps=60
 boot_splash/show_image=false
 boot_splash/stretch_mode=0
 boot_splash/use_filter=false
@@ -77,9 +78,16 @@ translation/characters/use_csv_for_character_names=false
 translation/characters/character_names_csv=-1
 translation/localization/default_locale="en"
 translation/localization/locales=["en"]
-variables/variables={}
-internal/play_dialog_path=""
-internal/play_start_id=""
+variables/variables={
+"exploded?": {
+"index": 0,
+"metadata": {},
+"type": 1,
+"value": false
+}
+}
+internal/play_dialog_path="res://Dialogue/Interlude.tres"
+internal/play_start_id="INTERLUDE"
 
 [input]
 
