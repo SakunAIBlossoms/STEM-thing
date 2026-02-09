@@ -8,6 +8,9 @@
 [ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://Scripts/OptionsButton.cs" id="4_df05h"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="7_xim88"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7467j"]
+content_margin_top = 25.0
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8um5k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xim88"]
@@ -52,7 +55,7 @@ shader_parameter/vignette_opacity = 0.5
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xim88"]
 noise_type = 4
-frequency = 0.092
+frequency = 0.0423
 fractal_gain = -0.43
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_koqhg"]
@@ -69,17 +72,17 @@ seamless_blend_skirt = 0.33
 shader = ExtResource("7_xim88")
 shader_parameter/waterNoise = SubResource("NoiseTexture2D_cmrfp")
 shader_parameter/waterDistortionNoise = SubResource("NoiseTexture2D_koqhg")
-shader_parameter/waterColor = Color(0.117, 0.27, 0.58, 1)
-shader_parameter/colorCorection = 0.35
-shader_parameter/distortionForce = 0.01
-shader_parameter/WDBrightness = 1.5
-shader_parameter/WDFreq = 0.6
-shader_parameter/WDSize = 0.9
-shader_parameter/WDSpeed = 4.0
-shader_parameter/tiling = Vector2(1, 1)
+shader_parameter/waterColor = Color(0, 0, 0, 1)
+shader_parameter/colorCorection = 0.11999999731776
+shader_parameter/distortionForce = 0.0510000024225
+shader_parameter/WDBrightness = 0.5000000074506
+shader_parameter/WDFreq = 0.45000000670553
+shader_parameter/WDSize = 1.20000003278258
+shader_parameter/WDSpeed = 6.30000007897636
+shader_parameter/tiling = Vector2(0.2, 0.2)
 shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
-shader_parameter/backGroundDirX = 0.01
-shader_parameter/backGroundDirY = 0.01
+shader_parameter/backGroundDirX = 0.005000003497380001
+shader_parameter/backGroundDirY = 0.005000003497380001
 
 [node name="MainMenu" type="Node2D" unique_id=109053222]
 
@@ -89,7 +92,7 @@ offset_bottom = 1080.0
 
 [node name="Darker" type="RichTextLabel" parent="." unique_id=1154287786]
 offset_left = 896.0
-offset_top = 184.0
+offset_top = 172.0
 offset_right = 1600.0
 offset_bottom = 352.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
@@ -99,17 +102,18 @@ theme_override_font_sizes/normal_font_size = 160
 bbcode_enabled = true
 text = "[shake rate=20.0 level=5 connected=1]DARKER[/shake]"
 horizontal_alignment = 1
-vertical_alignment = 1
+vertical_alignment = 2
 
 [node name="Depths" type="RichTextLabel" parent="." unique_id=1878974856]
 offset_left = 840.0
 offset_top = 344.0
 offset_right = 1776.0
-offset_bottom = 528.0
+offset_bottom = 553.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.83571845, 1.732707e-06, 4.813075e-07, 1)
 theme_override_fonts/normal_font = ExtResource("1_853f1")
 theme_override_font_sizes/normal_font_size = 200
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7467j")
 bbcode_enabled = true
 text = "[shake rate=20.0 level=30 connected=1]DEPTHS[/shake]"
 horizontal_alignment = 1
@@ -123,7 +127,9 @@ offset_right = 704.0
 offset_bottom = 368.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
+theme_override_colors/font_outline_color = Color(0.5449743, 0.54497427, 0.54497427, 1)
 theme_override_colors/icon_pressed_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_8saeu")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxEmpty_8um5k")
@@ -140,6 +146,8 @@ offset_right = 704.0
 offset_bottom = 568.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
+theme_override_colors/font_outline_color = Color(0.5449743, 0.54497427, 0.54497427, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_8saeu")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxEmpty_cmrfp")
@@ -157,6 +165,8 @@ offset_bottom = 776.0
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
+theme_override_colors/font_outline_color = Color(0.5449743, 0.54497427, 0.54497427, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_8saeu")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rrcx7")
