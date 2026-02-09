@@ -27,6 +27,6 @@ public partial class Debug : CanvasLayer
 		{
 			label.Visible = !label.Visible;
 		}
-    }
+	}
 
 }
