@@ -3,6 +3,39 @@
 [ext_resource type="Script" uid="uid://dayal83n83xih" path="res://Scripts/esc_back.cs" id="1_1jju4"]
 [ext_resource type="FontFile" path="res://imported/times_new_yorker.ttf-f1e69a362cd9079f7efeeb7a29521684.fontdata" id="1_jrbyj"]
 [ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="3_ayvsw"]
+[ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="3_s3xhb"]
+[ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="3_un4xt"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_un4xt"]
+noise_type = 4
+frequency = 0.0423
+fractal_gain = -0.43
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_koqhg"]
+noise = SubResource("FastNoiseLite_un4xt")
+seamless = true
+seamless_blend_skirt = 0.33
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cmrfp"]
+noise = SubResource("FastNoiseLite_un4xt")
+seamless = true
+seamless_blend_skirt = 0.33
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uw46w"]
+shader = ExtResource("3_s3xhb")
+shader_parameter/waterNoise = SubResource("NoiseTexture2D_cmrfp")
+shader_parameter/waterDistortionNoise = SubResource("NoiseTexture2D_koqhg")
+shader_parameter/waterColor = Color(0, 0, 0, 1)
+shader_parameter/colorCorection = 0.11999999731776
+shader_parameter/distortionForce = 0.0510000024225
+shader_parameter/WDBrightness = 0.5000000074506
+shader_parameter/WDFreq = 0.45000000670553
+shader_parameter/WDSize = 1.20000003278258
+shader_parameter/WDSpeed = 6.30000007897636
+shader_parameter/tiling = Vector2(0.2, 0.2)
+shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
+shader_parameter/backGroundDirX = 0.00500000349738
+shader_parameter/backGroundDirY = 0.00500000349738
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s3xhb"]
 shader = ExtResource("3_ayvsw")
@@ -35,18 +68,123 @@ script = ExtResource("1_1jju4")
 offset_right = 1920.0
 offset_bottom = 1080.0
 
+[node name="Backpanel" type="Panel" parent="." unique_id=968398094]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 1792.0
+offset_bottom = 959.0
+
+[node name="Water" type="ColorRect" parent="." unique_id=715433166]
+material = SubResource("ShaderMaterial_uw46w")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="VHS" type="ColorRect" parent="." unique_id=1863995922]
+visible = false
+material = SubResource("ShaderMaterial_s3xhb")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Text" type="Control" parent="." unique_id=1807635462]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 624.0
+offset_top = 544.0
+offset_right = 664.0
+offset_bottom = 584.0
+
+[node name="MasterVolumeText" type="RichTextLabel" parent="Text" unique_id=140601907]
+layout_mode = 0
+offset_left = -440.0
+offset_top = -280.0
+offset_right = 40.0
+offset_bottom = -200.0
+theme_override_fonts/normal_font = ExtResource("3_un4xt")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[wave amp=10.0 freq=5.0 connected=1]MASTER VOLUME[/wave]"
+
+[node name="SoundsText" type="RichTextLabel" parent="Text" unique_id=1355624769]
+layout_mode = 0
+offset_left = -208.0
+offset_top = -192.0
+offset_bottom = -112.0
+theme_override_fonts/normal_font = ExtResource("3_un4xt")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[wave amp=10.0 freq=5.0 connected=1]SOUNDS[/wave]"
+
+[node name="MusicText" type="RichTextLabel" parent="Text" unique_id=150330583]
+layout_mode = 0
+offset_left = -168.0
+offset_top = -112.0
+offset_right = 40.0
+offset_bottom = -32.0
+theme_override_fonts/normal_font = ExtResource("3_un4xt")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[wave amp=10.0 freq=5.0 connected=1]MUSIC[/wave]"
+
+[node name="FullscreenText" type="RichTextLabel" parent="Text" unique_id=1411717638]
+layout_mode = 0
+offset_left = -328.0
+offset_right = 24.0
+offset_bottom = 80.0
+theme_override_fonts/normal_font = ExtResource("3_un4xt")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[wave amp=10.0 freq=5.0 connected=1]FULLSCREEN[/wave]"
+
+[node name="Interactables" type="Control" parent="." unique_id=1897150726]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MasterVolumeSlider" type="HSlider" parent="Interactables" unique_id=261955590]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 272.0
+offset_right = 1208.0
+offset_bottom = 306.66666
+scale = Vector2(1.5, 1.5)
+value = 50.0
+
+[node name="SoundsSlider" type="HSlider" parent="Interactables" unique_id=602833920]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 360.0
+offset_right = 1208.0
+offset_bottom = 389.3333
+scale = Vector2(1.5, 1.5)
+value = 50.0
+
+[node name="MusicSlider" type="HSlider" parent="Interactables" unique_id=214675202]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 440.0
+offset_right = 1208.0
+offset_bottom = 474.66663
+scale = Vector2(1.5, 1.5)
+value = 50.0
+
+[node name="FullscreenCheck" type="CheckBox" parent="Interactables" unique_id=731559534]
+layout_mode = 0
+offset_left = 624.0
+offset_top = 544.0
+offset_right = 648.0
+offset_bottom = 569.4473
+scale = Vector2(2.515, 2.515)
+button_pressed = true
+
 [node name="Title" type="RichTextLabel" parent="." unique_id=695976558]
 offset_right = 1921.0
 offset_bottom = 128.0
 theme_override_fonts/normal_font = ExtResource("1_jrbyj")
 theme_override_font_sizes/normal_font_size = 65
 bbcode_enabled = true
-text = "[wave amp=25 freq=3]Options Menu[/wave]"
+text = "[shake rate=20.0 level=10 connected=1]OPTIONS[/shake]"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="VHS" type="ColorRect" parent="." unique_id=1863995922]
-material = SubResource("ShaderMaterial_s3xhb")
-offset_right = 1920.0
-offset_bottom = 1080.0
-mouse_filter = 2

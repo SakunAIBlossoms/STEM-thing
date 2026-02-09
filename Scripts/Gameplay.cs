@@ -22,6 +22,15 @@ public partial class Gameplay : Node
 
 	bool MapOpen = false;
 
+	// Camera Controls
+	enum CameraFocus {
+		Left,
+		Front, 
+		Right,
+		Map
+	}
+	CameraFocus CurrentCamPosition = CameraFocus.Front;
+
 	public override void _Ready()
 	{
 		// Give variables a value first
