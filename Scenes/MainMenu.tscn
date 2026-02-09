@@ -106,7 +106,7 @@ vertical_alignment = 2
 
 [node name="Depths" type="RichTextLabel" parent="." unique_id=1878974856]
 offset_left = 840.0
-offset_top = 344.0
+offset_top = 352.0
 offset_right = 1776.0
 offset_bottom = 553.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
@@ -126,10 +126,14 @@ offset_top = 216.0
 offset_right = 704.0
 offset_bottom = 368.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
 theme_override_colors/font_hover_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
+<<<<<<< HEAD
 theme_override_colors/font_outline_color = Color(0.5449743, 0.54497427, 0.54497427, 1)
 theme_override_colors/icon_pressed_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
 theme_override_constants/outline_size = 5
+=======
+>>>>>>> 5f22fd27c6ddea8c3876d2e8e5f52b94c7075b70
 theme_override_fonts/font = ExtResource("2_8saeu")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxEmpty_8um5k")
@@ -145,6 +149,7 @@ offset_top = 416.0
 offset_right = 704.0
 offset_bottom = 568.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
 theme_override_colors/font_hover_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
 theme_override_colors/font_outline_color = Color(0.5449743, 0.54497427, 0.54497427, 1)
 theme_override_constants/outline_size = 5
@@ -164,6 +169,7 @@ offset_right = 704.0
 offset_bottom = 776.0
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
 theme_override_colors/font_hover_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
 theme_override_colors/font_outline_color = Color(0.5449743, 0.54497427, 0.54497427, 1)
 theme_override_constants/outline_size = 5
@@ -183,6 +189,7 @@ offset_bottom = 1080.0
 mouse_filter = 2
 
 [node name="Water" type="ColorRect" parent="." unique_id=1942420695]
+visible = false
 material = SubResource("ShaderMaterial_koqhg")
 offset_right = 1920.0
 offset_bottom = 1080.0
