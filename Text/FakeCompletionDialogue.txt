@@ -1,0 +1,4 @@
+Researcher has completed all required tasks
+Retrieving submarine...
+Failure
+Please go to the designated retrieval location on your map.

@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://c1oo05qhm7ljq"]
 
 [ext_resource type="Script" uid="uid://car67o2d8aah5" path="res://Scripts/Gameplay.cs" id="1_m34ki"]
-[ext_resource type="Shader" uid="uid://gv7e567o7pcj" path="res://Shader/Static.gdshader" id="1_wbxth"]
+[ext_resource type="Shader" uid="uid://gv7e567o7pcj" path="res://Shaders/Static.gdshader" id="1_wbxth"]
 [ext_resource type="PackedScene" uid="uid://qiorwxbtjv15" path="res://Scenes/Env/Sub.tscn" id="2_m34ki"]
+[ext_resource type="FontFile" uid="uid://buhf55me2dcaq" path="res://Fonts/ELEGANT TYPEWRITER Regular.ttf" id="4_kwrm5"]
 
 [sub_resource type="Animation" id="Animation_wbxth"]
 resource_name = "CheckMap"
@@ -31,6 +32,130 @@ tracks/1/keys = {
 "update": 0,
 "values": [52.90985, 36.1]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Environment/SpotLight3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.367),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.1439238, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rlidi"]
+resource_name = "LookFrontFromLeft"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Environment/Player:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(0.35355338, 2.6390216),
+"update": 0,
+"values": [Vector3(0, 1.5707964, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Environment/SpotLight3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(0.25000006, 3.4822078),
+"update": 0,
+"values": [Vector3(-0.7382743, 1.7697638, 0), Vector3(-1.1439238, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1qnfl"]
+resource_name = "LookFrontFromRight"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Environment/Player:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(0.32987693, 3.031438),
+"update": 0,
+"values": [Vector3(0, -1.5707964, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Environment/SpotLight3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(0.32987693, 3.031438),
+"update": 0,
+"values": [Vector3(-0.7382743, -1.7697638, 0), Vector3(-1.1439238, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kwrm5"]
+resource_name = "LookLeft"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Environment/Player:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(0.25881666, 4.9245768),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Environment/SpotLight3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(0.25881666, 4.9245768),
+"update": 0,
+"values": [Vector3(-1.1439238, 0, 0), Vector3(-0.7382743, 1.7697638, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r8bcl"]
+resource_name = "LookRight"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Environment/Player:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(0.25881666, 4.9245768),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -1.5707964, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Environment/SpotLight3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(0.25881666, 4.9245768),
+"update": 0,
+"values": [Vector3(-1.1439238, 0, 0), Vector3(-0.7382743, -1.7697638, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_m34ki"]
 length = 0.001
@@ -58,10 +183,26 @@ tracks/1/keys = {
 "update": 0,
 "values": [52.90985]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Environment/SpotLight3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.1439238, 0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kwrm5"]
 _data = {
 &"CheckMap": SubResource("Animation_wbxth"),
+&"LookFrontFromLeft": SubResource("Animation_rlidi"),
+&"LookFrontFromRight": SubResource("Animation_1qnfl"),
+&"LookLeft": SubResource("Animation_kwrm5"),
+&"LookRight": SubResource("Animation_r8bcl"),
 &"RESET": SubResource("Animation_m34ki")
 }
 
@@ -91,6 +232,19 @@ adjustment_enabled = true
 adjustment_brightness = 1.27
 adjustment_contrast = 1.17
 adjustment_saturation = 0.46
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8bcl"]
+bg_color = Color(0.047058824, 0.105882354, 0.047058824, 0.75686276)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.047058824, 0.105882354, 0.047058824, 0)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m34ki"]
 content_margin_left = 5.0
@@ -134,7 +288,7 @@ far = 20.0
 environment = SubResource("Environment_m34ki")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Environment" unique_id=2136688778]
-transform = Transform3D(1, 0, 0, 0, 0.41402608, 0.910265, 0, -0.910265, 0.41402608, 0, 2.0300894, 0.06141627)
+transform = Transform3D(1, 0, 0, 0, 0.41402605, 0.910265, 0, -0.910265, 0.41402605, 0, 2.0300894, 0.06141627)
 spot_range = 3.051844
 spot_angle = 35.44497
 
@@ -153,6 +307,7 @@ offset_bottom = 1069.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_default_cursor_shape = 9
+theme_override_styles/panel = SubResource("StyleBoxFlat_r8bcl")
 
 [node name="Label" type="RichTextLabel" parent="GUI/Map" unique_id=957827578]
 layout_mode = 1
@@ -162,11 +317,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-text = "Check Map"
+theme_override_fonts/normal_font = ExtResource("4_kwrm5")
+bbcode_enabled = true
+text = "[shake]Check Map[/shake]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Dialogue" type="Panel" parent="GUI" unique_id=421671540]
+visible = false
 offset_left = 280.0
 offset_right = 1640.0
 offset_bottom = 144.0
@@ -179,7 +337,59 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("4_kwrm5")
+theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "[wave]Descending...[/wave]"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Controls" type="Control" parent="GUI" unique_id=1850055799]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Left" type="Control" parent="GUI/Controls" unique_id=2077693679]
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 1080.0
+
+[node name="Right" type="Control" parent="GUI/Controls" unique_id=15499119]
+anchors_preset = 0
+offset_left = 1600.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Tutorials" type="Control" parent="GUI" unique_id=889320543]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Looking" type="RichTextLabel" parent="GUI/Tutorials" unique_id=1795095671]
+modulate = Color(1, 1, 1, 0.47058824)
+layout_mode = 0
+offset_left = 606.0
+offset_top = 437.0
+offset_right = 1314.0
+offset_bottom = 644.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 37
+bbcode_enabled = true
+text = "[pulse]Move your mouse to the left or right sides of the screen to look at different areas of the submarine, do not neglect the state of your equipment."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TutorialShowLength" type="Timer" parent="GUI/Tutorials" unique_id=1454440405]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
+[connection signal="mouse_entered" from="GUI/Controls/Left" to="." method="LeftSideEntered"]
+[connection signal="mouse_exited" from="GUI/Controls/Left" to="." method="LeftSideExited"]
+[connection signal="mouse_entered" from="GUI/Controls/Right" to="." method="RightSideEntered"]
+[connection signal="mouse_exited" from="GUI/Controls/Right" to="." method="RightSideExited"]
+[connection signal="timeout" from="GUI/Tutorials/TutorialShowLength" to="." method="OnTutorialShowLengthTimeout"]

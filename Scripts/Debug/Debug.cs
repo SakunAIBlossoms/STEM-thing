@@ -1,4 +1,5 @@
 using Godot;
+using ImGuiNET;
 using System;
 
 public partial class Debug : CanvasLayer
@@ -9,6 +10,10 @@ public partial class Debug : CanvasLayer
 	{
 		// Lets make sure the label variable isnt null so we can actually display it LMAO
 		label = GetNode("Info") as RichTextLabel;
+		if (!OS.IsDebugBuild()) {
+			GD.PushWarning("Game is not in debug mode. Removing debugging UI elements...");
+			this.QueueFree();
+		}
 	}
 
 	// Check every frame for the framerate and current memory usage, then apply it to the FPS counter
