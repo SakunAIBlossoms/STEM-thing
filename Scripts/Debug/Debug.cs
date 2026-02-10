@@ -17,14 +17,12 @@ public partial class Debug : CanvasLayer
 		ElapsedTime += delta;
 		d = (float) delta;
 		ImGui.SetNextWindowSizeConstraints(new System.Numerics.Vector2(320, 200), new System.Numerics.Vector2(320, 200));
-		if (ImGui.Begin("Debug UI", ImGuiWindowFlags.NoResize))
-		{
-			ImGui.SetWindowFontScale(1.2f);
-			ImGui.Text("FPS: " + Engine.GetFramesPerSecond().ToString());
-			ImGui.Text("Memory Usage: "+(OS.GetStaticMemoryUsage() / 1000000).ToString() + "mb");
-			ImGui.PlotLines("Frame Times", ref d, 60);
-        	ImGui.End();
-		}
+		ImGui.Begin("Debug UI", ImGuiWindowFlags.NoResize);
+		ImGui.SetWindowFontScale(1.2f);
+		ImGui.Text("FPS: " + Engine.GetFramesPerSecond().ToString());
+		ImGui.Text("Memory Usage: "+(OS.GetStaticMemoryUsage() / 1000000).ToString() + "mb");
+		ImGui.PlotLines("Frame Times", ref d, 60);
+        ImGui.End();
 	}
 	public override void _Input(InputEvent @event)
 	{
