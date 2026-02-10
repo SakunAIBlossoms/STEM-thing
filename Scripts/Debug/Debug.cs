@@ -22,7 +22,7 @@ public partial class Debug : CanvasLayer
 		ImGui.Text("FPS: " + Engine.GetFramesPerSecond().ToString());
 		ImGui.Text("Memory Usage: "+(OS.GetStaticMemoryUsage() / 1000000).ToString() + "mb");
 		ImGui.PlotLines("Frame Times", ref d, 60);
-        ImGui.End();
+		ImGui.End();
 	}
 	public override void _Input(InputEvent @event)
 	{
