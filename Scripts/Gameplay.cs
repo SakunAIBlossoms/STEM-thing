@@ -20,17 +20,6 @@ public partial class Gameplay : Node
 	}
 	CameraFocus CurrentCamDirection = CameraFocus.Front;
 
-	bool MapOpen = false;
-
-	// Camera Controls
-	enum CameraFocus {
-		Left,
-		Front, 
-		Right,
-		Map
-	}
-	CameraFocus CurrentCamPosition = CameraFocus.Front;
-
 	public override void _Ready()
 	{
 		// Give variables a value first

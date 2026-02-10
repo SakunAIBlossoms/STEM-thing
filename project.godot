@@ -78,7 +78,6 @@ translation/characters/use_csv_for_character_names=false
 translation/characters/character_names_csv=-1
 translation/localization/default_locale="en"
 translation/localization/locales=["en"]
-<<<<<<< HEAD
 variables/variables={
 "exploded?": {
 "index": 0,
@@ -89,11 +88,9 @@ variables/variables={
 }
 internal/play_dialog_path="res://Dialogue/Interlude.tres"
 internal/play_start_id="INTERLUDE"
-=======
 variables/variables={}
 internal/play_dialog_path="res://Dialogues/Interlude.tres"
 internal/play_start_id="1"
->>>>>>> 5e0d6f6e19847bce509bd6c173c0f0b5a762d456
 
 [input]
 
