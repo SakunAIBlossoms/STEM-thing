@@ -78,16 +78,6 @@ translation/characters/use_csv_for_character_names=false
 translation/characters/character_names_csv=-1
 translation/localization/default_locale="en"
 translation/localization/locales=["en"]
-variables/variables={
-"exploded?": {
-"index": 0,
-"metadata": {},
-"type": 1,
-"value": false
-}
-}
-internal/play_dialog_path="res://Dialogue/Interlude.tres"
-internal/play_start_id="INTERLUDE"
 variables/variables={}
 internal/play_dialog_path="res://Dialogues/Interlude.tres"
 internal/play_start_id="1"
