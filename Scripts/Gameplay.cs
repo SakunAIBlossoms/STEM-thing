@@ -20,8 +20,11 @@ public partial class Gameplay : Node
 	}
 	CameraFocus CurrentCamDirection = CameraFocus.Front;
 
+<<<<<<< HEAD
 	bool MapOpen = false;
 
+=======
+>>>>>>> d829303bc64812549122682d5e31fce9de1f1722
 	public override void _Ready()
 	{
 		// Give variables a value first
