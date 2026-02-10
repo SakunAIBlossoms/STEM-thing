@@ -14,66 +14,33 @@ graph_data = {
 "node_type": "dialogue_node",
 "offset": Vector2(240, 160),
 "portrait": "",
-"size": Vector2(250, 394),
-"to_node": ["dialogue_node_2"]
-},
-"start_node_1": {
-"node_index": 1,
-"node_type": "start_node",
-"offset": Vector2(-180, 280),
-"size": Vector2(190.00006, 97.00008),
-"start_id": "1",
-"to_node": ["dialogue_node_1"]
-}
-},
-"unplugged_nodes": {
-"dialogue_node_2": {
-"char_expand": true,
-"character": "",
-"dialog_key": "UNPLUGGED_DIALOG_2",
-"node_index": 2,
-"node_type": "dialogue_node",
-"offset": Vector2(580, 420),
-"portrait": "",
-"size": Vector2(250, 394),
-"to_node": ["dialogue_node_3"]
-},
-"dialogue_node_3": {
-"char_expand": true,
-"character": "",
-"dialog_key": "UNPLUGGED_DIALOG_3",
-"node_index": 3,
-"node_type": "dialogue_node",
-"offset": Vector2(940, 660),
-"portrait": "",
-"size": Vector2(250.00012, 394.00006),
+"size": Vector2(250.00006, 394),
 "to_node": ["signal_node_1"]
 },
 "signal_node_1": {
 "node_index": 1,
 "node_type": "signal_node",
-"offset": Vector2(1260, 820),
+"offset": Vector2(620, 320),
 "signal_argument": "",
-"size": Vector2(180, 114.00012),
+"size": Vector2(180.00012, 114.00003),
 "to_node": ["END"]
+},
+"start_node_1": {
+"node_index": 1,
+"node_type": "start_node",
+"offset": Vector2(-180, 280),
+"size": Vector2(190.0001, 96.999985),
+"start_id": "1",
+"to_node": ["dialogue_node_1"]
 }
 }
 }
 dialogs = {
 "1_DIALOG_1": {
-"default": "lore stuff ig",
-"en": ""
-},
-"UNPLUGGED_DIALOG_2": {
-"default": "more lore stuff",
-"en": ""
-},
-"UNPLUGGED_DIALOG_3": {
-"default": "anddd thats all",
+"default": "lore stuff ig hiuihweqijowqoijdwqiuhqdwIUHWDQ Wqd UIH WEWQIUE QDUILHWw ulihwqd qidl wqo87d luiyqwd wiudl wq",
 "en": ""
 }
 }
 characters = {
-"": {},
 "1": {}
 }

@@ -8,6 +8,12 @@
 [ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://Scripts/OptionsButton.cs" id="4_df05h"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="7_xim88"]
 
+[sub_resource type="Gradient" id="Gradient_8um5k"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xim88"]
+gradient = SubResource("Gradient_8um5k")
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7467j"]
 content_margin_top = 25.0
 
@@ -28,12 +34,6 @@ content_margin_top = 25.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fh7cp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8e205"]
-
-[sub_resource type="Gradient" id="Gradient_8um5k"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_xim88"]
-gradient = SubResource("Gradient_8um5k")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xim88"]
 shader = ExtResource("1_8um5k")
@@ -179,10 +179,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Credits" type="Button" parent="." unique_id=1101118818]
 custom_minimum_size = Vector2(0, 45)
-offset_left = 252.0
-offset_top = 663.0
-offset_right = 540.0
-offset_bottom = 752.0
+offset_left = 1584.0
+offset_top = 976.0
+offset_right = 1872.0
+offset_bottom = 1065.0
 size_flags_horizontal = 4
 mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)

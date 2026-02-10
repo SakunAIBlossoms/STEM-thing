@@ -20,6 +20,11 @@ public partial class Gameplay : Node
 	}
 	CameraFocus CurrentCamDirection = CameraFocus.Front;
 
+<<<<<<< HEAD
+	bool MapOpen = false;
+
+=======
+>>>>>>> d829303bc64812549122682d5e31fce9de1f1722
 	public override void _Ready()
 	{
 		// Give variables a value first
@@ -36,11 +41,11 @@ public partial class Gameplay : Node
 	public override void _Process(double delta)
 	{
 	}
-    public override void _Input(InputEvent @event)
-    {
-        base._Input(@event);
+	public override void _Input(InputEvent @event)
+	{
+		base._Input(@event);
 		//if (@event.AsText() == "")
-    }
+	}
 	
 	// Any Events we need to execute
 	private void OnTutorialShowLengthTimeout()
@@ -68,7 +73,7 @@ public partial class Gameplay : Node
 		{
 			switch (CurrentCamDirection)
 			{
-                case CameraFocus.Right:
+				case CameraFocus.Right:
 					CurrentCamDirection = CameraFocus.Front;
 					Animations.Play("LookFrontFromRight");
 					break;
@@ -85,7 +90,7 @@ public partial class Gameplay : Node
 		{
 			switch (CurrentCamDirection)
 			{
-                case CameraFocus.Left:
+				case CameraFocus.Left:
 					CurrentCamDirection = CameraFocus.Front;
 					Animations.Play("LookFrontFromLeft");
 					break;

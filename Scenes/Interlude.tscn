@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dav047247xlce"]
 
+[ext_resource type="Script" uid="uid://c5pg41faei8kd" path="res://Scripts/EnterGame.cs" id="1_76spq"]
 [ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="1_iqps8"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="2_324y2"]
-[ext_resource type="Script" uid="uid://d1inu3rk7uoom" path="res://addons/sprouty_dialogs/nodes/dialog_box.gd" id="3_76spq"]
 [ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="4_kom6h"]
 [ext_resource type="Resource" uid="uid://c5qthib7nqa43" path="res://Dialogues/Interlude.tres" id="5_tmao8"]
 
@@ -62,6 +62,7 @@ shader_parameter/backGroundDirX = 0.00500000349738
 shader_parameter/backGroundDirY = 0.00500000349738
 
 [node name="Interlude" type="Node2D" unique_id=596893763]
+script = ExtResource("1_76spq")
 
 [node name="Panel" type="Panel" parent="." unique_id=1919771089]
 offset_right = 1920.0
@@ -86,24 +87,9 @@ _dialog_data_uid = 6912703267215568518
 _dialog_file_name = "Interlude"
 _dialog_data = ExtResource("5_tmao8")
 _start_id = "1"
-_play_on_ready = false
+_play_on_ready = true
 _destroy_on_end = true
 _print_debug = false
 metadata/_custom_type_script = "uid://1mxdpoyob13n"
 
-[node name="DialogBox" type="Control" parent="DialogPlayer" unique_id=726415839 node_paths=PackedStringArray("dialog_display")]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 384.0
-offset_top = 192.0
-offset_right = 1408.0
-offset_bottom = 832.0
-script = ExtResource("3_76spq")
-typing_speed = 0.05
-max_characters = 0
-dialog_display = NodePath("../../DialogueText")
-metadata/_custom_type_script = "uid://d1inu3rk7uoom"
-
-[node name="DialogueText" type="RichTextLabel" parent="." unique_id=642757734]
-offset_right = 40.0
-offset_bottom = 40.0
+[connection signal="dialog_ended" from="DialogPlayer" to="." method="OnDialogPlayerDialogEnded"]
