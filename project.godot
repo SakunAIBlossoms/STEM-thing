@@ -78,9 +78,6 @@ translation/characters/use_csv_for_character_names=false
 translation/characters/character_names_csv=-1
 translation/localization/default_locale="en"
 translation/localization/locales=["en"]
-<<<<<<< HEAD
-=======
->>>>>>> d829303bc64812549122682d5e31fce9de1f1722
 variables/variables={}
 internal/play_dialog_path="res://Dialogues/Interlude.tres"
 internal/play_start_id="1"
