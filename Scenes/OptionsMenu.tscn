@@ -157,6 +157,7 @@ offset_top = 272.0
 offset_right = 1208.0
 offset_bottom = 306.66666
 scale = Vector2(1.5, 1.5)
+mouse_default_cursor_shape = 10
 value = 50.0
 
 [node name="SoundsSlider" type="HSlider" parent="Interactables" unique_id=602833920]
@@ -166,6 +167,7 @@ offset_top = 360.0
 offset_right = 1208.0
 offset_bottom = 389.3333
 scale = Vector2(1.5, 1.5)
+mouse_default_cursor_shape = 10
 value = 50.0
 
 [node name="MusicSlider" type="HSlider" parent="Interactables" unique_id=214675202]
@@ -175,6 +177,7 @@ offset_top = 440.0
 offset_right = 1208.0
 offset_bottom = 474.66663
 scale = Vector2(1.5, 1.5)
+mouse_default_cursor_shape = 10
 value = 50.0
 
 [node name="FullscreenCheck" type="CheckBox" parent="Interactables" unique_id=731559534]
@@ -184,6 +187,7 @@ offset_top = 544.0
 offset_right = 648.0
 offset_bottom = 569.4473
 scale = Vector2(2.515, 2.515)
+mouse_default_cursor_shape = 2
 button_pressed = true
 
 [node name="BackButton" type="Button" parent="Interactables" unique_id=130588452]
