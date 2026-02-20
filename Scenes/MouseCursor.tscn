@@ -28,7 +28,9 @@ layer = 999
 script = ExtResource("1_v0jtq")
 
 [node name="Cursor" type="Sprite2D" parent="." unique_id=41383768]
+visible = false
 position = Vector2(717, 501)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_e5qiv")
 
 [node name="Particles" type="GPUParticles2D" parent="Cursor" unique_id=1212707881]

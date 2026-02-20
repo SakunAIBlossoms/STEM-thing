@@ -67,18 +67,21 @@ script = ExtResource("1_1jju4")
 [node name="Panel" type="Panel" parent="." unique_id=734032583]
 offset_right = 1920.0
 offset_bottom = 1080.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Backpanel" type="Panel" parent="." unique_id=968398094]
 offset_left = 128.0
 offset_top = 128.0
 offset_right = 1792.0
 offset_bottom = 959.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Water" type="ColorRect" parent="." unique_id=715433166]
 material = SubResource("ShaderMaterial_uw46w")
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="VHS" type="ColorRect" parent="." unique_id=1863995922]
 visible = false
@@ -94,6 +97,7 @@ offset_left = 624.0
 offset_top = 544.0
 offset_right = 664.0
 offset_bottom = 584.0
+metadata/_edit_use_anchors_ = true
 
 [node name="MasterVolumeText" type="RichTextLabel" parent="Text" unique_id=140601907]
 layout_mode = 0
@@ -105,6 +109,7 @@ theme_override_fonts/normal_font = ExtResource("3_un4xt")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
 text = "[wave amp=10.0 freq=5.0 connected=1]MASTER VOLUME[/wave]"
+metadata/_edit_use_anchors_ = true
 
 [node name="SoundsText" type="RichTextLabel" parent="Text" unique_id=1355624769]
 layout_mode = 0
@@ -115,6 +120,7 @@ theme_override_fonts/normal_font = ExtResource("3_un4xt")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
 text = "[wave amp=10.0 freq=5.0 connected=1]SOUNDS[/wave]"
+metadata/_edit_use_anchors_ = true
 
 [node name="MusicText" type="RichTextLabel" parent="Text" unique_id=150330583]
 layout_mode = 0
@@ -126,6 +132,7 @@ theme_override_fonts/normal_font = ExtResource("3_un4xt")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
 text = "[wave amp=10.0 freq=5.0 connected=1]MUSIC[/wave]"
+metadata/_edit_use_anchors_ = true
 
 [node name="FullscreenText" type="RichTextLabel" parent="Text" unique_id=1411717638]
 layout_mode = 0
@@ -136,12 +143,43 @@ theme_override_fonts/normal_font = ExtResource("3_un4xt")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
 text = "[wave amp=10.0 freq=5.0 connected=1]FULLSCREEN[/wave]"
+metadata/_edit_use_anchors_ = true
+
+[node name="MouseParticlesText" type="RichTextLabel" parent="Text" unique_id=147613879]
+layout_mode = 0
+offset_left = -459.0
+offset_top = 90.0
+offset_right = 24.0
+offset_bottom = 170.0
+theme_override_fonts/normal_font = ExtResource("3_un4xt")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[wave amp=10.0 freq=5.0 connected=1]MOUSE PARTICLES[/wave]"
+metadata/_edit_use_anchors_ = true
+
+[node name="ErrorPopupsText" type="RichTextLabel" parent="Text" unique_id=1570178865]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 2.4
+anchor_top = 2.1
+anchor_right = -0.6
+anchor_bottom = 2.1
+offset_left = -459.0
+offset_top = 90.0
+offset_right = 24.0
+offset_bottom = 170.0
+theme_override_fonts/normal_font = ExtResource("3_un4xt")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[wave amp=10.0 freq=5.0 connected=1]ERROR POPUPS[/wave]"
+metadata/_edit_use_anchors_ = true
 
 [node name="Interactables" type="Control" parent="." unique_id=1897150726]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
 
 [node name="MasterVolumeSlider" type="HSlider" parent="Interactables" unique_id=261955590]
 layout_mode = 0
@@ -151,6 +189,7 @@ offset_right = 1208.0
 offset_bottom = 306.66666
 scale = Vector2(1.5, 1.5)
 value = 50.0
+metadata/_edit_use_anchors_ = true
 
 [node name="SoundsSlider" type="HSlider" parent="Interactables" unique_id=602833920]
 layout_mode = 0
@@ -160,6 +199,7 @@ offset_right = 1208.0
 offset_bottom = 389.3333
 scale = Vector2(1.5, 1.5)
 value = 50.0
+metadata/_edit_use_anchors_ = true
 
 [node name="MusicSlider" type="HSlider" parent="Interactables" unique_id=214675202]
 layout_mode = 0
@@ -169,6 +209,7 @@ offset_right = 1208.0
 offset_bottom = 474.66663
 scale = Vector2(1.5, 1.5)
 value = 50.0
+metadata/_edit_use_anchors_ = true
 
 [node name="FullscreenCheck" type="CheckBox" parent="Interactables" unique_id=731559534]
 layout_mode = 0
@@ -178,6 +219,30 @@ offset_right = 648.0
 offset_bottom = 569.4473
 scale = Vector2(2.515, 2.515)
 button_pressed = true
+metadata/_edit_use_anchors_ = true
+
+[node name="MouseParticlesCheck" type="CheckBox" parent="Interactables" unique_id=318042908]
+layout_mode = 0
+offset_left = 624.0
+offset_top = 634.0
+offset_right = 648.0
+offset_bottom = 659.4473
+scale = Vector2(2.515, 2.515)
+button_pressed = true
+metadata/_edit_use_anchors_ = true
+
+[node name="ErrorPopupsCheck" type="CheckBox" parent="Interactables" unique_id=1703150631]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 2.1
+anchor_bottom = 2.1
+offset_left = 624.0
+offset_top = 634.0
+offset_right = 648.0
+offset_bottom = 659.4473
+scale = Vector2(2.515, 2.515)
+button_pressed = true
+metadata/_edit_use_anchors_ = true
 
 [node name="Title" type="RichTextLabel" parent="." unique_id=695976558]
 offset_right = 1921.0
@@ -188,3 +253,4 @@ bbcode_enabled = true
 text = "[shake rate=20.0 level=10 connected=1]OPTIONS[/shake]"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

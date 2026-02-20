@@ -20,6 +20,7 @@ boot_splash/use_filter=false
 
 [autoload]
 
+MouseCursor="*uid://8k2ia4fqbmf7"
 Debug="*uid://ewjh4lcy76u"
 Autoload="*uid://dj7w55msoi0np"
 DiscordRPCLoader="*uid://cov7rimgxfc33"
