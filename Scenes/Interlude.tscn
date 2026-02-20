@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="2_324y2"]
 [ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="4_kom6h"]
 [ext_resource type="Resource" uid="uid://c5qthib7nqa43" path="res://Dialogues/Interlude.tres" id="5_tmao8"]
+[ext_resource type="AudioStream" uid="uid://c4766ybrt6vny" path="res://Sounds/Weird Flange - QuickSounds.com.mp3" id="6_kom6h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_324y2"]
 shader = ExtResource("1_iqps8")
@@ -136,6 +137,9 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
+
+[node name="TransitionSound" type="AudioStreamPlayer" parent="." unique_id=586290346]
+stream = ExtResource("6_kom6h")
 
 [connection signal="dialog_ended" from="DialogPlayer" to="." method="OnDialogPlayerDialogEnded"]
 [connection signal="animation_finished" from="FadeToBlack" to="." method="OnFadeAnimationFinished"]

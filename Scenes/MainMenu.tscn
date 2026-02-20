@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://Scripts/OptionsButton.cs" id="4_df05h"]
 [ext_resource type="Script" uid="uid://bphtahsowajd5" path="res://Scripts/CreditsButton.cs" id="4_koqhg"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="7_xim88"]
+[ext_resource type="AudioStream" uid="uid://bvc4ic4cxhm64" path="res://Sounds/Wood Thunk - QuickSounds.com.mp3" id="9_cmrfp"]
 
 [sub_resource type="Gradient" id="Gradient_8um5k"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
@@ -241,6 +242,10 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 
+[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="." unique_id=8627686]
+stream = ExtResource("9_cmrfp")
+
 [connection signal="pressed" from="PlayButton" to="ExitButton" method="_on_play_button_pressed"]
 [connection signal="pressed" from="OptionsButton" to="PlayButton" method="_on_options_button_pressed"]
+[connection signal="pressed" from="CreditsButton" to="CreditsButton" method="_on_pressed"]
 [connection signal="pressed" from="ExitButton" to="ExitButton" method="_on_pressed"]

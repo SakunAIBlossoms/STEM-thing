@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" uid="uid://car67o2d8aah5" path="res://Scripts/Gameplay.cs" id="1_m34ki"]
 [ext_resource type="Shader" uid="uid://gv7e567o7pcj" path="res://Shaders/Static.gdshader" id="1_wbxth"]
-[ext_resource type="PackedScene" uid="uid://qiorwxbtjv15" path="res://Scenes/Env/Sub.tscn" id="2_m34ki"]
-[ext_resource type="FontFile" uid="uid://buhf55me2dcaq" path="res://Fonts/ELEGANT TYPEWRITER Regular.ttf" id="4_kwrm5"]
 [ext_resource type="Shader" uid="uid://bcs68mqkk2mtc" path="res://Shaders/PS1.gdshader" id="2_kwrm5"]
 [ext_resource type="PackedScene" uid="uid://qiorwxbtjv15" path="res://Scenes/Env/Sub.tscn" id="2_m34ki"]
+[ext_resource type="FontFile" uid="uid://buhf55me2dcaq" path="res://Fonts/ELEGANT TYPEWRITER Regular.ttf" id="4_kwrm5"]
 [ext_resource type="Shader" uid="uid://dlsyi36by4ge7" path="res://Shaders/Nebula.gdshader" id="5_r8bcl"]
 
 [sub_resource type="Animation" id="Animation_wbxth"]
@@ -249,6 +248,13 @@ adjustment_brightness = 1.27
 adjustment_contrast = 1.17
 adjustment_saturation = 0.46
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kwrm5"]
+render_priority = 0
+shader = ExtResource("5_r8bcl")
+shader_parameter/albedo = Color(0.1358982, 0.024955876, 3.008172e-09, 1)
+
+[sub_resource type="CameraTexture" id="CameraTexture_r8bcl"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8bcl"]
 bg_color = Color(0.047058824, 0.105882354, 0.047058824, 0.75686276)
 border_width_left = 5
@@ -261,12 +267,6 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kwrm5"]
-render_priority = 0
-shader = ExtResource("5_r8bcl")
-shader_parameter/albedo = Color(0.1358982, 0.024955876, 3.008172e-09, 1)
-
-[sub_resource type="CameraTexture" id="CameraTexture_r8bcl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m34ki"]
 content_margin_left = 5.0

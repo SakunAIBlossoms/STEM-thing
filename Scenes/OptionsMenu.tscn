@@ -167,10 +167,10 @@ metadata/_edit_use_anchors_ = true
 [node name="ErrorPopupsText" type="RichTextLabel" parent="Text" unique_id=1570178865]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 2.4
-anchor_top = 2.1
-anchor_right = -0.6
-anchor_bottom = 2.1
+anchor_left = 2.275
+anchor_top = 2.15
+anchor_right = 2.275
+anchor_bottom = 2.15
 offset_left = -459.0
 offset_top = 90.0
 offset_right = 24.0
