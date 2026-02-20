@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SproutyDialogsCharacterData" format=3 uid="uid://dxfsi0hym2ctl"]
+
+[ext_resource type="Script" uid="uid://kwoapf8il7ee" path="res://addons/sprouty_dialogs/resources/character_data.gd" id="1_50v4g"]
+
+[resource]
+script = ExtResource("1_50v4g")
+key_name = "UnknownVoice"
+display_name = {
+"default": "???",
+"en": ""
+}
+dialog_box_uid = 8866564446714201983
+dialog_box_path = "res://Dialogues/GameplayDialogueBox.tscn"

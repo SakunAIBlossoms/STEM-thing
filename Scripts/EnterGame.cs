@@ -8,19 +8,16 @@ public partial class EnterGame : Node2D
 	public override void _Ready()
 	{
 		_animationplayer = GetNode<AnimationPlayer>("FadeToBlack");
-
-		TransitionSound = GetNode<AudioStreamPlayer>("TransitionSound");
-
-		_animationplayer.AnimationFinished += OnFadeAnimationFinished;
 	}
 	private void OnDialogPlayerDialogEnded() 
 	{
-		TransitionSound.Play();
+		GD.Print("Playing animation " + "FadeToBlack");
 		_animationplayer.Play("FadeToBlack");
 	}
 
 	private void OnFadeAnimationFinished(StringName animName)
 	{
+		GD.Print("Animation " + (string)animName + " is finished.");
 		GetTree().ChangeSceneToFile("res://Scenes/Gameplay.tscn");
 	}
 }

@@ -22,7 +22,7 @@ public partial class MouseCursor : CanvasLayer
 		Cursor = GetNode("Cursor") as Sprite2D;
 		Particles = Cursor.GetNode("Particles") as GpuParticles2D;
 		if (Cursor != null) Input.MouseMode = Input.MouseModeEnum.Hidden;
-		PrintDebuggingInformation = OS.IsDebugBuild();
+		//PrintDebuggingInformation = OS.IsDebugBuild();
 	}
 
 	public override void _Input(InputEvent @event)
@@ -59,7 +59,7 @@ public partial class MouseCursor : CanvasLayer
 				GD.Print("Cursor X: ", Math.Round(Cursor.Position.X), " ~ ", FinalPos.X);
 				GD.Print("Cursor Y: ", Math.Round(Cursor.Position.Y), " ~ ", FinalPos.Y);
 			}
-			Cursor.Position = new Vector2((float)Mathf.Lerp(Cursor.Position.X, FinalPos.X, LerpSpeed * delta), (float)Mathf.Lerp(Cursor.Position.Y, FinalPos.Y, LerpSpeed * delta));
+			Cursor.Position = new Vector2((float)Mathf.Lerp(Cursor.Position.X, FinalPos.X, 0.95), (float)Mathf.Lerp(Cursor.Position.Y, FinalPos.Y, 0.95));
 		}
 		// Here is a print to constantly check if the positions are matching or not, this will cause immense lag therefore it will be ignored unless a specific flag is set
 		if (PrintDebuggingInformation) GD.Print("Matching Positions? = ", Math.Round(Cursor.Position.X) == FinalPos.X && Math.Round(Cursor.Position.Y) == FinalPos.Y);
