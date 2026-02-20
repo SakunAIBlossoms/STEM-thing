@@ -5,6 +5,31 @@
 [ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="3_ayvsw"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="3_s3xhb"]
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="3_un4xt"]
+[ext_resource type="Script" uid="uid://cdwn7purhwdkk" path="res://Scripts/BackButton.cs" id="5_uw46w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3xhb"]
+shader = ExtResource("3_ayvsw")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.2970000141075
+shader_parameter/scanlines_width = 0.190000009025
+shader_parameter/grille_opacity = 0.12400000589
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 7.0
+shader_parameter/roll_size = 15.0000007125
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.1650000078375
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_un4xt"]
 noise_type = 4
@@ -37,29 +62,11 @@ shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
 shader_parameter/backGroundDirX = 0.00500000349738
 shader_parameter/backGroundDirY = 0.00500000349738
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3xhb"]
-shader = ExtResource("3_ayvsw")
-shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.2970000141075
-shader_parameter/scanlines_width = 0.190000009025
-shader_parameter/grille_opacity = 0.12400000589
-shader_parameter/resolution = Vector2(640, 480)
-shader_parameter/pixelate = false
-shader_parameter/roll = true
-shader_parameter/roll_speed = 7.0
-shader_parameter/roll_size = 15.0000007125
-shader_parameter/roll_variation = 1.8
-shader_parameter/distort_intensity = 0.05
-shader_parameter/noise_opacity = 0.4
-shader_parameter/noise_speed = 5.0
-shader_parameter/static_noise_intensity = 0.06
-shader_parameter/aberration = 0.03
-shader_parameter/brightness = 1.4
-shader_parameter/discolor = true
-shader_parameter/warp_amount = 0.1650000078375
-shader_parameter/clip_warp = false
-shader_parameter/vignette_intensity = 0.4
-shader_parameter/vignette_opacity = 0.5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3oclb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_itlgr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x12ra"]
 
 [node name="OptionsMenu" type="Node2D" unique_id=2048902299]
 script = ExtResource("1_1jju4")
@@ -76,16 +83,16 @@ offset_right = 1792.0
 offset_bottom = 959.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Water" type="ColorRect" parent="." unique_id=715433166]
-material = SubResource("ShaderMaterial_uw46w")
+[node name="VHS" type="ColorRect" parent="." unique_id=1863995922]
+visible = false
+material = SubResource("ShaderMaterial_s3xhb")
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="VHS" type="ColorRect" parent="." unique_id=1863995922]
-visible = false
-material = SubResource("ShaderMaterial_s3xhb")
+[node name="Water" type="ColorRect" parent="." unique_id=715433166]
+material = SubResource("ShaderMaterial_uw46w")
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
@@ -188,6 +195,7 @@ offset_top = 272.0
 offset_right = 1208.0
 offset_bottom = 306.66666
 scale = Vector2(1.5, 1.5)
+mouse_default_cursor_shape = 10
 value = 50.0
 metadata/_edit_use_anchors_ = true
 
@@ -198,6 +206,7 @@ offset_top = 360.0
 offset_right = 1208.0
 offset_bottom = 389.3333
 scale = Vector2(1.5, 1.5)
+mouse_default_cursor_shape = 10
 value = 50.0
 metadata/_edit_use_anchors_ = true
 
@@ -208,6 +217,7 @@ offset_top = 440.0
 offset_right = 1208.0
 offset_bottom = 474.66663
 scale = Vector2(1.5, 1.5)
+mouse_default_cursor_shape = 10
 value = 50.0
 metadata/_edit_use_anchors_ = true
 
@@ -218,6 +228,7 @@ offset_top = 544.0
 offset_right = 648.0
 offset_bottom = 569.4473
 scale = Vector2(2.515, 2.515)
+mouse_default_cursor_shape = 2
 button_pressed = true
 metadata/_edit_use_anchors_ = true
 
@@ -244,8 +255,25 @@ scale = Vector2(2.515, 2.515)
 button_pressed = true
 metadata/_edit_use_anchors_ = true
 
+[node name="BackButton" type="Button" parent="Interactables" unique_id=130588452]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 24.0
+offset_right = 280.0
+offset_bottom = 112.0
+theme_override_colors/font_pressed_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
+theme_override_colors/font_hover_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
+theme_override_fonts/font = ExtResource("3_un4xt")
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3oclb")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_itlgr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_x12ra")
+text = "BACK"
+script = ExtResource("5_uw46w")
+
 [node name="Title" type="RichTextLabel" parent="." unique_id=695976558]
-offset_right = 1921.0
+offset_left = 544.0
+offset_right = 1408.0
 offset_bottom = 128.0
 theme_override_fonts/normal_font = ExtResource("1_jrbyj")
 theme_override_font_sizes/normal_font_size = 65

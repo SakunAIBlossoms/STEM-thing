@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dkvc2ui17hx5i" path="res://Scripts/ExitButton.cs" id="3_8saeu"]
 [ext_resource type="Script" uid="uid://bu32ppcl84dic" path="res://Scripts/PlayButton.cs" id="3_ghw46"]
 [ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://Scripts/OptionsButton.cs" id="4_df05h"]
+[ext_resource type="Script" uid="uid://bphtahsowajd5" path="res://Scripts/CreditsButton.cs" id="4_koqhg"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="7_xim88"]
 
 [sub_resource type="Gradient" id="Gradient_8um5k"]
@@ -13,9 +14,6 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_xim88"]
 gradient = SubResource("Gradient_8um5k")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7467j"]
-content_margin_top = 25.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8um5k"]
 
@@ -29,11 +27,51 @@ content_margin_top = 25.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_if7li"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2x1g0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_riqfo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yxkem"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rrcx7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fh7cp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8e205"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xim88"]
+noise_type = 4
+frequency = 0.0423
+fractal_gain = -0.43
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cmrfp"]
+noise = SubResource("FastNoiseLite_xim88")
+seamless = true
+seamless_blend_skirt = 0.33
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_loo7a"]
+noise = SubResource("FastNoiseLite_xim88")
+seamless = true
+seamless_blend_skirt = 0.33
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_koqhg"]
+shader = ExtResource("7_xim88")
+shader_parameter/waterNoise = SubResource("NoiseTexture2D_loo7a")
+shader_parameter/waterDistortionNoise = SubResource("NoiseTexture2D_cmrfp")
+shader_parameter/waterColor = Color(0, 0, 0, 1)
+shader_parameter/colorCorection = 0.11999999731776
+shader_parameter/distortionForce = 0.0510000024225
+shader_parameter/WDBrightness = 0.5000000074506
+shader_parameter/WDFreq = 0.45000000670553
+shader_parameter/WDSize = 1.20000003278258
+shader_parameter/WDSpeed = 6.30000007897636
+shader_parameter/tiling = Vector2(0.2, 0.2)
+shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
+shader_parameter/backGroundDirX = 0.00500000349738
+shader_parameter/backGroundDirY = 0.00500000349738
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7467j"]
+content_margin_top = 25.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xim88"]
 shader = ExtResource("1_8um5k")
@@ -59,37 +97,6 @@ shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.6370000302575
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_xim88"]
-noise_type = 4
-frequency = 0.0423
-fractal_gain = -0.43
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_koqhg"]
-noise = SubResource("FastNoiseLite_xim88")
-seamless = true
-seamless_blend_skirt = 0.33
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cmrfp"]
-noise = SubResource("FastNoiseLite_xim88")
-seamless = true
-seamless_blend_skirt = 0.33
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_koqhg"]
-shader = ExtResource("7_xim88")
-shader_parameter/waterNoise = SubResource("NoiseTexture2D_cmrfp")
-shader_parameter/waterDistortionNoise = SubResource("NoiseTexture2D_koqhg")
-shader_parameter/waterColor = Color(0, 0, 0, 1)
-shader_parameter/colorCorection = 0.11999999731776
-shader_parameter/distortionForce = 0.0510000024225
-shader_parameter/WDBrightness = 0.5000000074506
-shader_parameter/WDFreq = 0.45000000670553
-shader_parameter/WDSize = 1.20000003278258
-shader_parameter/WDSpeed = 6.30000007897636
-shader_parameter/tiling = Vector2(0.2, 0.2)
-shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
-shader_parameter/backGroundDirX = 0.00500000349738
-shader_parameter/backGroundDirY = 0.00500000349738
-
 [node name="MainMenu" type="Node2D" unique_id=109053222]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1779234075]
@@ -101,38 +108,6 @@ color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 offset_right = 749.0
 offset_bottom = 1080.0
 texture = SubResource("GradientTexture1D_xim88")
-
-[node name="Darker" type="RichTextLabel" parent="." unique_id=1154287786]
-offset_left = 896.0
-offset_top = 172.0
-offset_right = 1600.0
-offset_bottom = 352.0
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 1
-theme_override_fonts/normal_font = ExtResource("1_853f1")
-theme_override_font_sizes/normal_font_size = 160
-bbcode_enabled = true
-text = "[shake rate=20.0 level=5 connected=1]DARKER[/shake]"
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="Depths" type="RichTextLabel" parent="." unique_id=1878974856]
-offset_left = 840.0
-offset_top = 344.0
-offset_right = 1776.0
-offset_bottom = 553.0
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.83571845, 1.732707e-06, 4.813075e-07, 1)
-theme_override_fonts/normal_font = ExtResource("1_853f1")
-theme_override_font_sizes/normal_font_size = 200
-theme_override_styles/normal = SubResource("StyleBoxEmpty_7467j")
-bbcode_enabled = true
-text = "[shake rate=20.0 level=30 connected=1]DEPTHS[/shake]"
-scroll_active = false
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="PlayButton" type="Button" parent="." unique_id=1361644949]
 custom_minimum_size = Vector2(0, 45)
@@ -177,21 +152,26 @@ flat = true
 script = ExtResource("4_df05h")
 metadata/_edit_use_anchors_ = true
 
-[node name="Credits" type="Button" parent="." unique_id=1101118818]
+[node name="CreditsButton" type="Button" parent="." unique_id=1101118818]
 custom_minimum_size = Vector2(0, 45)
 offset_left = 1584.0
 offset_top = 976.0
 offset_right = 1872.0
 offset_bottom = 1065.0
 size_flags_horizontal = 4
-mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
+theme_override_colors/font_hover_color = Color(0.5411765, 0.07058824, 0.07058824, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("2_8saeu")
 theme_override_font_sizes/font_size = 52
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2x1g0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_riqfo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yxkem")
 text = "CREDITS"
 flat = true
+script = ExtResource("4_koqhg")
 metadata/_edit_use_anchors_ = true
 
 [node name="ExitButton" type="Button" parent="." unique_id=1714097898]
@@ -216,15 +196,47 @@ flat = true
 script = ExtResource("3_8saeu")
 metadata/_edit_use_anchors_ = true
 
-[node name="VHS" type="ColorRect" parent="." unique_id=848236292]
-visible = false
-material = SubResource("ShaderMaterial_xim88")
+[node name="Water" type="ColorRect" parent="." unique_id=1942420695]
+material = SubResource("ShaderMaterial_koqhg")
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 
-[node name="Water" type="ColorRect" parent="." unique_id=1942420695]
-material = SubResource("ShaderMaterial_koqhg")
+[node name="Darker" type="RichTextLabel" parent="." unique_id=1154287786]
+offset_left = 896.0
+offset_top = 172.0
+offset_right = 1600.0
+offset_bottom = 352.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/normal_font = ExtResource("1_853f1")
+theme_override_font_sizes/normal_font_size = 160
+bbcode_enabled = true
+text = "[shake rate=20.0 level=5 connected=1]DARKER[/shake]"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Depths" type="RichTextLabel" parent="." unique_id=1878974856]
+offset_left = 840.0
+offset_top = 344.0
+offset_right = 1776.0
+offset_bottom = 553.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.83571845, 1.732707e-06, 4.813075e-07, 1)
+theme_override_fonts/normal_font = ExtResource("1_853f1")
+theme_override_font_sizes/normal_font_size = 200
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7467j")
+bbcode_enabled = true
+text = "[shake rate=20.0 level=30 connected=1]DEPTHS[/shake]"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VHS" type="ColorRect" parent="." unique_id=848236292]
+visible = false
+material = SubResource("ShaderMaterial_xim88")
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
