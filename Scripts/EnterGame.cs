@@ -4,14 +4,16 @@ using System;
 public partial class EnterGame : Node2D
 {
 	private AnimationPlayer _animationplayer;
-	private AudioStreamPlayer TransitionSound;
+	private AudioStreamPlayer _soundplayer;
 	public override void _Ready()
 	{
 		_animationplayer = GetNode<AnimationPlayer>("FadeToBlack");
+
+		_soundplayer = GetNode<AudioStreamPlayer>("TransitionSound");
 	}
 	private void OnDialogPlayerDialogEnded() 
 	{
-		GD.Print("Playing animation " + "FadeToBlack");
+		_soundplayer.Play();
 		_animationplayer.Play("FadeToBlack");
 	}
 

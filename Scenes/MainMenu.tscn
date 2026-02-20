@@ -132,6 +132,9 @@ flat = true
 script = ExtResource("3_ghw46")
 metadata/_edit_use_anchors_ = true
 
+[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="PlayButton" unique_id=8627686]
+stream = ExtResource("9_cmrfp")
+
 [node name="OptionsButton" type="Button" parent="." unique_id=1006013235]
 custom_minimum_size = Vector2(0, 45)
 offset_left = 192.0
@@ -241,9 +244,6 @@ material = SubResource("ShaderMaterial_xim88")
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
-
-[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="." unique_id=8627686]
-stream = ExtResource("9_cmrfp")
 
 [connection signal="pressed" from="PlayButton" to="ExitButton" method="_on_play_button_pressed"]
 [connection signal="pressed" from="OptionsButton" to="PlayButton" method="_on_options_button_pressed"]

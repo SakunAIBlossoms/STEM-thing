@@ -101,6 +101,9 @@ _data = {
 [node name="Interlude" type="Node2D" unique_id=596893763]
 script = ExtResource("1_76spq")
 
+[node name="TransitionSound" type="AudioStreamPlayer" parent="." unique_id=586290346]
+stream = ExtResource("6_kom6h")
+
 [node name="Panel" type="Panel" parent="." unique_id=1919771089]
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -137,9 +140,6 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
-
-[node name="TransitionSound" type="AudioStreamPlayer" parent="." unique_id=586290346]
-stream = ExtResource("6_kom6h")
 
 [connection signal="dialog_ended" from="DialogPlayer" to="." method="OnDialogPlayerDialogEnded"]
 [connection signal="animation_finished" from="FadeToBlack" to="." method="OnFadeAnimationFinished"]
