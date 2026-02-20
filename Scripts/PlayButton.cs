@@ -1,16 +1,17 @@
+using System.Threading.Tasks;
 using Godot;
 
 public partial class PlayButton : Button
 {
-	private AudioStreamPlayer ButtonPressedSound;
+    private AudioStreamPlayer ButtonPressedSound;
 
-	public override void _Ready()
-	{
-		ButtonPressedSound = GetNode<AudioStreamPlayer>("ButtonPressedSound");
-	}
-	public override void _Pressed()
-	{
-		ButtonPressedSound.Play();
+    public override void _Ready()
+    {
+        ButtonPressedSound = GetNode<AudioStreamPlayer>("ButtonPressedSound");
+    }
+    public override async Task _Pressed()
+    {
+        ButtonPressedSound.Play();
 		GetTree().ChangeSceneToFile("res://Scenes/Interlude.tscn");
-	}
+    }
 }
