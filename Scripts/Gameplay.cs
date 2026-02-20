@@ -98,6 +98,32 @@ public partial class Gameplay : Node
 	}
 	private void CheckMap()
 	{
-		GD.Print("Open Map");
+		GD.Print("Check Map");
+		if (CurrentCamDirection != CameraFocus.Map)
+		{
+			switch (CurrentCamDirection)
+			{
+				case CameraFocus.Left:
+					RightSideEntered();
+					CurrentCamDirection = CameraFocus.Map;
+					Animations.Play("CheckMap");
+					break;
+				case CameraFocus.Right:
+					LeftSideEntered();
+					CurrentCamDirection = CameraFocus.Map;
+					Animations.Play("CheckMap");
+					break;
+				case CameraFocus.Front:
+					CurrentCamDirection = CameraFocus.Map;
+					Animations.Play("CheckMap");
+					break;
+			}
+		}
+		else
+		{
+			CurrentCamDirection = CameraFocus.Front;
+			Animations.Play("LookUpFromMap");
+			GD.Print("Look Up");
+		}
 	}
 }

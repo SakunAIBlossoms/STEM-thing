@@ -80,8 +80,8 @@ translation/characters/character_names_csv=-1
 translation/localization/default_locale="en"
 translation/localization/locales=["en"]
 variables/variables={}
-internal/play_dialog_path="res://Dialogues/Interlude.tres"
-internal/play_start_id="1"
+internal/play_dialog_path="res://Dialogues/Gameplay.tres"
+internal/play_start_id="FIRSTDESCENT"
 
 [input]
 
