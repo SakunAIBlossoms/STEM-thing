@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c4766ybrt6vny"
+path="res://.godot/imported/Weird Flange - QuickSounds.com.mp3-225cf3c2933f268c566b0fce1210460b.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Sound Effects/Weird Flange - QuickSounds.com.mp3"
+dest_files=["res://.godot/imported/Weird Flange - QuickSounds.com.mp3-225cf3c2933f268c566b0fce1210460b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

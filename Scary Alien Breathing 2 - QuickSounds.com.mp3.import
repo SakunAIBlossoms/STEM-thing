@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dcmqscydh6jd3"
+path="res://.godot/imported/Scary Alien Breathing 2 - QuickSounds.com.mp3-e21ee1a8926fd17c6d375f8337489394.mp3str"
+
+[deps]
+
+source_file="res://Scary Alien Breathing 2 - QuickSounds.com.mp3"
+dest_files=["res://.godot/imported/Scary Alien Breathing 2 - QuickSounds.com.mp3-e21ee1a8926fd17c6d375f8337489394.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

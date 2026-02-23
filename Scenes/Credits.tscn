@@ -3,6 +3,7 @@
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="1_7xmno"]
 [ext_resource type="Script" uid="uid://cdwn7purhwdkk" path="res://Scripts/BackButton.cs" id="2_uy3b0"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="3_iynit"]
+[ext_resource type="AudioStream" uid="uid://bvc4ic4cxhm64" path="res://Sounds/Sound Effects/Wood Thunk - QuickSounds.com.mp3" id="3_uy3b0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f64u0"]
 
@@ -62,6 +63,12 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_lpub1")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_640q4")
 text = "BACK"
 script = ExtResource("2_uy3b0")
+
+[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="BackButton" unique_id=678253805]
+stream = ExtResource("3_uy3b0")
+
+[node name="ButtonTimer" type="Timer" parent="BackButton" unique_id=602174]
+wait_time = 0.1
 
 [node name="Water" type="ColorRect" parent="." unique_id=2098306614]
 material = SubResource("ShaderMaterial_jpdlp")

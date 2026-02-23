@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://gwnbibdi481m"]
+
+[ext_resource type="AudioStream" uid="uid://bry4owuif4dp7" path="res://Sounds/Music/Underwater Tonal Ambience - QuickSounds.com.mp3" id="1_c3pvo"]
+
+[node name="MenuMusic" type="AudioStreamPlayer" unique_id=89749841]
+stream = ExtResource("1_c3pvo")
+volume_db = 5.0
+autoplay = true
+parameters/looping = true

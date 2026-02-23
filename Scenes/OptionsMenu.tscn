@@ -2,34 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dayal83n83xih" path="res://Scripts/esc_back.cs" id="1_1jju4"]
 [ext_resource type="FontFile" path="res://imported/times_new_yorker.ttf-f1e69a362cd9079f7efeeb7a29521684.fontdata" id="1_jrbyj"]
-[ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="3_ayvsw"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="3_s3xhb"]
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="3_un4xt"]
 [ext_resource type="Script" uid="uid://cdwn7purhwdkk" path="res://Scripts/BackButton.cs" id="5_uw46w"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3xhb"]
-shader = ExtResource("3_ayvsw")
-shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.2970000141075
-shader_parameter/scanlines_width = 0.190000009025
-shader_parameter/grille_opacity = 0.12400000589
-shader_parameter/resolution = Vector2(640, 480)
-shader_parameter/pixelate = false
-shader_parameter/roll = true
-shader_parameter/roll_speed = 7.0
-shader_parameter/roll_size = 15.0000007125
-shader_parameter/roll_variation = 1.8
-shader_parameter/distort_intensity = 0.05
-shader_parameter/noise_opacity = 0.4
-shader_parameter/noise_speed = 5.0
-shader_parameter/static_noise_intensity = 0.06
-shader_parameter/aberration = 0.03
-shader_parameter/brightness = 1.4
-shader_parameter/discolor = true
-shader_parameter/warp_amount = 0.1650000078375
-shader_parameter/clip_warp = false
-shader_parameter/vignette_intensity = 0.4
-shader_parameter/vignette_opacity = 0.5
+[ext_resource type="AudioStream" uid="uid://bvc4ic4cxhm64" path="res://Sounds/Sound Effects/Wood Thunk - QuickSounds.com.mp3" id="6_3oclb"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_un4xt"]
 noise_type = 4
@@ -81,14 +57,6 @@ offset_left = 128.0
 offset_top = 128.0
 offset_right = 1792.0
 offset_bottom = 959.0
-metadata/_edit_use_anchors_ = true
-
-[node name="VHS" type="ColorRect" parent="." unique_id=1863995922]
-visible = false
-material = SubResource("ShaderMaterial_s3xhb")
-offset_right = 1920.0
-offset_bottom = 1080.0
-mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Water" type="ColorRect" parent="." unique_id=715433166]
@@ -270,6 +238,12 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_itlgr")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_x12ra")
 text = "BACK"
 script = ExtResource("5_uw46w")
+
+[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="Interactables/BackButton" unique_id=812241346]
+stream = ExtResource("6_3oclb")
+
+[node name="ButtonTimer" type="Timer" parent="Interactables/BackButton" unique_id=1652723834]
+wait_time = 0.1
 
 [node name="Title" type="RichTextLabel" parent="." unique_id=695976558]
 offset_left = 544.0

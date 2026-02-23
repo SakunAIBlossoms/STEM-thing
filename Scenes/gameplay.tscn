@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://c1oo05qhm7ljq"]
 
-[ext_resource type="Script" uid="uid://car67o2d8aah5" path="res://Scripts/Gameplay.cs" id="1_m34ki"]
-[ext_resource type="Shader" uid="uid://gv7e567o7pcj" path="res://Shaders/Static.gdshader" id="1_wbxth"]
-[ext_resource type="Shader" uid="uid://bcs68mqkk2mtc" path="res://Shaders/PS1.gdshader" id="2_kwrm5"]
-[ext_resource type="PackedScene" uid="uid://qiorwxbtjv15" path="res://Scenes/Env/Sub.tscn" id="2_m34ki"]
-[ext_resource type="FontFile" uid="uid://buhf55me2dcaq" path="res://Fonts/ELEGANT TYPEWRITER Regular.ttf" id="4_kwrm5"]
-[ext_resource type="Shader" uid="uid://dlsyi36by4ge7" path="res://Shaders/Nebula.gdshader" id="5_r8bcl"]
-[ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="7_urrcd"]
+[ext_resource type="Script" uid="uid://car67o2d8aah5" path="res://Scripts/Gameplay.cs" id="1_muotb"]
+[ext_resource type="Shader" uid="uid://bcs68mqkk2mtc" path="res://Shaders/PS1.gdshader" id="2_f63co"]
+[ext_resource type="Shader" uid="uid://gv7e567o7pcj" path="res://Shaders/Static.gdshader" id="3_3fna2"]
+[ext_resource type="PackedScene" uid="uid://qiorwxbtjv15" path="res://Scenes/Env/Sub.tscn" id="4_0mu5b"]
+[ext_resource type="Shader" uid="uid://dlsyi36by4ge7" path="res://Shaders/Nebula.gdshader" id="5_ail8s"]
+[ext_resource type="FontFile" uid="uid://buhf55me2dcaq" path="res://Fonts/ELEGANT TYPEWRITER Regular.ttf" id="6_82qy8"]
+[ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="7_vbmjt"]
+[ext_resource type="AudioStream" uid="uid://dage43iqaph4y" path="res://Sounds/Music/Tremors Of Doom - QuickSounds.com.mp3" id="8_rhmiw"]
 
 [sub_resource type="Animation" id="Animation_wbxth"]
 resource_name = "CheckMap"
@@ -251,7 +252,7 @@ _data = {
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r8bcl"]
-shader = ExtResource("2_kwrm5")
+shader = ExtResource("2_f63co")
 shader_parameter/resolution_x = 1920
 shader_parameter/resolution_y = 1080
 shader_parameter/color_bit_depth = 2
@@ -274,7 +275,7 @@ noise = SubResource("FastNoiseLite_r8bcl")
 color_ramp = SubResource("Gradient_kwrm5")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1qnfl"]
-shader = ExtResource("1_wbxth")
+shader = ExtResource("3_3fna2")
 shader_parameter/noise = SubResource("NoiseTexture2D_rlidi")
 shader_parameter/slow = 25.0
 shader_parameter/multiplier = 0.5
@@ -292,7 +293,7 @@ adjustment_saturation = 0.46
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kwrm5"]
 render_priority = 0
-shader = ExtResource("5_r8bcl")
+shader = ExtResource("5_ail8s")
 shader_parameter/albedo = Color(0.1358982, 0.024955876, 3.008172e-09, 1)
 
 [sub_resource type="CameraTexture" id="CameraTexture_r8bcl"]
@@ -311,7 +312,7 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [node name="Gameplay" type="Node" unique_id=88878252]
-script = ExtResource("1_m34ki")
+script = ExtResource("1_muotb")
 
 [node name="Animations" type="AnimationPlayer" parent="." unique_id=221344512]
 libraries/ = SubResource("AnimationLibrary_kwrm5")
@@ -340,7 +341,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06632407, 0.7844756, 0.339
 fov = 52.90985
 far = 20.0
 
-[node name="Sub" parent="Environment" unique_id=1395666228 instance=ExtResource("2_m34ki")]
+[node name="Sub" parent="Environment" unique_id=1395666228 instance=ExtResource("4_0mu5b")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1781664562]
 environment = SubResource("Environment_m34ki")
@@ -384,14 +385,14 @@ offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("4_kwrm5")
+theme_override_fonts/normal_font = ExtResource("6_82qy8")
 bbcode_enabled = true
 text = "[shake]Check Map[/shake]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DialogPlayer" type="Node" parent="GUI" unique_id=1093347187]
-script = ExtResource("7_urrcd")
+script = ExtResource("7_vbmjt")
 _dialog_data = null
 metadata/_custom_type_script = "uid://1mxdpoyob13n"
 
@@ -441,6 +442,10 @@ vertical_alignment = 1
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="." unique_id=1107607068]
+stream = ExtResource("8_rhmiw")
+parameters/looping = false
 
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
 [connection signal="mouse_entered" from="GUI/Controls/Left" to="." method="LeftSideEntered"]

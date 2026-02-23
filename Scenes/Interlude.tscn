@@ -1,35 +1,47 @@
 [gd_scene format=3 uid="uid://dav047247xlce"]
 
 [ext_resource type="Script" uid="uid://c5pg41faei8kd" path="res://Scripts/EnterGame.cs" id="1_76spq"]
-[ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="1_iqps8"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="2_324y2"]
 [ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="4_kom6h"]
 [ext_resource type="Resource" uid="uid://c5qthib7nqa43" path="res://Dialogues/Interlude.tres" id="5_tmao8"]
-[ext_resource type="AudioStream" uid="uid://c4766ybrt6vny" path="res://Sounds/Weird Flange - QuickSounds.com.mp3" id="6_kom6h"]
+[ext_resource type="AudioStream" uid="uid://c4766ybrt6vny" path="res://Sounds/Sound Effects/Weird Flange - QuickSounds.com.mp3" id="6_kom6h"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_324y2"]
-shader = ExtResource("1_iqps8")
-shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.2970000141075
-shader_parameter/scanlines_width = 0.190000009025
-shader_parameter/grille_opacity = 0.12400000589
-shader_parameter/resolution = Vector2(640, 480)
-shader_parameter/pixelate = false
-shader_parameter/roll = true
-shader_parameter/roll_speed = 7.0
-shader_parameter/roll_size = 15.0000007125
-shader_parameter/roll_variation = 1.8
-shader_parameter/distort_intensity = 0.05
-shader_parameter/noise_opacity = 0.4
-shader_parameter/noise_speed = 5.0
-shader_parameter/static_noise_intensity = 0.06
-shader_parameter/aberration = 0.03
-shader_parameter/brightness = 1.4
-shader_parameter/discolor = true
-shader_parameter/warp_amount = 0.1650000078375
-shader_parameter/clip_warp = false
-shader_parameter/vignette_intensity = 0.4
-shader_parameter/vignette_opacity = 0.5
+[sub_resource type="Animation" id="Animation_76spq"]
+resource_name = "FadeToBlack"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_kom6h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tmao8"]
+_data = {
+&"FadeToBlack": SubResource("Animation_76spq"),
+&"RESET": SubResource("Animation_kom6h")
+}
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_b1gpx"]
 noise_type = 4
@@ -62,58 +74,21 @@ shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
 shader_parameter/backGroundDirX = 0.00500000349738
 shader_parameter/backGroundDirY = 0.00500000349738
 
-[sub_resource type="Animation" id="Animation_76spq"]
-resource_name = "FadeToBlack"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_kom6h"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tmao8"]
-_data = {
-&"FadeToBlack": SubResource("Animation_76spq"),
-&"RESET": SubResource("Animation_kom6h")
-}
-
 [node name="Interlude" type="Node2D" unique_id=596893763]
 script = ExtResource("1_76spq")
 
 [node name="TransitionSound" type="AudioStreamPlayer" parent="." unique_id=586290346]
 stream = ExtResource("6_kom6h")
 
+[node name="TransitionTimer" type="Timer" parent="." unique_id=1653833059]
+wait_time = 0.5
+
+[node name="FadeToBlack" type="AnimationPlayer" parent="." unique_id=1191073186]
+libraries/ = SubResource("AnimationLibrary_tmao8")
+
 [node name="Panel" type="Panel" parent="." unique_id=1919771089]
 offset_right = 1920.0
 offset_bottom = 1080.0
-
-[node name="VHS" type="ColorRect" parent="." unique_id=1533885860]
-visible = false
-material = SubResource("ShaderMaterial_324y2")
-offset_right = 1920.0
-offset_bottom = 1080.0
-mouse_filter = 2
 
 [node name="Water" type="ColorRect" parent="." unique_id=565680730]
 material = SubResource("ShaderMaterial_pg4sc")
@@ -132,14 +107,12 @@ _destroy_on_end = true
 _print_debug = false
 metadata/_custom_type_script = "uid://1mxdpoyob13n"
 
-[node name="FadeToBlack" type="AnimationPlayer" parent="." unique_id=1191073186]
-libraries/ = SubResource("AnimationLibrary_tmao8")
-
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1932231631]
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
-[connection signal="dialog_ended" from="DialogPlayer" to="." method="OnDialogPlayerDialogEnded"]
+[connection signal="timeout" from="TransitionTimer" to="." method="OnTimerTimeOut"]
 [connection signal="animation_finished" from="FadeToBlack" to="." method="OnFadeAnimationFinished"]
+[connection signal="dialog_ended" from="DialogPlayer" to="." method="OnDialogPlayerDialogEnded"]

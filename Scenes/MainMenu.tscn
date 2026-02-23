@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bd8vfms1mf8ur"]
 
-[ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="1_8um5k"]
 [ext_resource type="FontFile" uid="uid://gwngol6ed865" path="res://Fonts/Danger Zone Warning.ttf" id="1_853f1"]
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="2_8saeu"]
 [ext_resource type="Script" uid="uid://dkvc2ui17hx5i" path="res://Scripts/ExitButton.cs" id="3_8saeu"]
@@ -8,7 +7,7 @@
 [ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://Scripts/OptionsButton.cs" id="4_df05h"]
 [ext_resource type="Script" uid="uid://bphtahsowajd5" path="res://Scripts/CreditsButton.cs" id="4_koqhg"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="7_xim88"]
-[ext_resource type="AudioStream" uid="uid://bvc4ic4cxhm64" path="res://Sounds/Wood Thunk - QuickSounds.com.mp3" id="9_cmrfp"]
+[ext_resource type="AudioStream" uid="uid://bvc4ic4cxhm64" path="res://Sounds/Sound Effects/Wood Thunk - QuickSounds.com.mp3" id="9_cmrfp"]
 
 [sub_resource type="Gradient" id="Gradient_8um5k"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
@@ -74,30 +73,6 @@ shader_parameter/backGroundDirY = 0.00500000349738
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7467j"]
 content_margin_top = 25.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xim88"]
-shader = ExtResource("1_8um5k")
-shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.1430000067925
-shader_parameter/scanlines_width = 0.0310000014725
-shader_parameter/grille_opacity = 0.0800000038
-shader_parameter/resolution = Vector2(1280, 720)
-shader_parameter/pixelate = true
-shader_parameter/roll = true
-shader_parameter/roll_speed = 8.0
-shader_parameter/roll_size = 15.0
-shader_parameter/roll_variation = 1.8
-shader_parameter/distort_intensity = 0.05
-shader_parameter/noise_opacity = 0.4
-shader_parameter/noise_speed = 5.0
-shader_parameter/static_noise_intensity = 0.06
-shader_parameter/aberration = 0.03
-shader_parameter/brightness = 1.4
-shader_parameter/discolor = true
-shader_parameter/warp_amount = 0.2310000109725
-shader_parameter/clip_warp = false
-shader_parameter/vignette_intensity = 0.4
-shader_parameter/vignette_opacity = 0.6370000302575
-
 [node name="MainMenu" type="Node2D" unique_id=109053222]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1779234075]
@@ -135,6 +110,9 @@ metadata/_edit_use_anchors_ = true
 [node name="ButtonPressedSound" type="AudioStreamPlayer" parent="PlayButton" unique_id=8627686]
 stream = ExtResource("9_cmrfp")
 
+[node name="ButtonTimer" type="Timer" parent="PlayButton" unique_id=984020971]
+wait_time = 0.1
+
 [node name="OptionsButton" type="Button" parent="." unique_id=1006013235]
 custom_minimum_size = Vector2(0, 45)
 offset_left = 192.0
@@ -155,6 +133,12 @@ text = "OPTIONS"
 flat = true
 script = ExtResource("4_df05h")
 metadata/_edit_use_anchors_ = true
+
+[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="OptionsButton" unique_id=1293401195]
+stream = ExtResource("9_cmrfp")
+
+[node name="ButtonTimer" type="Timer" parent="OptionsButton" unique_id=1451738498]
+wait_time = 0.1
 
 [node name="CreditsButton" type="Button" parent="." unique_id=1101118818]
 custom_minimum_size = Vector2(0, 45)
@@ -178,6 +162,12 @@ flat = true
 script = ExtResource("4_koqhg")
 metadata/_edit_use_anchors_ = true
 
+[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="CreditsButton" unique_id=2028278238]
+stream = ExtResource("9_cmrfp")
+
+[node name="ButtonTimer" type="Timer" parent="CreditsButton" unique_id=1781790605]
+wait_time = 0.1
+
 [node name="ExitButton" type="Button" parent="." unique_id=1714097898]
 custom_minimum_size = Vector2(0, 45)
 offset_left = 192.0
@@ -199,6 +189,12 @@ text = "EXIT"
 flat = true
 script = ExtResource("3_8saeu")
 metadata/_edit_use_anchors_ = true
+
+[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="ExitButton" unique_id=1956167961]
+stream = ExtResource("9_cmrfp")
+
+[node name="ButtonTimer" type="Timer" parent="ExitButton" unique_id=1275315955]
+wait_time = 0.1
 
 [node name="Water" type="ColorRect" parent="." unique_id=1942420695]
 material = SubResource("ShaderMaterial_koqhg")
@@ -238,14 +234,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="VHS" type="ColorRect" parent="." unique_id=848236292]
-visible = false
-material = SubResource("ShaderMaterial_xim88")
-offset_right = 1920.0
-offset_bottom = 1080.0
-mouse_filter = 2
-
 [connection signal="pressed" from="PlayButton" to="ExitButton" method="_on_play_button_pressed"]
+[connection signal="timeout" from="PlayButton/ButtonTimer" to="PlayButton" method="OnTimerTimeout"]
 [connection signal="pressed" from="OptionsButton" to="PlayButton" method="_on_options_button_pressed"]
 [connection signal="pressed" from="CreditsButton" to="CreditsButton" method="_on_pressed"]
 [connection signal="pressed" from="ExitButton" to="ExitButton" method="_on_pressed"]
