@@ -4,5 +4,4 @@
 
 [node name="Debug" type="CanvasLayer" unique_id=1293170827]
 layer = 99
-visible = false
 script = ExtResource("1_5iemt")

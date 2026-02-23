@@ -14,11 +14,13 @@ public partial class Gameplay : Node
 	enum CameraFocus
 	{
 		Left,
-		Front, 
+		Front,
 		Right,
 		Map
 	}
 	CameraFocus CurrentCamDirection = CameraFocus.Front;
+
+	bool Cutscene = true;
 
 	public override void _Ready()
 	{
@@ -29,7 +31,7 @@ public partial class Gameplay : Node
 		Animations = GetNode("Animations") as AnimationPlayer;
 		// Then anything else important later
 		if (!Plr.Current) Plr.Current = true;
-		
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

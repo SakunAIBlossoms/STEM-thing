@@ -1,36 +1,93 @@
 [gd_scene format=3 uid="uid://qiorwxbtjv15"]
 
+[ext_resource type="Shader" uid="uid://qfm5jpka4dir" path="res://Shaders/Glass.gdshader" id="1_q84bb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q84bb"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.21855038, 0.13000679, 0, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_q84bb"]
+albedo_color = Color(0.7176471, 0.25490198, 0.05490196, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffp3d"]
+render_priority = 0
+shader = ExtResource("1_q84bb")
+shader_parameter/rain_amount = 0.5
+shader_parameter/speed = 1.0
+shader_parameter/blur_amount = 2.0
+shader_parameter/uv_scale = Vector2(2, -1)
+shader_parameter/frosted_blur = 0.5
+shader_parameter/distance_blur_scale = 0.1
+shader_parameter/refraction_strength = 0.05
+shader_parameter/frosted_noise_scale = 200.0
+shader_parameter/glass_thickness = 0.474000022515
+shader_parameter/ior = 1.45
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_at4mg"]
+height = 0.064
+
 [node name="Sub" type="Node3D" unique_id=1395666228]
 
 [node name="DontTouchy" type="Node3D" parent="." unique_id=1919074168]
 
 [node name="BOX" type="CSGBox3D" parent="DontTouchy" unique_id=51732627]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04650879, -0.38482666, 0.2843094)
+material_override = SubResource("StandardMaterial3D_q84bb")
 size = Vector3(3.9450684, 0.23034668, 4.7975006)
 
 [node name="BOX2" type="CSGBox3D" parent="DontTouchy" unique_id=1454100737]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029312134, -0.035888672, -1.4905243)
+material_override = SubResource("StandardMaterial3D_q84bb")
 size = Vector3(3.5470886, 0.5522461, 1.2478333)
 
 [node name="BOX3" type="CSGBox3D" parent="DontTouchy" unique_id=1011438672]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.031143188, 0.9898172, -2.0378342)
+material_override = SubResource("StandardMaterial3D_q84bb")
 size = Vector3(3.5434265, 1.5011655, 0.1532135)
 
 [node name="BOX4" type="CSGBox3D" parent="DontTouchy" unique_id=129224201]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21159744, 1.7001042, 0.3693539)
+material_override = SubResource("StandardMaterial3D_q84bb")
 size = Vector3(4.3611984, 0.001, 4.917611)
 
 [node name="BOX5" type="CSGBox3D" parent="DontTouchy" unique_id=1952399530]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9107056, 0.7109375, 0.2787819)
+material_override = SubResource("StandardMaterial3D_q84bb")
 size = Vector3(0.2166748, 2.0458984, 4.7864456)
 
 [node name="BOX6" type="CSGBox3D" parent="DontTouchy" unique_id=1100976507]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.039447784, 0.73693085, 2.639883)
+material_override = SubResource("StandardMaterial3D_q84bb")
+operation = 1
 size = Vector3(3.5547562, 2.0978851, 0.06424332)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="DontTouchy/BOX6" unique_id=1953238313]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.039447784, -0.078930855, -0.043883085)
+operation = 2
+height = 0.3
+sides = 64
 
 [node name="BOX7" type="CSGBox3D" parent="DontTouchy" unique_id=1410866687]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8161702, 0.71499634, 0.2871437)
+material_override = SubResource("StandardMaterial3D_q84bb")
 size = Vector3(0.2166748, 2.054016, 4.8031693)
+
+[node name="WindowBorder" type="CSGCylinder3D" parent="DontTouchy" unique_id=979926734]
+transform = Transform3D(1.1, 0, 0, 0, -4.8082526e-08, 1.1, 0, -1.1, -4.8082526e-08, 0, 0.658, 2.6346989)
+height = 0.10063477
+sides = 64
+material = SubResource("ORMMaterial3D_q84bb")
+
+[node name="Cut" type="CSGCylinder3D" parent="DontTouchy/WindowBorder" unique_id=702444576]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, -1.7763568e-14, 0, 1.7763568e-14, 0.9, 0, -0.006654978, 0)
+operation = 2
+height = 0.1390442
+sides = 64
+
+[node name="Window" type="MeshInstance3D" parent="DontTouchy" unique_id=1024147418]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.65755486, 2.6409345)
+material_override = SubResource("ShaderMaterial_ffp3d")
+mesh = SubResource("CylinderMesh_at4mg")
 
 [node name="Alarms" type="Node3D" parent="." unique_id=89599154]
 

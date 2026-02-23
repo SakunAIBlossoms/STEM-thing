@@ -9,7 +9,7 @@ public partial class PlayButton : Button
     {
         ButtonPressedSound = GetNode<AudioStreamPlayer>("ButtonPressedSound");
     }
-    public override async Task _Pressed()
+    public override void _Pressed()
     {
         ButtonPressedSound.Play();
 		GetTree().ChangeSceneToFile("res://Scenes/Interlude.tscn");
