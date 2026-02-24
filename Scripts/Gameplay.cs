@@ -22,6 +22,8 @@ public partial class Gameplay : Node
 	}
 	CameraFocus CurrentCamDirection = CameraFocus.Front;
 
+	bool Cutscene = true;
+
 	public override void _Ready()
 	{
 		MenuMusic = GetNode("/root/MenuMusic") as AudioStreamPlayer;
@@ -35,7 +37,7 @@ public partial class Gameplay : Node
 		Animations = GetNode("Animations") as AnimationPlayer;
 		// Then anything else important later
 		if (!Plr.Current) Plr.Current = true;
-		
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

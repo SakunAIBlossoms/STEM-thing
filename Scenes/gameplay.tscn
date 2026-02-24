@@ -1,13 +1,13 @@
-[gd_scene format=3 uid="uid://c1oo05qhm7ljq"]
+[gd_scene format=3 uid="uid://2ggyxbr1b22o"]
 
-[ext_resource type="Script" uid="uid://car67o2d8aah5" path="res://Scripts/Gameplay.cs" id="1_muotb"]
-[ext_resource type="Shader" uid="uid://bcs68mqkk2mtc" path="res://Shaders/PS1.gdshader" id="2_f63co"]
-[ext_resource type="Shader" uid="uid://gv7e567o7pcj" path="res://Shaders/Static.gdshader" id="3_3fna2"]
-[ext_resource type="PackedScene" uid="uid://qiorwxbtjv15" path="res://Scenes/Env/Sub.tscn" id="4_0mu5b"]
-[ext_resource type="Shader" uid="uid://dlsyi36by4ge7" path="res://Shaders/Nebula.gdshader" id="5_ail8s"]
-[ext_resource type="FontFile" uid="uid://buhf55me2dcaq" path="res://Fonts/ELEGANT TYPEWRITER Regular.ttf" id="6_82qy8"]
-[ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="7_vbmjt"]
-[ext_resource type="AudioStream" uid="uid://dage43iqaph4y" path="res://Sounds/Music/Tremors Of Doom - QuickSounds.com.mp3" id="8_rhmiw"]
+[ext_resource type="Script" uid="uid://car67o2d8aah5" path="res://Scripts/Gameplay.cs" id="1_m34ki"]
+[ext_resource type="Shader" uid="uid://gv7e567o7pcj" path="res://Shaders/Static.gdshader" id="1_wbxth"]
+[ext_resource type="Shader" uid="uid://bcs68mqkk2mtc" path="res://Shaders/PS1.gdshader" id="2_kwrm5"]
+[ext_resource type="PackedScene" uid="uid://qiorwxbtjv15" path="res://Scenes/Env/Sub.tscn" id="2_m34ki"]
+[ext_resource type="FontFile" uid="uid://buhf55me2dcaq" path="res://Fonts/ELEGANT TYPEWRITER Regular.ttf" id="4_kwrm5"]
+[ext_resource type="Shader" uid="uid://dlsyi36by4ge7" path="res://Shaders/Nebula.gdshader" id="5_r8bcl"]
+[ext_resource type="Shader" uid="uid://qnqsm7rui685" path="res://Shaders/3dWater.gdshader" id="5_urrcd"]
+[ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="7_urrcd"]
 
 [sub_resource type="Animation" id="Animation_wbxth"]
 resource_name = "CheckMap"
@@ -240,6 +240,22 @@ tracks/2/keys = {
 "values": [Vector3(-1.1439238, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_puebw"]
+resource_name = "StartingCutscene"
+length = 2.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Environment/Player:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.8, 2.8),
+"transitions": PackedFloat32Array(1, 0.3660214, 3.2490087),
+"update": 0,
+"values": [Vector3(-0.049601756, -3.0938823, 0.15203124), Vector3(-0.049601756, -3.0938823, 0.15203124), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kwrm5"]
 _data = {
 &"CheckMap": SubResource("Animation_wbxth"),
@@ -248,21 +264,9 @@ _data = {
 &"LookLeft": SubResource("Animation_kwrm5"),
 &"LookRight": SubResource("Animation_r8bcl"),
 &"LookUpFromMap": SubResource("Animation_urrcd"),
-&"RESET": SubResource("Animation_m34ki")
+&"RESET": SubResource("Animation_m34ki"),
+&"StartingCutscene": SubResource("Animation_puebw")
 }
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_r8bcl"]
-shader = ExtResource("2_f63co")
-shader_parameter/resolution_x = 1920
-shader_parameter/resolution_y = 1080
-shader_parameter/color_bit_depth = 2
-shader_parameter/dither_strength = 0.03
-shader_parameter/jitter_amount = -0.002
-shader_parameter/jitter_speed = 1.41
-shader_parameter/jitter_frequency = 160.22
-shader_parameter/chromatic_aberration_strength = 0.0110000005225
-shader_parameter/vignette_strength = 0.800000038
-shader_parameter/vignette_radius = 0.658000031255
 
 [sub_resource type="Gradient" id="Gradient_kwrm5"]
 
@@ -298,6 +302,82 @@ shader_parameter/albedo = Color(0.1358982, 0.024955876, 3.008172e-09, 1)
 
 [sub_resource type="CameraTexture" id="CameraTexture_r8bcl"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_urrcd"]
+noise_type = 2
+frequency = 0.0016
+offset = Vector3(133.35, 314.61, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_puebw"]
+width = 800
+height = 800
+noise = SubResource("FastNoiseLite_urrcd")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5h7oy"]
+noise_type = 3
+frequency = 0.002
+offset = Vector3(133.35, 314.61, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ltefv"]
+width = 800
+height = 800
+noise = SubResource("FastNoiseLite_5h7oy")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_puebw"]
+render_priority = 0
+shader = ExtResource("5_urrcd")
+shader_parameter/color_shallow = Color(0.01, 0.2, 0.3, 1)
+shader_parameter/color_deep = Color(0.3, 0.5, 0.6, 1)
+shader_parameter/transparency = 0.3999999910592
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.25
+shader_parameter/max_visible_depth = 20.0
+shader_parameter/wave_a = SubResource("NoiseTexture2D_puebw")
+shader_parameter/wave_b = SubResource("NoiseTexture2D_ltefv")
+shader_parameter/wave_move_direction_a = Vector2(-0.2, 0)
+shader_parameter/wave_move_direction_b = Vector2(0, 1)
+shader_parameter/wave_noise_scale_a = 10.0
+shader_parameter/wave_noise_scale_b = 10.0
+shader_parameter/wave_time_scale_a = 0.15
+shader_parameter/wave_time_scale_b = 0.15
+shader_parameter/wave_height_scale = 1.0
+shader_parameter/wave_normal_flatness = 50.0
+shader_parameter/surface_normals_move_direction_a = Vector2(-1, 0.2)
+shader_parameter/surface_normals_move_direction_b = Vector2(0.2, 1)
+shader_parameter/surface_texture_roughness = 0.15
+shader_parameter/surface_texture_scale = 0.1
+shader_parameter/surface_texture_time_scale = 0.06
+shader_parameter/ssr_resolution = 1.0
+shader_parameter/ssr_max_travel = 30.0
+shader_parameter/ssr_max_diff = 4.0
+shader_parameter/ssr_mix_strength = 0.7
+shader_parameter/ssr_screen_border_fadeout = 0.3
+shader_parameter/refraction_intensity = 0.4
+shader_parameter/border_color = Color(1, 1, 1, 1)
+shader_parameter/border_scale = 2.0
+shader_parameter/border_near = 0.5
+shader_parameter/border_far = 300.0
+shader_parameter/cut_out_x = 0.0
+shader_parameter/cut_out_z = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_1qnfl"]
+material = SubResource("ShaderMaterial_puebw")
+size = Vector3(16.57, 6.77, 14.79)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r8bcl"]
+shader = ExtResource("2_kwrm5")
+shader_parameter/resolution_x = 1920
+shader_parameter/resolution_y = 1080
+shader_parameter/color_bit_depth = 2
+shader_parameter/dither_strength = 0.03
+shader_parameter/jitter_amount = -0.002
+shader_parameter/jitter_speed = 1.41
+shader_parameter/jitter_frequency = 160.22
+shader_parameter/chromatic_aberration_strength = 0.0110000005225
+shader_parameter/vignette_strength = 0.800000038
+shader_parameter/vignette_radius = 0.658000031255
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8bcl"]
 bg_color = Color(0.047058824, 0.105882354, 0.047058824, 0.75686276)
 border_width_left = 5
@@ -320,13 +400,6 @@ autoplay = &"LookUpFromMap"
 
 [node name="Shaders" type="CanvasLayer" parent="." unique_id=2073417179]
 
-[node name="PS1" type="ColorRect" parent="Shaders" unique_id=190581032]
-visible = false
-material = SubResource("ShaderMaterial_r8bcl")
-offset_right = 1920.0
-offset_bottom = 1080.0
-mouse_filter = 2
-
 [node name="Static" type="ColorRect" parent="Shaders" unique_id=583774937]
 visible = false
 material = SubResource("ShaderMaterial_1qnfl")
@@ -337,27 +410,52 @@ mouse_filter = 2
 [node name="Environment" type="Node3D" parent="." unique_id=1079861258]
 
 [node name="Player" type="Camera3D" parent="Environment" unique_id=1420708275]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06632407, 0.7844756, 0.3397531)
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -0.066, 0.7883967, 0.34)
 fov = 52.90985
 far = 20.0
 
-[node name="Sub" parent="Environment" unique_id=1395666228 instance=ExtResource("4_0mu5b")]
+[node name="AudioListener3D" type="AudioListener3D" parent="Environment/Player" unique_id=905053647]
+current = true
+
+[node name="Sub" parent="Environment" unique_id=1395666228 instance=ExtResource("2_m34ki")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1781664562]
 environment = SubResource("Environment_m34ki")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Environment" unique_id=2136688778]
-transform = Transform3D(1, 0, 0, 0, 0.41402605, 0.910265, 0, -0.910265, 0.41402605, 0, 2.0300894, 0.06141627)
-spot_range = 3.051844
+transform = Transform3D(0.99999994, 0, 0, 0, 0.41402605, 0.910265, 0, -0.910265, 0.41402605, 0, 1.6102886, 0.06141627)
+light_energy = 4.0
+spot_range = 4.4959207
 spot_angle = 35.44497
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="Environment" unique_id=1652162588]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.023907602, 0.6002285, 1.9586213)
-radius = 0.57235646
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10658246, 3.9685817, 0.29258204)
+radius = 1.721809
 material = SubResource("ShaderMaterial_kwrm5")
 
 [node name="Sprite3D" type="Sprite3D" parent="Environment" unique_id=1414223689]
 texture = SubResource("CameraTexture_r8bcl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment" unique_id=1438370111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.0275335, 10.060143)
+mesh = SubResource("BoxMesh_1qnfl")
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Environment" unique_id=2057033050]
+transform = Transform3D(0.99955815, 0.0011578002, 0.029703626, 0.00041181152, 0.99860597, -0.052781966, -0.029723331, 0.05277087, 0.9981642, 0.2992978, 0.555923, 6.6277866)
+shadow_enabled = true
+shadow_bias = 0.091
+shadow_normal_bias = 0.877
+shadow_opacity = 0.48
+shadow_blur = 3.883
+spot_range = 4.5885253
+spot_attenuation = -1.59
+spot_angle = 27.445684
+
+[node name="PS1" type="ColorRect" parent="." unique_id=190581032]
+material = SubResource("ShaderMaterial_r8bcl")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
 
 [node name="GUI" type="Node2D" parent="." unique_id=1016391380]
 
