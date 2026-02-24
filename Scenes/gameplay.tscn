@@ -1,9 +1,10 @@
-[gd_scene format=3 uid="uid://2ggyxbr1b22o"]
+[gd_scene format=3 uid="uid://c1oo05qhm7ljq"]
 
 [ext_resource type="Script" uid="uid://car67o2d8aah5" path="res://Scripts/Gameplay.cs" id="1_m34ki"]
 [ext_resource type="Shader" uid="uid://gv7e567o7pcj" path="res://Shaders/Static.gdshader" id="1_wbxth"]
 [ext_resource type="Shader" uid="uid://bcs68mqkk2mtc" path="res://Shaders/PS1.gdshader" id="2_kwrm5"]
 [ext_resource type="PackedScene" uid="uid://qiorwxbtjv15" path="res://Scenes/Env/Sub.tscn" id="2_m34ki"]
+[ext_resource type="AudioStream" uid="uid://dage43iqaph4y" path="res://Sounds/Music/Tremors Of Doom - QuickSounds.com.mp3" id="2_puebw"]
 [ext_resource type="FontFile" uid="uid://buhf55me2dcaq" path="res://Fonts/ELEGANT TYPEWRITER Regular.ttf" id="4_kwrm5"]
 [ext_resource type="Shader" uid="uid://dlsyi36by4ge7" path="res://Shaders/Nebula.gdshader" id="5_r8bcl"]
 [ext_resource type="Shader" uid="uid://qnqsm7rui685" path="res://Shaders/3dWater.gdshader" id="5_urrcd"]
@@ -279,7 +280,7 @@ noise = SubResource("FastNoiseLite_r8bcl")
 color_ramp = SubResource("Gradient_kwrm5")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1qnfl"]
-shader = ExtResource("3_3fna2")
+shader = ExtResource("1_wbxth")
 shader_parameter/noise = SubResource("NoiseTexture2D_rlidi")
 shader_parameter/slow = 25.0
 shader_parameter/multiplier = 0.5
@@ -297,7 +298,7 @@ adjustment_saturation = 0.46
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kwrm5"]
 render_priority = 0
-shader = ExtResource("5_ail8s")
+shader = ExtResource("5_r8bcl")
 shader_parameter/albedo = Color(0.1358982, 0.024955876, 3.008172e-09, 1)
 
 [sub_resource type="CameraTexture" id="CameraTexture_r8bcl"]
@@ -392,7 +393,10 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [node name="Gameplay" type="Node" unique_id=88878252]
-script = ExtResource("1_muotb")
+script = ExtResource("1_m34ki")
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="." unique_id=573289145]
+stream = ExtResource("2_puebw")
 
 [node name="Animations" type="AnimationPlayer" parent="." unique_id=221344512]
 libraries/ = SubResource("AnimationLibrary_kwrm5")
@@ -483,14 +487,14 @@ offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("6_82qy8")
+theme_override_fonts/normal_font = ExtResource("4_kwrm5")
 bbcode_enabled = true
 text = "[shake]Check Map[/shake]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DialogPlayer" type="Node" parent="GUI" unique_id=1093347187]
-script = ExtResource("7_vbmjt")
+script = ExtResource("7_urrcd")
 _dialog_data = null
 metadata/_custom_type_script = "uid://1mxdpoyob13n"
 
@@ -540,10 +544,6 @@ vertical_alignment = 1
 wait_time = 5.0
 one_shot = true
 autostart = true
-
-[node name="GameMusic" type="AudioStreamPlayer" parent="." unique_id=1107607068]
-stream = ExtResource("8_rhmiw")
-parameters/looping = false
 
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
 [connection signal="mouse_entered" from="GUI/Controls/Left" to="." method="LeftSideEntered"]

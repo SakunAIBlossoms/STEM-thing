@@ -26,6 +26,6 @@ public partial class EnterGame : Node2D
 
 	private void OnFadeAnimationFinished(StringName animName)
 	{
-		GetTree().ChangeSceneToFile("res://Scenes/Gameplay.tscn");
+		GetTree().ChangeSceneToFile("res://Scenes/gameplay.tscn");
 	}
 }

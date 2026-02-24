@@ -35,6 +35,7 @@ public partial class Gameplay : Node
 		Env = GetNode("Environment") as Node3D;
 		Plr = Env.GetNode("Player") as Camera3D;
 		Animations = GetNode("Animations") as AnimationPlayer;
+		GD.PrintRich("Line 38 Gameplay.cs: animation is null? " + (Animations == null));
 		// Then anything else important later
 		if (!Plr.Current) Plr.Current = true;
 
@@ -60,8 +61,8 @@ public partial class Gameplay : Node
 		}
 		catch (Exception e)
 		{
-			OS.Alert(e.Message+"\n\nEXITING...", "ERROR CAUGHT");
-			GetTree().Quit((int) Error.DoesNotExist);
+			OS.Alert(e.Message + "\n\nEXITING...", "ERROR CAUGHT");
+			GetTree().Quit((int)Error.DoesNotExist);
 		}
 		if (tutorial != null)
 		{
