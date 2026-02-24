@@ -22,6 +22,8 @@ public partial class Gameplay : Node
 
 	bool Cutscene = true;
 
+	Vector2 EnvSizeConstraints = new Vector2(10000, 10000);
+
 	public override void _Ready()
 	{
 		// Give variables a value first
@@ -43,7 +45,7 @@ public partial class Gameplay : Node
 		base._Input(@event);
 		//if (@event.AsText() == "")
 	}
-	
+
 	// Any Events we need to execute
 	private void OnTutorialShowLengthTimeout()
 	{
@@ -54,8 +56,8 @@ public partial class Gameplay : Node
 		}
 		catch (Exception e)
 		{
-			OS.Alert(e.Message+"\n\nEXITING...", "ERROR CAUGHT");
-			GetTree().Quit((int) Error.DoesNotExist);
+			OS.Alert(e.Message + "\n\nEXITING...", "ERROR CAUGHT");
+			GetTree().Quit((int)Error.DoesNotExist);
 		}
 		if (tutorial != null)
 		{
@@ -126,6 +128,16 @@ public partial class Gameplay : Node
 			CurrentCamDirection = CameraFocus.Front;
 			Animations.Play("LookUpFromMap");
 			GD.Print("Look Up");
+		}
+	}
+	private void DialogPlayerSignal(string signal)
+	{
+		GD.PrintRich("[color=gold]Gameplay.cs (138) [DialogPlayerSignal] [/color][b]|[/b][color=cyan] Dialog signal ("+signal+") has been triggered");
+		switch (signal)
+		{
+			case "Descend":
+				GD.PrintRich("[color=gold]Gameplay.cs (138) [DialogPlayerSignal] [/color][b]|[/b][color=cyan] Begin Descent");
+				break;
 		}
 	}
 }

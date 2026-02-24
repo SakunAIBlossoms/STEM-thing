@@ -8,6 +8,7 @@
 [ext_resource type="Shader" uid="uid://dlsyi36by4ge7" path="res://Shaders/Nebula.gdshader" id="5_r8bcl"]
 [ext_resource type="Shader" uid="uid://qnqsm7rui685" path="res://Shaders/3dWater.gdshader" id="5_urrcd"]
 [ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="7_urrcd"]
+[ext_resource type="Resource" uid="uid://xybv51cm1412" path="res://Dialogues/Gameplay.tres" id="9_puebw"]
 
 [sub_resource type="Animation" id="Animation_wbxth"]
 resource_name = "CheckMap"
@@ -460,6 +461,7 @@ mouse_filter = 2
 [node name="GUI" type="Node2D" parent="." unique_id=1016391380]
 
 [node name="Map" type="Panel" parent="GUI" unique_id=1872639576]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -491,10 +493,17 @@ vertical_alignment = 1
 
 [node name="DialogPlayer" type="Node" parent="GUI" unique_id=1093347187]
 script = ExtResource("7_urrcd")
-_dialog_data = null
+_dialog_data_uid = 1663988304410331091
+_dialog_file_name = "Gameplay"
+_dialog_data = ExtResource("9_puebw")
+_start_id = " DESCENT"
+_play_on_ready = true
+_destroy_on_end = true
+_print_debug = true
 metadata/_custom_type_script = "uid://1mxdpoyob13n"
 
 [node name="Controls" type="Control" parent="GUI" unique_id=1850055799]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
@@ -542,6 +551,7 @@ one_shot = true
 autostart = true
 
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
+[connection signal="signal_event" from="GUI/DialogPlayer" to="." method="DialogPlayerSignal"]
 [connection signal="mouse_entered" from="GUI/Controls/Left" to="." method="LeftSideEntered"]
 [connection signal="mouse_exited" from="GUI/Controls/Left" to="." method="LeftSideExited"]
 [connection signal="mouse_entered" from="GUI/Controls/Right" to="." method="RightSideEntered"]
