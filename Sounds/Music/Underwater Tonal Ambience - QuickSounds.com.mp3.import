@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bry4owuif4dp7"
+path="res://.godot/imported/Underwater Tonal Ambience - QuickSounds.com.mp3-0705f4b41b7b7981e9b17b999dd508a4.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/Underwater Tonal Ambience - QuickSounds.com.mp3"
+dest_files=["res://.godot/imported/Underwater Tonal Ambience - QuickSounds.com.mp3-0705f4b41b7b7981e9b17b999dd508a4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

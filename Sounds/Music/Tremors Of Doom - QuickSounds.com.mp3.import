@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dage43iqaph4y"
+path="res://.godot/imported/Tremors Of Doom - QuickSounds.com.mp3-b9ad6ea152bace70fdd84c836ef48022.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/Tremors Of Doom - QuickSounds.com.mp3"
+dest_files=["res://.godot/imported/Tremors Of Doom - QuickSounds.com.mp3-b9ad6ea152bace70fdd84c836ef48022.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c7jaebsadtbk5"
+path="res://.godot/imported/Demon Voice - QuickSounds.com.mp3-c337bfe8424d709b66ef697aeb423952.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Ambience/Demon Voice - QuickSounds.com.mp3"
+dest_files=["res://.godot/imported/Demon Voice - QuickSounds.com.mp3-c337bfe8424d709b66ef697aeb423952.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

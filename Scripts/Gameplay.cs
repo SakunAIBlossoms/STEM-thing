@@ -8,6 +8,8 @@ public partial class Gameplay : Node
 	Node3D Env;
 	Camera3D Plr;
 	AnimationPlayer Animations;
+	AudioStreamPlayer MenuMusic;
+	AudioStreamPlayer GameMusic;
 
 	// Custom variables WE make twin
 	// Make some camera stuff, we need to track the direction and i feel like an enum is the best way to do this
@@ -26,11 +28,16 @@ public partial class Gameplay : Node
 
 	public override void _Ready()
 	{
+		MenuMusic = GetNode("/root/MenuMusic") as AudioStreamPlayer;
+		MenuMusic.Stop();
+		GameMusic = GetNode<AudioStreamPlayer>("GameMusic");
+		GameMusic.Play();
 		// Give variables a value first
 		gui = GetNode("GUI") as Node2D;
 		Env = GetNode("Environment") as Node3D;
 		Plr = Env.GetNode("Player") as Camera3D;
 		Animations = GetNode("Animations") as AnimationPlayer;
+		GD.PrintRich("Line 38 Gameplay.cs: animation is null? " + (Animations == null));
 		// Then anything else important later
 		if (!Plr.Current) Plr.Current = true;
 

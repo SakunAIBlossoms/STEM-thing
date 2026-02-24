@@ -4,6 +4,7 @@
 [ext_resource type="Shader" uid="uid://gv7e567o7pcj" path="res://Shaders/Static.gdshader" id="1_wbxth"]
 [ext_resource type="Shader" uid="uid://bcs68mqkk2mtc" path="res://Shaders/PS1.gdshader" id="2_kwrm5"]
 [ext_resource type="PackedScene" uid="uid://qiorwxbtjv15" path="res://Scenes/Env/Sub.tscn" id="2_m34ki"]
+[ext_resource type="AudioStream" uid="uid://dage43iqaph4y" path="res://Sounds/Music/Tremors Of Doom - QuickSounds.com.mp3" id="2_puebw"]
 [ext_resource type="FontFile" uid="uid://buhf55me2dcaq" path="res://Fonts/ELEGANT TYPEWRITER Regular.ttf" id="4_kwrm5"]
 [ext_resource type="Shader" uid="uid://dlsyi36by4ge7" path="res://Shaders/Nebula.gdshader" id="5_r8bcl"]
 [ext_resource type="Shader" uid="uid://qnqsm7rui685" path="res://Shaders/3dWater.gdshader" id="5_urrcd"]
@@ -394,6 +395,9 @@ corner_radius_bottom_left = 15
 
 [node name="Gameplay" type="Node" unique_id=88878252]
 script = ExtResource("1_m34ki")
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="." unique_id=573289145]
+stream = ExtResource("2_puebw")
 
 [node name="Animations" type="AnimationPlayer" parent="." unique_id=221344512]
 libraries/ = SubResource("AnimationLibrary_kwrm5")

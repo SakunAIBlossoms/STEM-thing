@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bvteox00cbssy"
+path="res://.godot/imported/Spirit Horror - QuickSounds.com.mp3-1264f53e8557348b2e55ec72dee08537.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Ambience/Spirit Horror - QuickSounds.com.mp3"
+dest_files=["res://.godot/imported/Spirit Horror - QuickSounds.com.mp3-1264f53e8557348b2e55ec72dee08537.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
