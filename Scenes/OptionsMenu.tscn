@@ -5,7 +5,6 @@
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="3_s3xhb"]
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="3_un4xt"]
 [ext_resource type="Script" uid="uid://cdwn7purhwdkk" path="res://Scripts/BackButton.cs" id="5_uw46w"]
-[ext_resource type="AudioStream" uid="uid://bvc4ic4cxhm64" path="res://Sounds/Sound Effects/Wood Thunk - QuickSounds.com.mp3" id="6_3oclb"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_un4xt"]
 noise_type = 4
@@ -238,12 +237,6 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_itlgr")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_x12ra")
 text = "BACK"
 script = ExtResource("5_uw46w")
-
-[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="Interactables/BackButton" unique_id=812241346]
-stream = ExtResource("6_3oclb")
-
-[node name="ButtonTimer" type="Timer" parent="Interactables/BackButton" unique_id=1652723834]
-wait_time = 0.1
 
 [node name="Title" type="RichTextLabel" parent="." unique_id=695976558]
 offset_left = 544.0

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://54gwlwhi1qsk"
+path="res://.godot/imported/audio-error-sound-distorted-audio-track.mp3-7403f3edde48b362e81a16d4daa1d357.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Sound Effects/audio-error-sound-distorted-audio-track.mp3"
+dest_files=["res://.godot/imported/audio-error-sound-distorted-audio-track.mp3-7403f3edde48b362e81a16d4daa1d357.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

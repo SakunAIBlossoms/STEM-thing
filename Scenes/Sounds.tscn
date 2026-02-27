@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bfehjodm85p2n"]
+
+[ext_resource type="AudioStream" uid="uid://bw1ls0lnwv080" path="res://Sounds/Sound Effects/ButtonPressedSoundEffect.mp3" id="1_cpbd6"]
+
+[node name="Sounds" type="Node" unique_id=113552010]
+
+[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="." unique_id=618547246]
+stream = ExtResource("1_cpbd6")
