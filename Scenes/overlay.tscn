@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://gp1o20w07jmb"]
+
+[node name="Overlay" type="CanvasLayer" unique_id=206690139]
+layer = 999
+
+[node name="Fade" type="ColorRect" parent="." unique_id=1393934574]
+offset_right = 1920.0
+offset_bottom = 1080.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_filter = 2
+color = Color(0, 0, 0, 0)

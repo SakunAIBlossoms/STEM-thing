@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 public partial class Gameplay : Node
 {
@@ -26,6 +28,8 @@ public partial class Gameplay : Node
 
 	Vector2 EnvSizeConstraints = new Vector2(10000, 10000);
 
+	Dictionary<string, bool> Hovered = new Dictionary<string, bool> { { "Left", false }, { "Right", false } };
+
 	public override void _Ready()
 	{
 		MenuMusic = GetNode("/root/MenuMusic") as AudioStreamPlayer;
@@ -40,11 +44,11 @@ public partial class Gameplay : Node
 		GD.PrintRich("Line 38 Gameplay.cs: animation is null? " + (Animations == null));
 		// Then anything else important later
 		if (!Plr.Current) Plr.Current = true;
-
+		Animations.AnimationFinished += AnimationCompleted;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
 	{
 	}
 	public override void _Input(InputEvent @event)
@@ -71,26 +75,48 @@ public partial class Gameplay : Node
 			tutorial.QueueFree();
 		}
 	}
+	// Animation hook
+	private void AnimationCompleted(StringName name) {
+		switch (name)
+		{
+			case "StartingCutscene":
+				gui.GetNode<Panel>("Map").Visible = true;
+				gui.GetNode<Control>("Controls").Visible = true;
+				gui.GetNode<Control>("Tutorials").Visible = true;
+				gui.GetNode<Control>("Tutorials").GetNode<Timer>("TutorialShowLength").Start();
+				Animations.Play("RESET");
+				break;
+			case "LookFrontFromLeft":
+				if (Hovered["Right"]) MoveRight();
+				break;
+			case "LookFrontFromRight":
+				if (Hovered["Left"]) MoveLeft();
+				break;
+		}
+		return;
+	}
+
 
 	// Camera Controls
 	private void LeftSideEntered()
 	{
-		if (CurrentCamDirection != CameraFocus.Left)
-		{
-			switch (CurrentCamDirection)
-			{
-				case CameraFocus.Right:
-					CurrentCamDirection = CameraFocus.Front;
-					Animations.Play("LookFrontFromRight");
-					break;
-				case CameraFocus.Front:
-					CurrentCamDirection = CameraFocus.Left;
-					Animations.Play("LookLeft");
-					break;
-			}
-		}
+		Hovered["Left"] = true;
+		MoveLeft();
+	}
+	private void LeftSideExited()
+	{
+		Hovered["Left"] = false;
 	}
 	private void RightSideEntered()
+	{
+		Hovered["Right"] = true;
+		MoveRight();
+	}
+	private void RightSideExited()
+	{
+		Hovered["Right"] = false;
+	}
+	private void MoveRight()
 	{
 		if (CurrentCamDirection != CameraFocus.Right)
 		{
@@ -107,6 +133,23 @@ public partial class Gameplay : Node
 			}
 		}
 	}
+	private void MoveLeft()
+	{
+		if (CurrentCamDirection != CameraFocus.Left)
+		{
+			switch (CurrentCamDirection)
+			{
+				case CameraFocus.Right:
+					CurrentCamDirection = CameraFocus.Front;
+					Animations.Play("LookFrontFromRight");
+					break;
+				case CameraFocus.Front:
+					CurrentCamDirection = CameraFocus.Left;
+					Animations.Play("LookLeft");
+					break;
+			}
+		}
+	}
 	private void CheckMap()
 	{
 		GD.Print("Check Map");
@@ -115,12 +158,12 @@ public partial class Gameplay : Node
 			switch (CurrentCamDirection)
 			{
 				case CameraFocus.Left:
-					RightSideEntered();
+					MoveRight();
 					CurrentCamDirection = CameraFocus.Map;
 					Animations.Play("CheckMap");
 					break;
 				case CameraFocus.Right:
-					LeftSideEntered();
+					MoveLeft();
 					CurrentCamDirection = CameraFocus.Map;
 					Animations.Play("CheckMap");
 					break;

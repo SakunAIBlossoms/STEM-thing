@@ -110,9 +110,6 @@ metadata/_edit_use_anchors_ = true
 [node name="ButtonPressedSound" type="AudioStreamPlayer" parent="PlayButton" unique_id=8627686]
 stream = ExtResource("9_cmrfp")
 
-[node name="ButtonTimer" type="Timer" parent="PlayButton" unique_id=984020971]
-wait_time = 0.1
-
 [node name="OptionsButton" type="Button" parent="." unique_id=1006013235]
 custom_minimum_size = Vector2(0, 45)
 offset_left = 192.0
@@ -235,7 +232,6 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="PlayButton" to="ExitButton" method="_on_play_button_pressed"]
-[connection signal="timeout" from="PlayButton/ButtonTimer" to="PlayButton" method="OnTimerTimeout"]
 [connection signal="pressed" from="OptionsButton" to="PlayButton" method="_on_options_button_pressed"]
 [connection signal="pressed" from="CreditsButton" to="CreditsButton" method="_on_pressed"]
 [connection signal="pressed" from="ExitButton" to="ExitButton" method="_on_pressed"]
