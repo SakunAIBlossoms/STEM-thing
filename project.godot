@@ -28,6 +28,7 @@ ImGuiRoot="*uid://dugmpnsxaagba"
 SproutyDialogs="*uid://c8gxm75j80u8c"
 MenuMusic="*uid://gwnbibdi481m"
 Sounds="*uid://bfehjodm85p2n"
+Overlay="*uid://gp1o20w07jmb"
 
 [display]
 

@@ -401,7 +401,7 @@ stream = ExtResource("2_puebw")
 
 [node name="Animations" type="AnimationPlayer" parent="." unique_id=221344512]
 libraries/ = SubResource("AnimationLibrary_kwrm5")
-autoplay = &"LookUpFromMap"
+autoplay = &"StartingCutscene"
 
 [node name="Shaders" type="CanvasLayer" parent="." unique_id=2073417179]
 
@@ -552,7 +552,8 @@ vertical_alignment = 1
 [node name="TutorialShowLength" type="Timer" parent="GUI/Tutorials" unique_id=1454440405]
 wait_time = 5.0
 one_shot = true
-autostart = true
+
+[node name="Coord" type="SubViewport" parent="." unique_id=1526367732]
 
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
 [connection signal="signal_event" from="GUI/DialogPlayer" to="." method="DialogPlayerSignal"]
