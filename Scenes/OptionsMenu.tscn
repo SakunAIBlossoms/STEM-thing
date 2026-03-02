@@ -4,6 +4,7 @@
 [ext_resource type="FontFile" path="res://imported/times_new_yorker.ttf-f1e69a362cd9079f7efeeb7a29521684.fontdata" id="1_jrbyj"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="3_s3xhb"]
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="3_un4xt"]
+[ext_resource type="Script" uid="uid://d4lehbcv2r2no" path="res://Scenes/Slider.cs" id="4_3oclb"]
 [ext_resource type="Script" uid="uid://cdwn7purhwdkk" path="res://Scripts/BackButton.cs" id="5_uw46w"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_un4xt"]
@@ -164,7 +165,12 @@ offset_bottom = 306.66666
 scale = Vector2(1.5, 1.5)
 mouse_default_cursor_shape = 10
 value = 50.0
+script = ExtResource("4_3oclb")
 metadata/_edit_use_anchors_ = true
+
+[node name="DebounceTimer" type="Timer" parent="Interactables/MasterVolumeSlider" unique_id=374354981]
+wait_time = 0.05
+one_shot = true
 
 [node name="SoundsSlider" type="HSlider" parent="Interactables" unique_id=602833920]
 layout_mode = 0
@@ -175,7 +181,12 @@ offset_bottom = 389.3333
 scale = Vector2(1.5, 1.5)
 mouse_default_cursor_shape = 10
 value = 50.0
+script = ExtResource("4_3oclb")
 metadata/_edit_use_anchors_ = true
+
+[node name="DebounceTimer" type="Timer" parent="Interactables/SoundsSlider" unique_id=499012950]
+wait_time = 0.05
+one_shot = true
 
 [node name="MusicSlider" type="HSlider" parent="Interactables" unique_id=214675202]
 layout_mode = 0
@@ -186,7 +197,12 @@ offset_bottom = 474.66663
 scale = Vector2(1.5, 1.5)
 mouse_default_cursor_shape = 10
 value = 50.0
+script = ExtResource("4_3oclb")
 metadata/_edit_use_anchors_ = true
+
+[node name="DebounceTimer" type="Timer" parent="Interactables/MusicSlider" unique_id=1484084148]
+wait_time = 0.05
+one_shot = true
 
 [node name="FullscreenCheck" type="CheckBox" parent="Interactables" unique_id=731559534]
 layout_mode = 0
@@ -249,3 +265,12 @@ text = "[shake rate=20.0 level=10 connected=1]OPTIONS[/shake]"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[connection signal="drag_ended" from="Interactables/MasterVolumeSlider" to="Interactables/MasterVolumeSlider" method="OnDragEnded"]
+[connection signal="drag_started" from="Interactables/MasterVolumeSlider" to="Interactables/MasterVolumeSlider" method="OnDragStarted"]
+[connection signal="value_changed" from="Interactables/MasterVolumeSlider" to="Interactables/MasterVolumeSlider" method="OnValueChanged"]
+[connection signal="timeout" from="Interactables/MasterVolumeSlider/DebounceTimer" to="Interactables/MasterVolumeSlider" method="OnTimerTimeout"]
+[connection signal="value_changed" from="Interactables/SoundsSlider" to="Interactables/SoundsSlider" method="OnValueChanged"]
+[connection signal="timeout" from="Interactables/SoundsSlider/DebounceTimer" to="Interactables/SoundsSlider" method="OnTimerTimeout"]
+[connection signal="value_changed" from="Interactables/MusicSlider" to="Interactables/MusicSlider" method="OnValueChanged"]
+[connection signal="timeout" from="Interactables/MusicSlider/DebounceTimer" to="Interactables/MusicSlider" method="OnTimerTimeout"]

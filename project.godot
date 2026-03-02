@@ -44,7 +44,7 @@ project/assembly_name="Stem Game"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/audio_manager/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/imgui-godot/plugin.cfg", "res://addons/ninepatch_margin_visualizer/plugin.cfg", "res://addons/sprouty_dialogs/plugin.cfg")
+enabled=PackedStringArray("res://addons/discord-rpc-gd/plugin.cfg", "res://addons/imgui-godot/plugin.cfg", "res://addons/ninepatch_margin_visualizer/plugin.cfg", "res://addons/sprouty_dialogs/plugin.cfg")
 
 [file_customization]
 
