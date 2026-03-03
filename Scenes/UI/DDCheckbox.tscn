@@ -6,14 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://b30ao70q1tosa" path="res://Images/UI/Tick.png" id="4_oly6s"]
 
 [node name="DdCheckbox" type="Control" unique_id=13832071]
-custom_minimum_size = Vector2(150, 150)
+custom_minimum_size = Vector2(25, 25)
 layout_mode = 3
-anchor_right = 0.078
-anchor_bottom = 0.13900001
-offset_right = 0.23999023
-offset_bottom = -0.120010376
+anchor_right = 0.13000001
+anchor_bottom = 0.231
+offset_right = 0.39997864
+offset_bottom = 0.519989
 script = ExtResource("1_e77d2")
-Disabled = true
 
 [node name="Background" type="TextureRect" parent="." unique_id=2075493433]
 layout_mode = 1
@@ -22,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture = ExtResource("2_5hygc")
 expand_mode = 1
@@ -37,7 +37,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset_ratio = Vector2(0.5, 0.5)
+pivot_offset_ratio = Vector2(0.505, 0.515)
 mouse_filter = 2
 texture = ExtResource("4_oly6s")
 expand_mode = 1

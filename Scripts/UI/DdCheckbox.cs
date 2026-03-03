@@ -1,6 +1,6 @@
-using System;
 using Godot;
 
+[Icon("res://Images/CheckBox.svg")]
 public partial class DdCheckbox : Control
 {
 	// Add all default variables
@@ -10,6 +10,8 @@ public partial class DdCheckbox : Control
 	bool Disabled = false;
 	[Export]
 	ImageTexture BackgroundTexture = null;
+	[Export]
+	ImageTexture TickTexture = null;
 
 	private float ModulateFade = 0.6f;
 	private bool Hovering = false;
@@ -31,10 +33,6 @@ public partial class DdCheckbox : Control
 		if (Disabled)
 		{
 			Modulate = new Color(1, 1, 1, ModulateFade);
-		}
-		if (Activated)
-		{
-
 		}
 		Tick.Visible = Activated;
 	}
