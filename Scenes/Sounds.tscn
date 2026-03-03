@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://bfehjodm85p2n"]
 
 [ext_resource type="AudioStream" uid="uid://bw1ls0lnwv080" path="res://Sounds/Sound Effects/ButtonPressedSoundEffect.mp3" id="1_cpbd6"]
+[ext_resource type="AudioStream" uid="uid://lw0f8e11wq1o" path="res://Sounds/Sound Effects/game-fx-clix.wav" id="2_s6jvx"]
 
 [node name="Sounds" type="Node" unique_id=113552010]
 
 [node name="ButtonPressedSound" type="AudioStreamPlayer" parent="." unique_id=618547246]
 stream = ExtResource("1_cpbd6")
+
+[node name="SliderSound" type="AudioStreamPlayer" parent="." unique_id=648436625]
+stream = ExtResource("2_s6jvx")
+volume_db = 24.0
