@@ -20,7 +20,7 @@ public partial class SaveHandler : Node
 		if (what == NotificationWMCloseRequest)
 		{
 			Dictionary<Error, string> SaveError = Save();
-			//if (SaveError != Utils.CheckErrorResponse(SaveError)
+			if (!Utils.CheckErrorResponse(SaveError)) OS.Alert("An unknown error has occured during saving.\nYour save data will be reset.", "Save Error");
 			GetTree().Quit(0);
 		}
         base._Notification(what);

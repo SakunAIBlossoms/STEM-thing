@@ -4,8 +4,10 @@
 [ext_resource type="FontFile" path="res://imported/times_new_yorker.ttf-f1e69a362cd9079f7efeeb7a29521684.fontdata" id="1_jrbyj"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="3_s3xhb"]
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="3_un4xt"]
+[ext_resource type="PackedScene" uid="uid://ctu5ggd2nkupg" path="res://Scenes/UI/DDCheckbox.tscn" id="5_3oclb"]
 [ext_resource type="Script" uid="uid://d4lehbcv2r2no" path="res://Scenes/Slider.cs" id="4_3oclb"]
 [ext_resource type="Script" uid="uid://cdwn7purhwdkk" path="res://Scripts/BackButton.cs" id="5_uw46w"]
+[ext_resource type="Shader" uid="uid://daf87j1y4unwx" path="res://Shaders/StaticOverlay.gdshader" id="7_3oclb"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_un4xt"]
 noise_type = 4
@@ -44,6 +46,22 @@ shader_parameter/backGroundDirY = 0.00500000349738
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x12ra"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_itlgr"]
+noise_type = 0
+frequency = 1.0
+domain_warp_enabled = true
+domain_warp_fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x12ra"]
+noise = SubResource("FastNoiseLite_itlgr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_el72l"]
+shader = ExtResource("7_3oclb")
+shader_parameter/noise = SubResource("NoiseTexture2D_x12ra")
+shader_parameter/slow = 25.0
+shader_parameter/multiplier = 0.2
+shader_parameter/contrast = 2.0
+
 [node name="OptionsMenu" type="Node2D" unique_id=2048902299]
 script = ExtResource("1_1jju4")
 
@@ -52,18 +70,18 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 metadata/_edit_use_anchors_ = true
 
+[node name="Water" type="ColorRect" parent="." unique_id=715433166]
+material = SubResource("ShaderMaterial_uw46w")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
 [node name="Backpanel" type="Panel" parent="." unique_id=968398094]
 offset_left = 128.0
 offset_top = 128.0
 offset_right = 1792.0
 offset_bottom = 959.0
 metadata/_edit_use_anchors_ = true
-
-[node name="Water" type="ColorRect" parent="." unique_id=715433166]
-material = SubResource("ShaderMaterial_uw46w")
-offset_right = 1920.0
-offset_bottom = 1080.0
-mouse_filter = 2
 
 [node name="Text" type="Control" parent="." unique_id=1807635462]
 layout_mode = 3
@@ -192,40 +210,6 @@ value = 50.0
 script = ExtResource("4_3oclb")
 metadata/_edit_use_anchors_ = true
 
-[node name="FullscreenCheck" type="CheckBox" parent="Interactables" unique_id=731559534]
-layout_mode = 0
-offset_left = 624.0
-offset_top = 544.0
-offset_right = 648.0
-offset_bottom = 569.4473
-scale = Vector2(2.515, 2.515)
-mouse_default_cursor_shape = 2
-button_pressed = true
-metadata/_edit_use_anchors_ = true
-
-[node name="MouseParticlesCheck" type="CheckBox" parent="Interactables" unique_id=318042908]
-layout_mode = 0
-offset_left = 624.0
-offset_top = 634.0
-offset_right = 648.0
-offset_bottom = 659.4473
-scale = Vector2(2.515, 2.515)
-button_pressed = true
-metadata/_edit_use_anchors_ = true
-
-[node name="ErrorPopupsCheck" type="CheckBox" parent="Interactables" unique_id=1703150631]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 2.1
-anchor_bottom = 2.1
-offset_left = 624.0
-offset_top = 634.0
-offset_right = 648.0
-offset_bottom = 659.4473
-scale = Vector2(2.515, 2.515)
-button_pressed = true
-metadata/_edit_use_anchors_ = true
-
 [node name="BackButton" type="Button" parent="Interactables" unique_id=130588452]
 layout_mode = 0
 offset_left = 48.0
@@ -242,6 +226,27 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_x12ra")
 text = "BACK"
 script = ExtResource("5_uw46w")
 
+[node name="FullscreenCheck" parent="Interactables" unique_id=13832071 instance=ExtResource("5_3oclb")]
+layout_mode = 1
+offset_left = 620.0
+offset_top = 532.0
+offset_right = 694.8
+offset_bottom = 602.76
+
+[node name="MouseParticlesCheck" parent="Interactables" unique_id=28301548 instance=ExtResource("5_3oclb")]
+layout_mode = 1
+offset_left = 616.0
+offset_top = 622.0
+offset_right = 690.8
+offset_bottom = 692.76
+
+[node name="ErrorPopupsCheck" parent="Interactables" unique_id=1725659779 instance=ExtResource("5_3oclb")]
+layout_mode = 1
+offset_left = 620.0
+offset_top = 712.0
+offset_right = 694.8
+offset_bottom = 782.76
+
 [node name="Title" type="RichTextLabel" parent="." unique_id=695976558]
 offset_left = 544.0
 offset_right = 1408.0
@@ -254,6 +259,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="BackBufferCopy" type="BackBufferCopy" parent="." unique_id=326960093]
+position = Vector2(-4.7683716e-07, -9.536743e-07)
+scale = Vector2(9.599999, 5.4)
+rect = Rect2(0, 0, 1920, 1080)
+
+[node name="Static" type="ColorRect" parent="BackBufferCopy" unique_id=1236106731]
+material = SubResource("ShaderMaterial_el72l")
+offset_right = 200.00003
+offset_bottom = 200.00003
+mouse_filter = 2
+[connection signal="drag_ended" from="Interactables/MasterVolumeSlider" to="Interactables/MasterVolumeSlider" method="OnDragEnded"]
+[connection signal="drag_started" from="Interactables/MasterVolumeSlider" to="Interactables/MasterVolumeSlider" method="OnDragStarted"]
 [connection signal="value_changed" from="Interactables/MasterVolumeSlider" to="Interactables/MasterVolumeSlider" method="OnValueChanged"]
 [connection signal="value_changed" from="Interactables/SoundsSlider" to="Interactables/SoundsSlider" method="OnValueChanged"]
 [connection signal="value_changed" from="Interactables/MusicSlider" to="Interactables/MusicSlider" method="OnValueChanged"]
