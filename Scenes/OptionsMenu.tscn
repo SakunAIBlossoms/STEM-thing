@@ -168,10 +168,6 @@ value = 50.0
 script = ExtResource("4_3oclb")
 metadata/_edit_use_anchors_ = true
 
-[node name="DebounceTimer" type="Timer" parent="Interactables/MasterVolumeSlider" unique_id=374354981]
-wait_time = 0.05
-one_shot = true
-
 [node name="SoundsSlider" type="HSlider" parent="Interactables" unique_id=602833920]
 layout_mode = 0
 offset_left = 640.0
@@ -184,10 +180,6 @@ value = 50.0
 script = ExtResource("4_3oclb")
 metadata/_edit_use_anchors_ = true
 
-[node name="DebounceTimer" type="Timer" parent="Interactables/SoundsSlider" unique_id=499012950]
-wait_time = 0.05
-one_shot = true
-
 [node name="MusicSlider" type="HSlider" parent="Interactables" unique_id=214675202]
 layout_mode = 0
 offset_left = 640.0
@@ -199,10 +191,6 @@ mouse_default_cursor_shape = 10
 value = 50.0
 script = ExtResource("4_3oclb")
 metadata/_edit_use_anchors_ = true
-
-[node name="DebounceTimer" type="Timer" parent="Interactables/MusicSlider" unique_id=1484084148]
-wait_time = 0.05
-one_shot = true
 
 [node name="FullscreenCheck" type="CheckBox" parent="Interactables" unique_id=731559534]
 layout_mode = 0
@@ -266,11 +254,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[connection signal="drag_ended" from="Interactables/MasterVolumeSlider" to="Interactables/MasterVolumeSlider" method="OnDragEnded"]
-[connection signal="drag_started" from="Interactables/MasterVolumeSlider" to="Interactables/MasterVolumeSlider" method="OnDragStarted"]
 [connection signal="value_changed" from="Interactables/MasterVolumeSlider" to="Interactables/MasterVolumeSlider" method="OnValueChanged"]
-[connection signal="timeout" from="Interactables/MasterVolumeSlider/DebounceTimer" to="Interactables/MasterVolumeSlider" method="OnTimerTimeout"]
 [connection signal="value_changed" from="Interactables/SoundsSlider" to="Interactables/SoundsSlider" method="OnValueChanged"]
-[connection signal="timeout" from="Interactables/SoundsSlider/DebounceTimer" to="Interactables/SoundsSlider" method="OnTimerTimeout"]
 [connection signal="value_changed" from="Interactables/MusicSlider" to="Interactables/MusicSlider" method="OnValueChanged"]
-[connection signal="timeout" from="Interactables/MusicSlider/DebounceTimer" to="Interactables/MusicSlider" method="OnTimerTimeout"]

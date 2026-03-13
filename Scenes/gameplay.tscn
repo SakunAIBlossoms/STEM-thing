@@ -10,6 +10,13 @@
 [ext_resource type="Shader" uid="uid://qnqsm7rui685" path="res://Shaders/3dWater.gdshader" id="5_urrcd"]
 [ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="7_urrcd"]
 [ext_resource type="Resource" uid="uid://xybv51cm1412" path="res://Dialogues/Gameplay.tres" id="9_puebw"]
+[ext_resource type="Script" uid="uid://bia0houoklu0a" path="res://Scenes/RandomSoundPlayer.cs" id="11_decfu"]
+[ext_resource type="AudioStream" uid="uid://c7jaebsadtbk5" path="res://Sounds/Ambience/Demon Voice - QuickSounds.com.mp3" id="12_p1ih8"]
+[ext_resource type="AudioStream" uid="uid://b4ckppkfk1ykp" path="res://Sounds/Ambience/Dragon's Roar - QuickSounds.com.mp3" id="13_v2eey"]
+[ext_resource type="AudioStream" uid="uid://dcmqscydh6jd3" path="res://Sounds/Ambience/Scary Alien Breathing 2 - QuickSounds.com.mp3" id="14_ifha0"]
+[ext_resource type="AudioStream" uid="uid://bvteox00cbssy" path="res://Sounds/Ambience/Spirit Horror - QuickSounds.com.mp3" id="15_gb8q7"]
+[ext_resource type="AudioStream" uid="uid://d3im4fytssc5f" path="res://Sounds/Ambience/Stone Slide Heavy Grinding 2 - QuickSounds.com.mp3" id="16_1ff3a"]
+[ext_resource type="AudioStream" uid="uid://dv88rqnsos1t6" path="res://Sounds/Ambience/Water Tunnel - QuickSounds.com.mp3" id="17_kj63f"]
 
 [sub_resource type="Animation" id="Animation_wbxth"]
 resource_name = "CheckMap"
@@ -554,6 +561,15 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Coord" type="SubViewport" parent="." unique_id=1526367732]
+
+[node name="RandomSoundPlayer" type="Node" parent="." unique_id=1744003763]
+script = ExtResource("11_decfu")
+Sounds = Array[AudioStream]([ExtResource("12_p1ih8"), ExtResource("13_v2eey"), ExtResource("14_ifha0"), ExtResource("15_gb8q7"), ExtResource("16_1ff3a"), ExtResource("17_kj63f")])
+
+[node name="Timer" type="Timer" parent="RandomSoundPlayer" unique_id=963552546]
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RandomSoundPlayer" unique_id=1984039889]
 
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
 [connection signal="signal_event" from="GUI/DialogPlayer" to="." method="DialogPlayerSignal"]

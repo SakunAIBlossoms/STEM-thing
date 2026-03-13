@@ -10,4 +10,3 @@ stream = ExtResource("1_cpbd6")
 
 [node name="SliderSound" type="AudioStreamPlayer" parent="." unique_id=648436625]
 stream = ExtResource("2_s6jvx")
-volume_db = 24.0

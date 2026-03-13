@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/Tremors Of Doom - QuickSounds.com.mp3-b9ad6ea
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0
