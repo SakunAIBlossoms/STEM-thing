@@ -4,8 +4,8 @@
 [ext_resource type="FontFile" path="res://imported/times_new_yorker.ttf-f1e69a362cd9079f7efeeb7a29521684.fontdata" id="1_jrbyj"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="3_s3xhb"]
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="3_un4xt"]
-[ext_resource type="PackedScene" uid="uid://ctu5ggd2nkupg" path="res://Scenes/UI/DDCheckbox.tscn" id="5_3oclb"]
 [ext_resource type="Script" uid="uid://d4lehbcv2r2no" path="res://Scenes/Slider.cs" id="4_3oclb"]
+[ext_resource type="PackedScene" uid="uid://ctu5ggd2nkupg" path="res://Scenes/UI/DDCheckbox.tscn" id="5_3oclb"]
 [ext_resource type="Script" uid="uid://cdwn7purhwdkk" path="res://Scripts/BackButton.cs" id="5_uw46w"]
 [ext_resource type="Shader" uid="uid://daf87j1y4unwx" path="res://Shaders/StaticOverlay.gdshader" id="7_3oclb"]
 
@@ -174,7 +174,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 metadata/_edit_use_anchors_ = true
 
-[node name="MasterVolumeSlider" type="HSlider" parent="Interactables" unique_id=261955590]
+[node name="MasterVolume|Slider" type="HSlider" parent="Interactables" unique_id=261955590]
 layout_mode = 0
 offset_left = 640.0
 offset_top = 272.0
@@ -186,7 +186,7 @@ value = 50.0
 script = ExtResource("4_3oclb")
 metadata/_edit_use_anchors_ = true
 
-[node name="SoundsSlider" type="HSlider" parent="Interactables" unique_id=602833920]
+[node name="Sounds|Slider" type="HSlider" parent="Interactables" unique_id=602833920]
 layout_mode = 0
 offset_left = 640.0
 offset_top = 360.0
@@ -198,7 +198,7 @@ value = 50.0
 script = ExtResource("4_3oclb")
 metadata/_edit_use_anchors_ = true
 
-[node name="MusicSlider" type="HSlider" parent="Interactables" unique_id=214675202]
+[node name="Music|Slider" type="HSlider" parent="Interactables" unique_id=214675202]
 layout_mode = 0
 offset_left = 640.0
 offset_top = 440.0
@@ -210,7 +210,7 @@ value = 50.0
 script = ExtResource("4_3oclb")
 metadata/_edit_use_anchors_ = true
 
-[node name="BackButton" type="Button" parent="Interactables" unique_id=130588452]
+[node name="Back|Button" type="Button" parent="Interactables" unique_id=130588452]
 layout_mode = 0
 offset_left = 48.0
 offset_top = 24.0
@@ -226,21 +226,21 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_x12ra")
 text = "BACK"
 script = ExtResource("5_uw46w")
 
-[node name="FullscreenCheck" parent="Interactables" unique_id=13832071 instance=ExtResource("5_3oclb")]
+[node name="Fullscreen|Check" parent="Interactables" unique_id=13832071 instance=ExtResource("5_3oclb")]
 layout_mode = 1
 offset_left = 620.0
 offset_top = 532.0
 offset_right = 694.8
 offset_bottom = 602.76
 
-[node name="MouseParticlesCheck" parent="Interactables" unique_id=28301548 instance=ExtResource("5_3oclb")]
+[node name="MouseParticles|Check" parent="Interactables" unique_id=28301548 instance=ExtResource("5_3oclb")]
 layout_mode = 1
 offset_left = 616.0
 offset_top = 622.0
 offset_right = 690.8
 offset_bottom = 692.76
 
-[node name="ErrorPopupsCheck" parent="Interactables" unique_id=1725659779 instance=ExtResource("5_3oclb")]
+[node name="ErrorPopups|Check" parent="Interactables" unique_id=1725659779 instance=ExtResource("5_3oclb")]
 layout_mode = 1
 offset_left = 620.0
 offset_top = 712.0
@@ -269,8 +269,9 @@ material = SubResource("ShaderMaterial_el72l")
 offset_right = 200.00003
 offset_bottom = 200.00003
 mouse_filter = 2
-[connection signal="drag_ended" from="Interactables/MasterVolumeSlider" to="Interactables/MasterVolumeSlider" method="OnDragEnded"]
-[connection signal="drag_started" from="Interactables/MasterVolumeSlider" to="Interactables/MasterVolumeSlider" method="OnDragStarted"]
-[connection signal="value_changed" from="Interactables/MasterVolumeSlider" to="Interactables/MasterVolumeSlider" method="OnValueChanged"]
-[connection signal="value_changed" from="Interactables/SoundsSlider" to="Interactables/SoundsSlider" method="OnValueChanged"]
-[connection signal="value_changed" from="Interactables/MusicSlider" to="Interactables/MusicSlider" method="OnValueChanged"]
+
+[connection signal="drag_ended" from="Interactables/MasterVolume|Slider" to="Interactables/MasterVolume|Slider" method="OnDragEnded"]
+[connection signal="drag_started" from="Interactables/MasterVolume|Slider" to="Interactables/MasterVolume|Slider" method="OnDragStarted"]
+[connection signal="value_changed" from="Interactables/MasterVolume|Slider" to="Interactables/MasterVolume|Slider" method="OnValueChanged"]
+[connection signal="value_changed" from="Interactables/Sounds|Slider" to="Interactables/Sounds|Slider" method="OnValueChanged"]
+[connection signal="value_changed" from="Interactables/Music|Slider" to="Interactables/Music|Slider" method="OnValueChanged"]

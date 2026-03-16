@@ -209,7 +209,15 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[connection signal="mouse_entered" from="PlayButton" to="PlayButton" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="PlayButton" to="PlayButton" method="OnMouseExited"]
 [connection signal="pressed" from="PlayButton" to="ExitButton" method="_on_play_button_pressed"]
+[connection signal="mouse_entered" from="OptionsButton" to="OptionsButton" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="OptionsButton" to="OptionsButton" method="OnMouseExited"]
 [connection signal="pressed" from="OptionsButton" to="PlayButton" method="_on_options_button_pressed"]
+[connection signal="mouse_entered" from="CreditsButton" to="CreditsButton" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="CreditsButton" to="CreditsButton" method="OnMouseExited"]
 [connection signal="pressed" from="CreditsButton" to="CreditsButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="ExitButton" to="ExitButton" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="ExitButton" to="ExitButton" method="OnMouseExited"]
 [connection signal="pressed" from="ExitButton" to="ExitButton" method="_on_pressed"]

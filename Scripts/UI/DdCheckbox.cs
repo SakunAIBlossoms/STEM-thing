@@ -1,8 +1,13 @@
+using System;
 using Godot;
 
 [Icon("res://Images/CheckBox.svg")]
 public partial class DdCheckbox : Control
 {
+	// Add Toggle signal
+	[Signal]
+	public delegate void ToggledEventHandler(bool NewState);
+
 	// Add all default variables
 	[Export]
 	bool Activated = false;

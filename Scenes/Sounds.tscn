@@ -1,12 +1,28 @@
 [gd_scene format=3 uid="uid://bfehjodm85p2n"]
 
-[ext_resource type="AudioStream" uid="uid://bw1ls0lnwv080" path="res://Sounds/Sound Effects/ButtonPressedSoundEffect.mp3" id="1_cpbd6"]
+[ext_resource type="AudioStream" uid="uid://iqvihmxqsi4s" path="res://Sounds/Sound Effects/Click.wav" id="1_s6jvx"]
 [ext_resource type="AudioStream" uid="uid://lw0f8e11wq1o" path="res://Sounds/Sound Effects/game-fx-clix.wav" id="2_s6jvx"]
+[ext_resource type="AudioStream" uid="uid://dwwk2lag3khst" path="res://Sounds/Sound Effects/Hover.wav" id="3_bofxg"]
+[ext_resource type="AudioStream" uid="uid://c3bnat8qrq2kh" path="res://Sounds/Sound Effects/HoverStopped.wav" id="4_apyeh"]
 
 [node name="Sounds" type="Node" unique_id=113552010]
 
-[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="." unique_id=618547246]
-stream = ExtResource("1_cpbd6")
+[node name="ButtonPressed" type="AudioStreamPlayer" parent="." unique_id=618547246]
+stream = ExtResource("1_s6jvx")
+mix_target = 2
+bus = &"UISounds"
 
-[node name="SliderSound" type="AudioStreamPlayer" parent="." unique_id=648436625]
+[node name="Slider" type="AudioStreamPlayer" parent="." unique_id=648436625]
 stream = ExtResource("2_s6jvx")
+mix_target = 2
+bus = &"UISounds"
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="." unique_id=1282383598]
+stream = ExtResource("3_bofxg")
+mix_target = 2
+bus = &"UISounds"
+
+[node name="ButtonHoverStopped" type="AudioStreamPlayer" parent="." unique_id=1149954613]
+stream = ExtResource("4_apyeh")
+mix_target = 2
+bus = &"UISounds"
