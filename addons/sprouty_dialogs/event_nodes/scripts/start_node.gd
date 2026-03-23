@@ -49,6 +49,7 @@ func get_data() -> Dictionary:
 		"node_index": node_index,
 		"start_id": _start_id.to_upper(),
 		"to_node": get_output_connections(),
+		"to_dialog": to_dialog,
 		"offset": position_offset,
 		"size": size
 	}
@@ -61,6 +62,9 @@ func set_data(dict: Dictionary) -> void:
 	to_node = dict["to_node"]
 	position_offset = dict["offset"]
 	size = dict["size"]
+
+	if dict.has("to_dialog"):
+		to_dialog = dict["to_dialog"]
 
 	_start_id = dict["start_id"]
 	_id_input_text.text = dict["start_id"]

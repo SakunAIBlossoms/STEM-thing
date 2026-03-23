@@ -18,6 +18,10 @@ boot_splash/show_image=false
 boot_splash/stretch_mode=0
 boot_splash/use_filter=false
 
+[audio]
+
+buses/default_bus_layout="uid://dm6qgrtinnw6e"
+
 [autoload]
 
 MouseCursor="*uid://8k2ia4fqbmf7"

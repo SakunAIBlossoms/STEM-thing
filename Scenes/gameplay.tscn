@@ -571,6 +571,34 @@ one_shot = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RandomSoundPlayer" unique_id=1984039889]
 
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=347884008]
+offset_right = 800.0
+offset_bottom = 600.0
+
+[node name="ShipIntegrity" type="SubViewport" parent="SubViewportContainer" unique_id=516557392]
+size = Vector2i(800, 600)
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/ShipIntegrity" unique_id=249599375]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ProgressBar" type="ProgressBar" parent="SubViewportContainer/ShipIntegrity" unique_id=2009889509]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -390.0
+offset_top = -140.0
+offset_right = 390.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
 [connection signal="signal_event" from="GUI/DialogPlayer" to="." method="DialogPlayerSignal"]
 [connection signal="mouse_entered" from="GUI/Controls/Left" to="." method="LeftSideEntered"]

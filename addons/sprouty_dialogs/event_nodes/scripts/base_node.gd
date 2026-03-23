@@ -20,17 +20,22 @@ signal modified(modified: bool)
 
 ## Node color to display on the node titlebar.
 @export_color_no_alpha var node_color: Color
-
 ## Icon to display on the node titlebar.
 @export var node_icon: Texture2D
+## Node list position index
+@export var node_list_index: int = 0
 
 ## Name of the start node in the dialog tree where the node belongs.
 ## Used to find the start node in the graph editor on load.
 var start_node_name: String = ""
 ## Start node of the dialog tree where the node belongs.
 var start_node: SproutyDialogsBaseNode = null
+
 ## Array to store the output nodes connections.
 var to_node: Array = []
+## Start ID of the dialog tree where the next node belongs. 
+## If the next node belongs to another dialog, it will be used to find the node.
+var to_dialog: String = ""
 
 ## Node type name.
 var node_type: String = ""

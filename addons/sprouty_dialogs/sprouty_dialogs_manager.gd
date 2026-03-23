@@ -24,7 +24,7 @@ signal dialog_ended()
 ## Emitted when a dialog option is selected.
 signal option_selected(option_index: int, option_dialog: Dictionary)
 ## Emitted when a signal event is emitted.
-signal signal_event(argument: String)
+signal signal_event(signal_id: String, args: Array)
 
 ## The list of dialog players currently running.
 ## This is used to keep track of multiple dialog players running at the same time.
@@ -41,7 +41,7 @@ var Settings := SproutyDialogsSettingsManager
 func _ready():
 	# Make the manager available as a singleton
 	if not Engine.has_singleton("SproutyDialogs"):
-		Engine.register_singleton("SproutyDialogs", self)
+		Engine.register_singleton("SproutyDialogs", self )
 
 	# Set managers instances
 	Variables.name = "VariablesManager"

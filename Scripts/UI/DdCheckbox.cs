@@ -10,13 +10,13 @@ public partial class DdCheckbox : Control
 
 	// Add all default variables
 	[Export]
-	bool Activated = false;
+	public bool Activated = false;
 	[Export]
-	bool Disabled = false;
+	public bool Disabled = false;
 	[Export]
-	ImageTexture BackgroundTexture = null;
+	public ImageTexture BackgroundTexture = null;
 	[Export]
-	ImageTexture TickTexture = null;
+	public ImageTexture TickTexture = null;
 
 	private float ModulateFade = 0.6f;
 	private bool Hovering = false;

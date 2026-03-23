@@ -7,7 +7,7 @@ public partial class BackButton : Button
 
     public override void _Ready()
     {
-        ButtonPressedSound = GetNode("/root/Sounds/ButtonPressedSound") as AudioStreamPlayer;
+        ButtonPressedSound = GetNode("/root/Sounds/ButtonPressed") as AudioStreamPlayer;
         
     }
     public override void _Pressed()

@@ -26,7 +26,7 @@ signal dialogue_processed(
 ## Emitted when a options node was processed.
 signal options_processed(options: Array, next_nodes: Array)
 ## Emitted when a signal node was processed.
-signal signal_processed(signal_argument: String, next_node: String)
+signal signal_processed(signal_id: String, args: Array, next_node: String)
 
 ## Node processors reference dictionary.
 ## This dictionary maps the node type to its processing method.
@@ -38,7 +38,8 @@ var node_processors: Dictionary = {
 	"options_node": _process_options,
 	"set_variable_node": _process_set_variable,
 	"signal_node": _process_signal,
-	"wait_node": _process_wait
+	"wait_node": _process_wait,
+	"call_method_node": _process_call_method
 }
 ## # If true, will print debug messages to the console
 var print_debug: bool = true
@@ -77,6 +78,16 @@ func _process_dialogue(node_data: Dictionary) -> void:
 			portrait, dialog, node_data["to_node"][0])
 
 
+func _process_options(node_data: Dictionary) -> void:
+	if print_debug: print("[Sprouty Dialogs] Processing options node...")
+	options_processed.emit(node_data.options_keys.map(
+		func(key): # Return the translated and parsed options
+			return _sprouty_dialogs.Variables.parse_variables(
+				SproutyDialogsTranslationManager.get_translated_dialog(
+					key, get_parent().get_dialog_data()))
+	), node_data.to_node)
+
+
 func _process_condition(node_data: Dictionary) -> void:
 	if print_debug: print("[Sprouty Dialogs] Processing condition node...")
 	var comparison_result = _sprouty_dialogs.Variables.get_comparison_result(
@@ -88,16 +99,6 @@ func _process_condition(node_data: Dictionary) -> void:
 		continue_to_node.emit(node_data.to_node[0])
 	else: # If is false, continue to the second connection
 		continue_to_node.emit(node_data.to_node[1])
-
-
-func _process_options(node_data: Dictionary) -> void:
-	if print_debug: print("[Sprouty Dialogs] Processing options node...")
-	options_processed.emit(node_data.options_keys.map(
-		func(key): # Return the translated and parsed options
-			return _sprouty_dialogs.Variables.parse_variables(
-				SproutyDialogsTranslationManager.get_translated_dialog(
-					key, get_parent().get_dialog_data()))
-	), node_data.to_node)
 
 
 func _process_set_variable(node_data: Dictionary) -> void:
@@ -117,9 +118,38 @@ func _process_set_variable(node_data: Dictionary) -> void:
 	continue_to_node.emit(node_data.to_node[0])
 
 
+func _process_call_method(node_data: Dictionary) -> void:
+	if print_debug: print("[Sprouty Dialogs] Processing call method node...")
+	if node_data.autoload == "":
+		push_warning("[Sprouty Dialogs] Call Method Node #" + str(node_data.node_index)
+				+ " does not have an autoload assigned to call a method from it.")
+		continue_to_node.emit(node_data.to_node[0])
+		return
+	
+	var autoload = get_tree().root.get_node_or_null(node_data.autoload)
+	if autoload:
+		if autoload.has_method(node_data.method):
+			var args = SproutyDialogsVariableUtils.get_array_from_data(node_data.parameters)
+			autoload.callv(node_data.method, args)
+		else:
+			printerr("[Sprouty Dialogs] Method '" + node_data.method + "' not found in '" +
+					node_data.autoload + "' autoload. Check that the method exist.")
+	else:
+		printerr("[Sprouty Dialogs] Autoload '" + node_data.autoload + "' not found. "
+				+ "Check that your script is register as an autoload in Project > Project Settings > Globals.")
+	
+	continue_to_node.emit(node_data.to_node[0])
+
+
 func _process_signal(node_data: Dictionary) -> void:
 	if print_debug: print("[Sprouty Dialogs] Processing signal node...")
-	signal_processed.emit(node_data.signal_argument, node_data.to_node[0])
+
+	if node_data.has("signal_argument"): # Old signal node support
+		node_data["signal_id"] = node_data["signal_argument"]
+		node_data["extra_args"] = []
+	
+	var args = SproutyDialogsVariableUtils.get_array_from_data(node_data.extra_args)
+	signal_processed.emit(node_data.signal_id, args, node_data.to_node[0])
 
 
 func _process_wait(node_data: Dictionary) -> void:

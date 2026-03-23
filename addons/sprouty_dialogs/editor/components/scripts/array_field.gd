@@ -20,12 +20,23 @@ signal item_added(item: Dictionary)
 ## Emmited when an item is removed from the array
 signal item_removed(item: Dictionary)
 
+## Emitted when press the expand button in a text box field
+signal open_text_editor(text_box: TextEdit)
+## Emitted when a text box field gains focus and should update the text editor
+signal update_text_editor(text_box: TextEdit)
+
+## If true, you only can edit the previouly setted items
+@export var parameters_array: bool = false
+
 ## Collapse button to show/hide the array items
 @onready var _collapse_button: Button = $CollapseButton
 ## Button to add new items to the array
 @onready var _add_button: Button = $ItemsPanel/ItemsContainer/AddButton
 ## Items container
 @onready var _items_container: VBoxContainer = $ItemsPanel/ItemsContainer
+
+## Flag to remove the expandable text box from string fields
+var no_expandable_textbox: bool = false
 
 ## Array item field scene
 var _item_field := preload("res://addons/sprouty_dialogs/editor/components/array_field_item.tscn")
@@ -36,6 +47,9 @@ func _ready() -> void:
 	_add_button.pressed.connect(_on_add_button_pressed)
 	_add_button.icon = get_theme_icon("Add", "EditorIcons")
 	_on_collapse_button_toggled(false) # Start collapsed
+
+	if parameters_array: # Cannot add items
+		_add_button.hide()
 
 
 ## Return the current array of items data
@@ -50,7 +64,10 @@ func get_array() -> Array:
 	var items = []
 	for child in _items_container.get_children():
 		if child is EditorSproutyDialogsArrayFieldItem:
-			items.append(child.get_item_data())
+			var data = child.get_item_data()
+			if parameters_array:
+				data["name"] = child.get_meta("name")
+			items.append(data)
 	return items
 
 
@@ -78,6 +95,9 @@ func set_array(items: Array) -> void:
 	for i in range(0, items.size()):
 		var new_item := _new_array_item()
 		new_item.set_value(items[i]["value"], items[i]["type"], items[i]["metadata"])
+		if parameters_array:
+			new_item.set_as_parameter_field(items[i]["name"])
+			new_item.set_meta("name", items[i]["name"])
 
 
 ## Clear the array items
@@ -86,14 +106,24 @@ func clear_array() -> void:
 		if child is EditorSproutyDialogsArrayFieldItem:
 			_items_container.remove_child(child)
 			child.queue_free()
+	_collapse_button.text = "Array (size 0)"
+
+
+## Disable or enable the array field
+func disable_field(disabled: bool) -> void:
+	_on_collapse_button_toggled(false)
+	_collapse_button.disabled = disabled
 
 
 ## Create a new array item
 func _new_array_item() -> EditorSproutyDialogsArrayFieldItem:
 	var item := _item_field.instantiate()
 	var index := _items_container.get_child_count() - 1
+	item.no_expandable_textbox = no_expandable_textbox
 
 	item.ready.connect(func(): item.set_item_index(index))
+	item.open_text_editor.connect(open_text_editor.emit)
+	item.update_text_editor.connect(update_text_editor.emit)
 	item.item_removed.connect(_on_remove_button_pressed)
 	item.item_changed.connect(_on_item_changed)
 	item.modified.connect(modified.emit)

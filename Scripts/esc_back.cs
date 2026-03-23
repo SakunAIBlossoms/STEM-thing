@@ -1,4 +1,5 @@
 using Godot;
+using Godot.NativeInterop;
 using System;
 using System.Collections.Generic;
 
@@ -6,29 +7,37 @@ public partial class esc_back : Node2D
 {
     private Control Interactables;
 
-	static private Variant ShutUp;
+    public static bool IsOverlay = false;
 
-    Dictionary<string, Dictionary<string, Variant>> InteractableList;
+    Dictionary<string, Dictionary<string, Variant>> InteractableList = [];
 
     public override void _Ready()
     {
+        // We add every button to a dictionary that we use later
         Interactables = GetNode("Interactables") as Control;
-        InteractableList.Add("Buttons", new Dictionary<string, Variant> {});
-        InteractableList.Add("Sliders", new Dictionary<string, Variant> {});
-        InteractableList.Add("Checkboxes", new Dictionary<string, Variant> {});
+        InteractableList.Add("Sliders", []);
+        InteractableList.Add("Checkboxes", []);
 
-        foreach (var obj in Interactables.GetChildren()) {
+        foreach (var obj in Interactables.GetChildren())
+        {
             string name = obj.Name;
             string[] NameParts = name.Split("|");
-            if (NameParts[1] == "Button") {
-                InteractableList["Buttons"].Add(NameParts[0], obj);
-            }
-            else if (NameParts[1] == "Slider") {
+            if (NameParts[1] == "Slider")
+            {
                 InteractableList["Sliders"].Add(NameParts[0], obj);
+                GD.PrintRich("[color=gold]Successfully added slider " + NameParts[0] + " to the slider dictionary.");
             }
-            else if (NameParts[1] == "Checkbox") {
+            else if (NameParts[1] == "Check")
+            {
                 InteractableList["Checkboxes"].Add(NameParts[0], obj);
+                GD.PrintRich("[color=gold]Successfully added checkbox " + NameParts[0] + " to the checkbox dictionary.");
             }
+        }
+        if (IsOverlay)
+        {
+            GetNode<Panel>("Panel").Visible = false;
+            GetNode<ColorRect>("Water").Visible = false;
+            GetNode<BackBufferCopy>("PS1Overlay").Visible = false;
         }
     }
     public override void _Input(InputEvent @event)
@@ -37,7 +46,17 @@ public partial class esc_back : Node2D
             keyEvent.Pressed &&
             keyEvent.Keycode == Key.Escape)
         {
-            GetTree().ChangeSceneToFile("res://Scenes/MainMenu.tscn");
+            QuitOptions();
         }
+    }
+
+    private void QuitOptions()
+    {
+        // b is the checkbox in the dictionary
+        foreach (var b in InteractableList["Checkboxes"])
+        {
+            GD.Print(b.Key);
+        }
+        GetTree().ChangeSceneToFile("res://Scenes/MainMenu.tscn");
     }
 }

@@ -12,7 +12,7 @@ public partial class Slider : HSlider
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		SliderSound = GetNode("/root/Sounds/SliderSound") as AudioStreamPlayer;
+		SliderSound = GetNode("/root/Sounds/Slider") as AudioStreamPlayer;
 	}
 	public void OnValueChanged(double value)
 	{
