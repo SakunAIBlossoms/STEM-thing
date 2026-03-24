@@ -17,6 +17,8 @@
 [ext_resource type="AudioStream" uid="uid://bvteox00cbssy" path="res://Sounds/Ambience/Spirit Horror - QuickSounds.com.mp3" id="15_gb8q7"]
 [ext_resource type="AudioStream" uid="uid://d3im4fytssc5f" path="res://Sounds/Ambience/Stone Slide Heavy Grinding 2 - QuickSounds.com.mp3" id="16_1ff3a"]
 [ext_resource type="AudioStream" uid="uid://dv88rqnsos1t6" path="res://Sounds/Ambience/Water Tunnel - QuickSounds.com.mp3" id="17_kj63f"]
+[ext_resource type="Script" uid="uid://cs0a61fjdrp84" path="res://Scripts/Gameplay/ShipStats.cs" id="18_v2eey"]
+[ext_resource type="FontFile" uid="uid://c8o6pshvts5fk" path="res://Fonts/ModernDOS8x16.ttf" id="19_ifha0"]
 
 [sub_resource type="Animation" id="Animation_wbxth"]
 resource_name = "CheckMap"
@@ -294,6 +296,12 @@ shader_parameter/slow = 25.0
 shader_parameter/multiplier = 0.5
 shader_parameter/contrast = 2.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v2eey"]
+albedo_color = Color(0.21788684, 0.10991647, 0.010899377, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ifha0"]
+viewport_path = NodePath("ShipStats")
+
 [sub_resource type="Environment" id="Environment_m34ki"]
 background_energy_multiplier = 0.0
 ambient_light_energy = 0.0
@@ -400,6 +408,25 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gb8q7"]
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ff3a"]
+bg_color = Color(1, 1, 1, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kj63f"]
+bg_color = Color(0.53333336, 0, 0, 0.27450982)
+
 [node name="Gameplay" type="Node" unique_id=88878252]
 script = ExtResource("1_m34ki")
 
@@ -431,6 +458,16 @@ current = true
 
 [node name="Sub" parent="Environment" unique_id=1395666228 instance=ExtResource("2_m34ki")]
 
+[node name="CSGBox3D" type="CSGBox3D" parent="Environment/Sub" unique_id=400728975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7262434, 0.6858052, 0.4008203)
+size = Vector3(0.123535156, 0.7290039, 0.9033203)
+material = SubResource("StandardMaterial3D_v2eey")
+
+[node name="Sprite3D" type="Sprite3D" parent="Environment/Sub/CSGBox3D" unique_id=1907257592]
+transform = Transform3D(0.027799558, 0, -0.9996135, 0, 1, 0, 0.9996135, 0, 0.027799558, -0.0738312, 0, 0)
+pixel_size = 0.001
+texture = SubResource("ViewportTexture_ifha0")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1781664562]
 environment = SubResource("Environment_m34ki")
 
@@ -448,8 +485,8 @@ material = SubResource("ShaderMaterial_kwrm5")
 [node name="Sprite3D" type="Sprite3D" parent="Environment" unique_id=1414223689]
 texture = SubResource("CameraTexture_r8bcl")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment" unique_id=1438370111]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.0275335, 10.060143)
+[node name="Water" type="MeshInstance3D" parent="Environment" unique_id=1438370111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.734427, -0.8077841)
 mesh = SubResource("BoxMesh_1qnfl")
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="Environment" unique_id=2057033050]
@@ -571,14 +608,13 @@ one_shot = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RandomSoundPlayer" unique_id=1984039889]
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=347884008]
-offset_right = 800.0
-offset_bottom = 600.0
-
-[node name="ShipIntegrity" type="SubViewport" parent="SubViewportContainer" unique_id=516557392]
+[node name="ShipStats" type="SubViewport" parent="." unique_id=516557392]
+handle_input_locally = false
 size = Vector2i(800, 600)
+render_target_update_mode = 4
+script = ExtResource("18_v2eey")
 
-[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/ShipIntegrity" unique_id=249599375]
+[node name="BG" type="ColorRect" parent="ShipStats" unique_id=249599375]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -586,18 +622,71 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="ProgressBar" type="ProgressBar" parent="SubViewportContainer/ShipIntegrity" unique_id=2009889509]
-anchors_preset = 7
+[node name="Integrity" type="ProgressBar" parent="ShipStats" unique_id=2009889509]
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -390.0
-offset_top = -140.0
-offset_right = 390.0
-offset_bottom = -60.0
+offset_left = -322.5
+offset_top = 100.0
+offset_right = 322.5
+offset_bottom = 133.0
 grow_horizontal = 2
-grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_gb8q7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1ff3a")
+value = 50.0
+rounded = true
+show_percentage = false
+indeterminate = true
+editor_preview_indeterminate = false
+
+[node name="Title" type="RichTextLabel" parent="ShipStats" unique_id=1128516610]
+offset_left = 4.0
+offset_top = 10.0
+offset_right = 799.0
+offset_bottom = 94.0
+theme_override_fonts/normal_font = ExtResource("19_ifha0")
+theme_override_font_sizes/normal_font_size = 42
+text = "Ship Integrity"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scanning" type="RichTextLabel" parent="ShipStats" unique_id=520602899]
+modulate = Color(0.6789437, 0.6789437, 0.6789437, 1)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 165.0
+offset_right = 160.0
+offset_bottom = 207.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("19_ifha0")
+theme_override_font_sizes/normal_font_size = 31
+bbcode_enabled = true
+text = "[pulse freq=0.6 color=#ffffff80]Scanning ${object}"
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="ShipStats" unique_id=700635392]
+wait_time = 1.4
+
+[node name="DangerWarning" type="RichTextLabel" parent="ShipStats" unique_id=1567962509]
+modulate = Color(1, 1, 1, 0)
+offset_left = 68.0
+offset_top = 90.0
+offset_right = 733.0
+offset_bottom = 143.0
+theme_override_colors/default_color = Color(0.7738555, 2.23808e-06, 9.62615e-07, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.68235296)
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("19_ifha0")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_kj63f")
+text = "WARNING"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
 [connection signal="signal_event" from="GUI/DialogPlayer" to="." method="DialogPlayerSignal"]
@@ -606,3 +695,4 @@ grow_vertical = 0
 [connection signal="mouse_entered" from="GUI/Controls/Right" to="." method="RightSideEntered"]
 [connection signal="mouse_exited" from="GUI/Controls/Right" to="." method="RightSideExited"]
 [connection signal="timeout" from="GUI/Tutorials/TutorialShowLength" to="." method="OnTutorialShowLengthTimeout"]
+[connection signal="timeout" from="ShipStats/Timer" to="ShipStats" method="OnTimerTimeout"]
