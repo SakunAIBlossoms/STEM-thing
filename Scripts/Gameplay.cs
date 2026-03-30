@@ -70,10 +70,7 @@ public partial class Gameplay : Node
 			OS.Alert(e.Message + "\n\nEXITING...", "ERROR CAUGHT");
 			GetTree().Quit((int)Error.DoesNotExist);
 		}
-		if (tutorial != null)
-		{
-			tutorial.QueueFree();
-		}
+		tutorial?.QueueFree();
 	}
 	// Animation hook
 	private void AnimationCompleted(StringName name) {
@@ -84,6 +81,8 @@ public partial class Gameplay : Node
 				gui.GetNode<Control>("Controls").Visible = true;
 				gui.GetNode<Control>("Tutorials").Visible = true;
 				gui.GetNode<Control>("Tutorials").GetNode<Timer>("TutorialShowLength").Start();
+				GetNode<SubViewport>("ShipStats").GetNode<Timer>("Timer").Start();
+				GetNode<SubViewport>("LifeSupport").GetNode<Timer>("wait").Start();
 				Animations.Play("RESET");
 				break;
 			case "LookFrontFromLeft":
@@ -178,16 +177,6 @@ public partial class Gameplay : Node
 			CurrentCamDirection = CameraFocus.Front;
 			Animations.Play("LookUpFromMap");
 			GD.Print("Look Up");
-		}
-	}
-	private void DialogPlayerSignal(string signal)
-	{
-		GD.PrintRich("[color=gold]Gameplay.cs (138) [DialogPlayerSignal] [/color][b]|[/b][color=cyan] Dialog signal ("+signal+") has been triggered");
-		switch (signal)
-		{
-			case "Descend":
-				GD.PrintRich("[color=gold]Gameplay.cs (138) [DialogPlayerSignal] [/color][b]|[/b][color=cyan] Begin Descent");
-				break;
 		}
 	}
 }
