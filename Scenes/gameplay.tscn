@@ -8,8 +8,6 @@
 [ext_resource type="FontFile" uid="uid://buhf55me2dcaq" path="res://Fonts/ELEGANT TYPEWRITER Regular.ttf" id="4_kwrm5"]
 [ext_resource type="Shader" uid="uid://dlsyi36by4ge7" path="res://Shaders/Nebula.gdshader" id="5_r8bcl"]
 [ext_resource type="Shader" uid="uid://qnqsm7rui685" path="res://Shaders/3dWater.gdshader" id="5_urrcd"]
-[ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="7_urrcd"]
-[ext_resource type="Resource" uid="uid://xybv51cm1412" path="res://Dialogues/Gameplay.tres" id="9_puebw"]
 [ext_resource type="Script" uid="uid://bia0houoklu0a" path="res://Scenes/RandomSoundPlayer.cs" id="11_decfu"]
 [ext_resource type="AudioStream" uid="uid://c7jaebsadtbk5" path="res://Sounds/Ambience/Demon Voice - QuickSounds.com.mp3" id="12_p1ih8"]
 [ext_resource type="AudioStream" uid="uid://b4ckppkfk1ykp" path="res://Sounds/Ambience/Dragon's Roar - QuickSounds.com.mp3" id="13_v2eey"]
@@ -17,6 +15,10 @@
 [ext_resource type="AudioStream" uid="uid://bvteox00cbssy" path="res://Sounds/Ambience/Spirit Horror - QuickSounds.com.mp3" id="15_gb8q7"]
 [ext_resource type="AudioStream" uid="uid://d3im4fytssc5f" path="res://Sounds/Ambience/Stone Slide Heavy Grinding 2 - QuickSounds.com.mp3" id="16_1ff3a"]
 [ext_resource type="AudioStream" uid="uid://dv88rqnsos1t6" path="res://Sounds/Ambience/Water Tunnel - QuickSounds.com.mp3" id="17_kj63f"]
+[ext_resource type="Script" uid="uid://bllhc2eh4coru" path="res://Scripts/Gameplay/LifeSupport.cs" id="18_ifha0"]
+[ext_resource type="Script" uid="uid://cs0a61fjdrp84" path="res://Scripts/Gameplay/ShipStats.cs" id="18_v2eey"]
+[ext_resource type="Shader" uid="uid://c5nc5rwigrosm" path="res://Shaders/Tiling.gdshader" id="19_gb8q7"]
+[ext_resource type="FontFile" uid="uid://c8o6pshvts5fk" path="res://Fonts/ModernDOS8x16.ttf" id="19_ifha0"]
 
 [sub_resource type="Animation" id="Animation_wbxth"]
 resource_name = "CheckMap"
@@ -294,6 +296,15 @@ shader_parameter/slow = 25.0
 shader_parameter/multiplier = 0.5
 shader_parameter/contrast = 2.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v2eey"]
+albedo_color = Color(0.21788684, 0.10991647, 0.010899377, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ifha0"]
+viewport_path = NodePath("ShipStats")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_v2eey"]
+viewport_path = NodePath("LifeSupport")
+
 [sub_resource type="Environment" id="Environment_m34ki"]
 background_energy_multiplier = 0.0
 ambient_light_energy = 0.0
@@ -308,8 +319,6 @@ adjustment_saturation = 0.46
 render_priority = 0
 shader = ExtResource("5_r8bcl")
 shader_parameter/albedo = Color(0.1358982, 0.024955876, 3.008172e-09, 1)
-
-[sub_resource type="CameraTexture" id="CameraTexture_r8bcl"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_urrcd"]
 noise_type = 2
@@ -400,6 +409,42 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gb8q7"]
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ff3a"]
+bg_color = Color(1, 1, 1, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kj63f"]
+bg_color = Color(0.53333336, 0, 0, 0.27450982)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ff3a"]
+shader = ExtResource("19_gb8q7")
+shader_parameter/tiling = Vector2(1, 1)
+shader_parameter/offset = Vector2(0, 1)
+shader_parameter/moving = true
+
+[sub_resource type="Gradient" id="Gradient_kj63f"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.24477637, 0.2447764, 0.24477637, 1, 0, 0, 0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_icchp"]
+gradient = SubResource("Gradient_kj63f")
+width = 800
+height = 600
+fill_to = Vector2(0, 1)
+
 [node name="Gameplay" type="Node" unique_id=88878252]
 script = ExtResource("1_m34ki")
 
@@ -427,9 +472,30 @@ fov = 52.90985
 far = 20.0
 
 [node name="AudioListener3D" type="AudioListener3D" parent="Environment/Player" unique_id=905053647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2332878e-05, 0, -0.0026103854)
 current = true
 
 [node name="Sub" parent="Environment" unique_id=1395666228 instance=ExtResource("2_m34ki")]
+
+[node name="ShipIntegrity" type="CSGBox3D" parent="Environment/Sub" unique_id=400728975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7262434, 0.6858052, 0.4008203)
+size = Vector3(0.123535156, 0.7290039, 0.9033203)
+material = SubResource("StandardMaterial3D_v2eey")
+
+[node name="Screen" type="Sprite3D" parent="Environment/Sub/ShipIntegrity" unique_id=1907257592]
+transform = Transform3D(0.027799558, 0, -0.9996135, 0, 1, 0, 0.9996135, 0, 0.027799558, -0.0738312, 0, 0)
+pixel_size = 0.001
+texture = SubResource("ViewportTexture_ifha0")
+
+[node name="LifeSupport" type="CSGBox3D" parent="Environment/Sub" unique_id=878948344]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.7575004, 0.6858052, 0.37348688)
+size = Vector3(0.123535156, 0.7290039, 0.9033203)
+material = SubResource("StandardMaterial3D_v2eey")
+
+[node name="Screen" type="Sprite3D" parent="Environment/Sub/LifeSupport" unique_id=996340150]
+transform = Transform3D(0.027799558, 0, -0.9996135, 0, 1, 0, 0.9996135, 0, 0.027799558, -0.0738312, 0, 0)
+pixel_size = 0.001
+texture = SubResource("ViewportTexture_v2eey")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1781664562]
 environment = SubResource("Environment_m34ki")
@@ -444,11 +510,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10658246, 3.9685817, 0.292
 radius = 1.721809
 material = SubResource("ShaderMaterial_kwrm5")
 
-[node name="Sprite3D" type="Sprite3D" parent="Environment" unique_id=1414223689]
-texture = SubResource("CameraTexture_r8bcl")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment" unique_id=1438370111]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.0275335, 10.060143)
+[node name="Water" type="MeshInstance3D" parent="Environment" unique_id=1438370111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.734427, -0.8077841)
 mesh = SubResource("BoxMesh_1qnfl")
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="Environment" unique_id=2057033050]
@@ -500,17 +563,6 @@ bbcode_enabled = true
 text = "[shake]Check Map[/shake]"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="DialogPlayer" type="Node" parent="GUI" unique_id=1093347187]
-script = ExtResource("7_urrcd")
-_dialog_data_uid = 1663988304410331091
-_dialog_file_name = "Gameplay"
-_dialog_data = ExtResource("9_puebw")
-_start_id = " DESCENT"
-_play_on_ready = true
-_destroy_on_end = true
-_print_debug = true
-metadata/_custom_type_script = "uid://1mxdpoyob13n"
 
 [node name="Controls" type="Control" parent="GUI" unique_id=1850055799]
 visible = false
@@ -569,12 +621,190 @@ Sounds = Array[AudioStream]([ExtResource("12_p1ih8"), ExtResource("13_v2eey"), E
 one_shot = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RandomSoundPlayer" unique_id=1984039889]
-volume_db = -22.0
+volume_db = -20.0
+
+[node name="ShipStats" type="SubViewport" parent="." unique_id=516557392]
+handle_input_locally = false
+size = Vector2i(800, 600)
+render_target_update_mode = 4
+script = ExtResource("18_v2eey")
+
+[node name="BG" type="ColorRect" parent="ShipStats" unique_id=249599375]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Integrity" type="ProgressBar" parent="ShipStats" unique_id=2009889509]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -322.5
+offset_top = 100.0
+offset_right = 322.5
+offset_bottom = 133.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_gb8q7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1ff3a")
+value = 50.0
+rounded = true
+show_percentage = false
+indeterminate = true
+editor_preview_indeterminate = false
+
+[node name="Title" type="RichTextLabel" parent="ShipStats" unique_id=1128516610]
+offset_left = 4.0
+offset_top = 10.0
+offset_right = 799.0
+offset_bottom = 94.0
+theme_override_fonts/normal_font = ExtResource("19_ifha0")
+theme_override_font_sizes/normal_font_size = 42
+text = "Ship Integrity"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scanning" type="RichTextLabel" parent="ShipStats" unique_id=520602899]
+modulate = Color(0.6789437, 0.6789437, 0.6789437, 1)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -326.0
+offset_top = 165.0
+offset_right = 341.0
+offset_bottom = 207.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("19_ifha0")
+theme_override_font_sizes/normal_font_size = 31
+bbcode_enabled = true
+text = "[pulse freq=0.6 color=#ffffff80]Beginning scan..."
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="ShipStats" unique_id=700635392]
+wait_time = 1.4
+
+[node name="DangerWarning" type="RichTextLabel" parent="ShipStats" unique_id=1567962509]
+modulate = Color(1, 1, 1, 0)
+offset_left = 68.0
+offset_top = 90.0
+offset_right = 733.0
+offset_bottom = 143.0
+theme_override_colors/default_color = Color(0.7738555, 2.23808e-06, 9.62615e-07, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.68235296)
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("19_ifha0")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_kj63f")
+text = "WARNING"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LifeSupport" type="SubViewport" parent="." unique_id=1386996782]
+size = Vector2i(800, 600)
+script = ExtResource("18_ifha0")
+
+[node name="BG" type="ColorRect" parent="LifeSupport" unique_id=1925776691]
+offset_left = -18.0
+offset_top = -21.0
+offset_right = 811.0
+offset_bottom = 615.0
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="RichTextLabel" parent="LifeSupport" unique_id=17433205]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -418.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("19_ifha0")
+theme_override_font_sizes/normal_font_size = 38
+text = "Remaining Oxygen:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="RichTextLabel" parent="LifeSupport" unique_id=1077000139]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 223.0
+offset_bottom = -309.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("19_ifha0")
+theme_override_font_sizes/normal_font_size = 38
+text = "Estimated Time Remaining:"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="OxygenPercentage" type="RichTextLabel" parent="LifeSupport" unique_id=591389428]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 124.0
+offset_bottom = 199.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("19_ifha0")
+theme_override_font_sizes/normal_font_size = 40
+text = "100%"
+horizontal_alignment = 1
+
+[node name="OxygenTime" type="RichTextLabel" parent="LifeSupport" unique_id=1285838959]
+offset_top = 306.0
+offset_right = 800.0
+offset_bottom = 372.0
+theme_override_fonts/normal_font = ExtResource("19_ifha0")
+theme_override_font_sizes/normal_font_size = 48
+text = "99:99:99"
+horizontal_alignment = 1
+
+[node name="AmountLeft" type="ProgressBar" parent="LifeSupport" unique_id=660111828]
+offset_left = 63.0
+offset_top = 185.0
+offset_right = 730.0
+offset_bottom = 218.0
+theme_override_styles/background = SubResource("StyleBoxFlat_gb8q7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1ff3a")
+max_value = 7200.0
+step = 1.0
+value = 7200.0
+show_percentage = false
+
+[node name="Loading" type="TextureRect" parent="LifeSupport" unique_id=1961917337]
+material = SubResource("ShaderMaterial_1ff3a")
+offset_right = 787.0
+offset_bottom = 592.0
+texture = SubResource("GradientTexture2D_icchp")
+
+[node name="Title" type="RichTextLabel" parent="LifeSupport/Loading" unique_id=192057202]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("19_ifha0")
+theme_override_font_sizes/normal_font_size = 45
+text = "Initialising Life Support..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="wait" type="Timer" parent="LifeSupport" unique_id=155822101]
+wait_time = 9.799999999999999
+one_shot = true
+
+[node name="OxygenLeft" type="Timer" parent="LifeSupport" unique_id=844607183]
+wait_time = 7200.0
+one_shot = true
 
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
-[connection signal="signal_event" from="GUI/DialogPlayer" to="." method="DialogPlayerSignal"]
 [connection signal="mouse_entered" from="GUI/Controls/Left" to="." method="LeftSideEntered"]
 [connection signal="mouse_exited" from="GUI/Controls/Left" to="." method="LeftSideExited"]
 [connection signal="mouse_entered" from="GUI/Controls/Right" to="." method="RightSideEntered"]
 [connection signal="mouse_exited" from="GUI/Controls/Right" to="." method="RightSideExited"]
 [connection signal="timeout" from="GUI/Tutorials/TutorialShowLength" to="." method="OnTutorialShowLengthTimeout"]
+[connection signal="timeout" from="ShipStats/Timer" to="ShipStats" method="OnTimerTimeout"]
+[connection signal="timeout" from="LifeSupport/wait" to="LifeSupport" method="OnWaitTimeout"]

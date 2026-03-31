@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://wl8xuktm0hrq"]
+[gd_scene load_steps=4 format=3 uid="uid://wl8xuktm0hrq"]
 
 [ext_resource type="Script" uid="uid://dedmq04uacl5g" path="res://addons/sprouty_dialogs/nodes/defaults/default_dialog_box.gd" id="1_et7ao"]
 [ext_resource type="Texture2D" uid="uid://tkq4pamepmr5" path="res://addons/sprouty_dialogs/editor/icons/interactable/collapse-down.svg" id="2_7fxrt"]
 [ext_resource type="Script" uid="uid://cdtkvrnke623v" path="res://addons/sprouty_dialogs/nodes/dialog_option.gd" id="3_wdbrv"]
 
-[node name="DialogBox" type="Control" unique_id=1468660032 node_paths=PackedStringArray("dialog_display", "name_display", "continue_indicator", "options_container", "option_template")]
+[node name="DialogBox" type="Control" node_paths=PackedStringArray("dialog_display", "name_display", "continue_indicator", "options_container", "option_template")]
 custom_minimum_size = Vector2(600, 150)
 layout_mode = 3
 anchors_preset = 8
@@ -29,22 +29,21 @@ continue_indicator = NodePath("DialogPanel/MarginContainer/DialogContainer/Conti
 options_container = NodePath("OptionsContainer")
 option_template = NodePath("OptionsContainer/DialogOption")
 
-[node name="DialogPanel" type="Panel" parent="." unique_id=1018814727]
+[node name="DialogPanel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -520.0
-offset_top = -268.0
-offset_right = 228.0
-offset_bottom = 91.0
+offset_left = -300.0
+offset_top = -75.0
+offset_right = 300.0
+offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.3659706, 1.3659914)
 
-[node name="MarginContainer" type="MarginContainer" parent="DialogPanel" unique_id=1697903296]
+[node name="MarginContainer" type="MarginContainer" parent="DialogPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,22 +55,22 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="DialogContainer" type="VBoxContainer" parent="DialogPanel/MarginContainer" unique_id=845812506]
+[node name="DialogContainer" type="VBoxContainer" parent="DialogPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="NameDisplay" type="RichTextLabel" parent="DialogPanel/MarginContainer/DialogContainer" unique_id=906525962]
+[node name="NameDisplay" type="RichTextLabel" parent="DialogPanel/MarginContainer/DialogContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "Name"
 fit_content = true
 
-[node name="DialogDisplay" type="RichTextLabel" parent="DialogPanel/MarginContainer/DialogContainer" unique_id=75695962]
+[node name="DialogDisplay" type="RichTextLabel" parent="DialogPanel/MarginContainer/DialogContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 text = "Dialog text"
 
-[node name="ContinueIndicator" type="TextureRect" parent="DialogPanel/MarginContainer/DialogContainer" unique_id=1675798584]
+[node name="ContinueIndicator" type="TextureRect" parent="DialogPanel/MarginContainer/DialogContainer"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -80,7 +79,7 @@ texture = ExtResource("2_7fxrt")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="OptionsContainer" type="VBoxContainer" parent="." unique_id=925289470]
+[node name="OptionsContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -92,27 +91,27 @@ offset_bottom = -175.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DialogOption" type="Button" parent="OptionsContainer" unique_id=456386250]
+[node name="DialogOption" type="Button" parent="OptionsContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Option 1"
 script = ExtResource("3_wdbrv")
 metadata/_custom_type_script = "uid://cdtkvrnke623v"
 
-[node name="DialogOption2" type="Button" parent="OptionsContainer" unique_id=229974958]
+[node name="DialogOption2" type="Button" parent="OptionsContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Option 2"
 script = ExtResource("3_wdbrv")
 metadata/_custom_type_script = "uid://cdtkvrnke623v"
 
-[node name="DialogOption3" type="Button" parent="OptionsContainer" unique_id=1705053793]
+[node name="DialogOption3" type="Button" parent="OptionsContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Option 2"
 script = ExtResource("3_wdbrv")
 metadata/_custom_type_script = "uid://cdtkvrnke623v"
 
-[node name="Timer" type="Timer" parent="." unique_id=1055313224]
+[node name="Timer" type="Timer" parent="."]
 
 [connection signal="meta_clicked" from="DialogPanel/MarginContainer/DialogContainer/DialogDisplay" to="." method="_on_dialog_meta_clicked"]
