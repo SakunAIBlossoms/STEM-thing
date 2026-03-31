@@ -620,8 +620,9 @@ Sounds = Array[AudioStream]([ExtResource("12_p1ih8"), ExtResource("13_v2eey"), E
 [node name="Timer" type="Timer" parent="RandomSoundPlayer" unique_id=963552546]
 one_shot = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RandomSoundPlayer" unique_id=1984039889]
-volume_db = -20.0
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="RandomSoundPlayer" unique_id=2085943361]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 20, 20)
+max_distance = 80.0
 
 [node name="ShipStats" type="SubViewport" parent="." unique_id=516557392]
 handle_input_locally = false
