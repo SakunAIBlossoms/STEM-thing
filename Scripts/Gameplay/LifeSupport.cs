@@ -36,6 +36,6 @@ public partial class LifeSupport : SubViewport
 		bar.Value = OxygenLeft.TimeLeft;
 		oxygentimespan = TimeSpan.FromSeconds(OxygenLeft.TimeLeft);
 		timeremaining.Text = oxygentimespan.ToString(@"hh\:mm\:ss");
-		oxygenpercent.Text = (OxygenLeft.TimeLeft / oxygenlimit * 100).ToString() + "%";
+		oxygenpercent.Text = Mathf.Round(OxygenLeft.TimeLeft / oxygenlimit * 100).ToString() + "%";
 	}
 }

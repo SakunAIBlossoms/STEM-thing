@@ -8,6 +8,8 @@ public partial class SaveHandler : Node
 	/// </summary>
 	static Dictionary<SaveDataSections, Dictionary<string, Variant>> Data = new Dictionary<SaveDataSections, Dictionary<string, Variant>>();
 
+	
+
 	/// <summary>
 	/// Each section of save data as an enum
 	/// </summary>
