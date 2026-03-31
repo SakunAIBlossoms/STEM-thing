@@ -10,19 +10,15 @@
 [node name="ButtonPressed" type="AudioStreamPlayer" parent="." unique_id=618547246]
 stream = ExtResource("1_s6jvx")
 mix_target = 2
-bus = &"UISounds"
 
 [node name="Slider" type="AudioStreamPlayer" parent="." unique_id=648436625]
 stream = ExtResource("2_s6jvx")
 mix_target = 2
-bus = &"UISounds"
 
 [node name="ButtonHover" type="AudioStreamPlayer" parent="." unique_id=1282383598]
 stream = ExtResource("3_bofxg")
 mix_target = 2
-bus = &"UISounds"
 
 [node name="ButtonHoverStopped" type="AudioStreamPlayer" parent="." unique_id=1149954613]
 stream = ExtResource("4_apyeh")
 mix_target = 2
-bus = &"UISounds"

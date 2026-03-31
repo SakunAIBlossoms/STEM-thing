@@ -438,7 +438,6 @@ environment = SubResource("Environment_m34ki")
 transform = Transform3D(0.99999994, 0, 0, 0, 0.41402605, 0.910265, 0, -0.910265, 0.41402605, 0, 1.6102886, 0.06141627)
 light_energy = 4.0
 spot_range = 4.4959207
-spot_angle = 35.44497
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="Environment" unique_id=1652162588]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10658246, 3.9685817, 0.29258204)
@@ -570,6 +569,7 @@ Sounds = Array[AudioStream]([ExtResource("12_p1ih8"), ExtResource("13_v2eey"), E
 one_shot = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RandomSoundPlayer" unique_id=1984039889]
+volume_db = -22.0
 
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
 [connection signal="signal_event" from="GUI/DialogPlayer" to="." method="DialogPlayerSignal"]
