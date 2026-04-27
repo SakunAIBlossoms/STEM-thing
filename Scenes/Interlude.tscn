@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dav047247xlce"]
 
-[ext_resource type="Script" uid="uid://c5pg41faei8kd" path="res://Scripts/EnterGame.cs" id="1_76spq"]
+[ext_resource type="Script" uid="uid://c5pg41faei8kd" path="res://Scripts/UI/EnterGame.cs" id="1_76spq"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="2_324y2"]
 [ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="4_kom6h"]
 [ext_resource type="Resource" uid="uid://c5qthib7nqa43" path="res://Dialogues/Interlude.tres" id="5_tmao8"]

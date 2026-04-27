@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bo75meg33ykn7"
+path="res://.godot/imported/Spirit Groan.mp3-f739199ad0f44d9b0dcefa8fe61d2829.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Ambience/Spirit Groan.mp3"
+dest_files=["res://.godot/imported/Spirit Groan.mp3-f739199ad0f44d9b0dcefa8fe61d2829.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -6,15 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://qiorwxbtjv15" path="res://Scenes/Env/Sub.tscn" id="2_m34ki"]
 [ext_resource type="AudioStream" uid="uid://dage43iqaph4y" path="res://Sounds/Music/Tremors Of Doom - QuickSounds.com.mp3" id="2_puebw"]
 [ext_resource type="FontFile" uid="uid://buhf55me2dcaq" path="res://Fonts/ELEGANT TYPEWRITER Regular.ttf" id="4_kwrm5"]
+[ext_resource type="Script" uid="uid://cd3m7vq03dqio" path="res://Scripts/Gameplay/LightFlicker.cs" id="5_ifha0"]
 [ext_resource type="Shader" uid="uid://dlsyi36by4ge7" path="res://Shaders/Nebula.gdshader" id="5_r8bcl"]
 [ext_resource type="Shader" uid="uid://qnqsm7rui685" path="res://Shaders/3dWater.gdshader" id="5_urrcd"]
+[ext_resource type="AudioStream" uid="uid://dqjcllo3afcwe" path="res://Sounds/Ambience/Demon Whispers.mp3" id="10_v2eey"]
 [ext_resource type="Script" uid="uid://bia0houoklu0a" path="res://Scenes/RandomSoundPlayer.cs" id="11_decfu"]
-[ext_resource type="AudioStream" uid="uid://c7jaebsadtbk5" path="res://Sounds/Ambience/Demon Voice - QuickSounds.com.mp3" id="12_p1ih8"]
+[ext_resource type="AudioStream" uid="uid://bo75meg33ykn7" path="res://Sounds/Ambience/Spirit Groan.mp3" id="13_ifha0"]
 [ext_resource type="AudioStream" uid="uid://b4ckppkfk1ykp" path="res://Sounds/Ambience/Dragon's Roar - QuickSounds.com.mp3" id="13_v2eey"]
+[ext_resource type="AudioStream" uid="uid://cajmab15gl085" path="res://Sounds/Ambience/Stone Grinding.mp3" id="14_gb8q7"]
 [ext_resource type="AudioStream" uid="uid://dcmqscydh6jd3" path="res://Sounds/Ambience/Scary Alien Breathing 2 - QuickSounds.com.mp3" id="14_ifha0"]
-[ext_resource type="AudioStream" uid="uid://bvteox00cbssy" path="res://Sounds/Ambience/Spirit Horror - QuickSounds.com.mp3" id="15_gb8q7"]
-[ext_resource type="AudioStream" uid="uid://d3im4fytssc5f" path="res://Sounds/Ambience/Stone Slide Heavy Grinding 2 - QuickSounds.com.mp3" id="16_1ff3a"]
-[ext_resource type="AudioStream" uid="uid://dv88rqnsos1t6" path="res://Sounds/Ambience/Water Tunnel - QuickSounds.com.mp3" id="17_kj63f"]
+[ext_resource type="AudioStream" uid="uid://hb285s8rsji2" path="res://Sounds/Ambience/Water Tunnel.mp3" id="15_1ff3a"]
 [ext_resource type="Script" uid="uid://bllhc2eh4coru" path="res://Scripts/Gameplay/LifeSupport.cs" id="18_ifha0"]
 [ext_resource type="Script" uid="uid://cs0a61fjdrp84" path="res://Scripts/Gameplay/ShipStats.cs" id="18_v2eey"]
 [ext_resource type="Shader" uid="uid://c5nc5rwigrosm" path="res://Shaders/Tiling.gdshader" id="19_gb8q7"]
@@ -504,9 +505,18 @@ environment = SubResource("Environment_m34ki")
 transform = Transform3D(0.99999994, 0, 0, 0, 0.41402605, 0.910265, 0, -0.910265, 0.41402605, 0, 1.6102886, 0.06141627)
 light_energy = 4.0
 spot_range = 4.4959207
+script = ExtResource("5_ifha0")
+
+[node name="IntervalTimer" type="Timer" parent="Environment/SpotLight3D" unique_id=530721263]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="FlickerTimer" type="Timer" parent="Environment/SpotLight3D" unique_id=718261451]
+one_shot = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="Environment" unique_id=1652162588]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10658246, 3.9685817, 0.29258204)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10658246, 3.9685817, 1.1647594)
 radius = 1.721809
 material = SubResource("ShaderMaterial_kwrm5")
 
@@ -526,6 +536,7 @@ spot_attenuation = -1.59
 spot_angle = 27.445684
 
 [node name="PS1" type="ColorRect" parent="." unique_id=190581032]
+visible = false
 material = SubResource("ShaderMaterial_r8bcl")
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -615,7 +626,7 @@ one_shot = true
 
 [node name="RandomSoundPlayer" type="Node" parent="." unique_id=1744003763]
 script = ExtResource("11_decfu")
-Sounds = Array[AudioStream]([ExtResource("12_p1ih8"), ExtResource("13_v2eey"), ExtResource("14_ifha0"), ExtResource("15_gb8q7"), ExtResource("16_1ff3a"), ExtResource("17_kj63f")])
+Sounds = Array[AudioStream]([ExtResource("10_v2eey"), ExtResource("13_v2eey"), ExtResource("14_ifha0"), ExtResource("13_ifha0"), ExtResource("14_gb8q7"), ExtResource("15_1ff3a")])
 
 [node name="Timer" type="Timer" parent="RandomSoundPlayer" unique_id=963552546]
 one_shot = true

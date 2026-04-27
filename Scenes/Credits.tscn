@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c5xe5361h6klt"]
 
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="1_7xmno"]
-[ext_resource type="Script" uid="uid://cdwn7purhwdkk" path="res://Scripts/BackButton.cs" id="2_uy3b0"]
+[ext_resource type="Script" uid="uid://cdwn7purhwdkk" path="res://Scripts/UI/BackButton.cs" id="2_uy3b0"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="3_iynit"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f64u0"]

@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://c18pkififrbrn"]
 
-[ext_resource type="Script" uid="uid://dayal83n83xih" path="res://Scripts/esc_back.cs" id="1_1jju4"]
+[ext_resource type="Script" uid="uid://dayal83n83xih" path="res://Scripts/UI/esc_back.cs" id="1_1jju4"]
 [ext_resource type="FontFile" path="res://imported/times_new_yorker.ttf-f1e69a362cd9079f7efeeb7a29521684.fontdata" id="1_jrbyj"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="3_s3xhb"]
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="3_un4xt"]
 [ext_resource type="Script" uid="uid://d4lehbcv2r2no" path="res://Scenes/Slider.cs" id="4_3oclb"]
 [ext_resource type="PackedScene" uid="uid://ctu5ggd2nkupg" path="res://Scenes/UI/DDCheckbox.tscn" id="5_3oclb"]
-[ext_resource type="Script" uid="uid://cdwn7purhwdkk" path="res://Scripts/BackButton.cs" id="5_uw46w"]
+[ext_resource type="Script" uid="uid://cdwn7purhwdkk" path="res://Scripts/UI/BackButton.cs" id="5_uw46w"]
 [ext_resource type="Shader" uid="uid://bcs68mqkk2mtc" path="res://Shaders/PS1.gdshader" id="8_itlgr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_itlgr"]
