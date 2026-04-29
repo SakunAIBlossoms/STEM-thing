@@ -2,10 +2,10 @@
 
 [ext_resource type="FontFile" uid="uid://gwngol6ed865" path="res://Fonts/Danger Zone Warning.ttf" id="1_853f1"]
 [ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="2_8saeu"]
-[ext_resource type="Script" uid="uid://dkvc2ui17hx5i" path="res://Scripts/ExitButton.cs" id="3_8saeu"]
-[ext_resource type="Script" uid="uid://bu32ppcl84dic" path="res://Scripts/PlayButton.cs" id="3_ghw46"]
-[ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://Scripts/OptionsButton.cs" id="4_df05h"]
-[ext_resource type="Script" uid="uid://bphtahsowajd5" path="res://Scripts/CreditsButton.cs" id="4_koqhg"]
+[ext_resource type="Script" uid="uid://dkvc2ui17hx5i" path="res://Scripts/UI/ExitButton.cs" id="3_8saeu"]
+[ext_resource type="Script" uid="uid://bu32ppcl84dic" path="res://Scripts/UI/PlayButton.cs" id="3_ghw46"]
+[ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://Scripts/UI/OptionsButton.cs" id="4_df05h"]
+[ext_resource type="Script" uid="uid://bphtahsowajd5" path="res://Scripts/UI/CreditsButton.cs" id="4_koqhg"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="7_xim88"]
 [ext_resource type="Shader" uid="uid://bcs68mqkk2mtc" path="res://Shaders/PS1.gdshader" id="8_koqhg"]
 

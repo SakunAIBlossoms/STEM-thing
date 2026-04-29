@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://8k2ia4fqbmf7"]
 
-[ext_resource type="Script" uid="uid://b2xse25olr3r1" path="res://Scripts/MouseCursor.cs" id="1_v0jtq"]
+[ext_resource type="Script" uid="uid://b2xse25olr3r1" path="res://Scripts/UI/MouseCursor.cs" id="1_v0jtq"]
 [ext_resource type="Texture2D" uid="uid://h0o1u4bco7hi" path="res://Images/Mouse.png" id="2_e5qiv"]
+
 
 [sub_resource type="Gradient" id="Gradient_v0jtq"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)

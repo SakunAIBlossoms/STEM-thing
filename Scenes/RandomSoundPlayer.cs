@@ -9,15 +9,18 @@ public partial class RandomSoundPlayer : Node
     private Timer timer;
     private AudioStreamPlayer3D audio;
 
-    private float minDelay = 20f; // seconds
-    private float maxDelay = 60f;
-    private float minPos = -20f;
-    private float maxPos = 20f;
+    private int minDelay = 20; // seconds
+    private int maxDelay = 60;
+    private int minPos = -20;
+    private int maxPos = 20;
+    private float insideSubX = 1.7f; 
+    private float insideSubY = -1.7f; 
+    private float insideSubZ = 2.6f; 
 
     public override void _Ready()
     {
         GD.Randomize();
-        
+
         timer = GetNode<Timer>("Timer");
         audio = GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D");
 
@@ -42,14 +45,22 @@ public partial class RandomSoundPlayer : Node
 
     private void MoveRandomLocation()
     {
-        float randomPosValue = (float)GD.RandRange(minPos, maxPos);
-        //Godot.Vector3 randomPos = randomPosValue, randomPosValue, randomPosValue;
-        //audio.Position = randomPos;
+        int randomX = (int)GD.RandRange(minPos, maxPos);
+        int randomY = (int)GD.RandRange(minPos, maxPos);
+        int randomZ = (int)GD.RandRange(minPos, maxPos);
+        Godot.Vector3 randomPos = new Godot.Vector3(randomX, randomY, randomZ);
+        audio.Position = randomPos;
+        //if (audio.Position.X <= insideSub)
+        //{
+            MoveRandomLocation();
+        //}
+        GD.Print("Sound position is ", randomPos);
     }
     private void StartRandomTimer()
     {
-        float delay = (float)GD.RandRange(minDelay, maxDelay);
+        int delay = (int)GD.RandRange(minDelay, maxDelay);
         timer.WaitTime = delay;
         timer.Start();
+        GD.Print("Next sound in ", delay, " seconds");
     }
 }
