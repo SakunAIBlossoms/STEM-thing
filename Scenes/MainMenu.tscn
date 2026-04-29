@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://c3dkmt6f7s81o" path="res://Scripts/UI/OptionsButton.cs" id="4_df05h"]
 [ext_resource type="Script" uid="uid://bphtahsowajd5" path="res://Scripts/UI/CreditsButton.cs" id="4_koqhg"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="7_xim88"]
+[ext_resource type="Shader" uid="uid://bcs68mqkk2mtc" path="res://Shaders/PS1.gdshader" id="8_koqhg"]
 
 [sub_resource type="Gradient" id="Gradient_8um5k"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
@@ -71,6 +72,19 @@ shader_parameter/backGroundDirY = 0.00500000349738
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7467j"]
 content_margin_top = 25.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cmrfp"]
+shader = ExtResource("8_koqhg")
+shader_parameter/resolution_x = 1366
+shader_parameter/resolution_y = 768
+shader_parameter/color_bit_depth = 4
+shader_parameter/dither_strength = 0.005
+shader_parameter/jitter_amount = 0.003
+shader_parameter/jitter_speed = 0.8
+shader_parameter/jitter_frequency = 180.0
+shader_parameter/chromatic_aberration_strength = 0.006000000285
+shader_parameter/vignette_strength = 0.8
+shader_parameter/vignette_radius = 0.59200002812
 
 [node name="MainMenu" type="Node2D" unique_id=109053222]
 
@@ -208,6 +222,17 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="PS1Overlay" type="BackBufferCopy" parent="." unique_id=1306482958]
+position = Vector2(-4.7683716e-07, -9.536743e-07)
+scale = Vector2(9.599999, 5.4)
+rect = Rect2(0, 0, 1920, 1080)
+
+[node name="Shader" type="ColorRect" parent="PS1Overlay" unique_id=702138053]
+material = SubResource("ShaderMaterial_cmrfp")
+offset_right = 200.00003
+offset_bottom = 200.00003
+mouse_filter = 2
 
 [connection signal="mouse_entered" from="PlayButton" to="PlayButton" method="OnMouseEntered"]
 [connection signal="mouse_exited" from="PlayButton" to="PlayButton" method="OnMouseExited"]

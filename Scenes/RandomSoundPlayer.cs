@@ -48,7 +48,6 @@ public partial class RandomSoundPlayer : Node
 
         Godot.Vector3 randomPos = new Godot.Vector3(randomX, randomY, randomZ);
         audio.Position = randomPos;
-
         GD.Print("Sound position is ", randomPos);
 
     }

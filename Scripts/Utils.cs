@@ -33,6 +33,7 @@ public class Utils
         if (response == new ErrorHandler(Error.Ok, DefaultComment)) return true;
         else return false;
     }
+
 }
 /// <summary>
 /// Creates an error to store data in, such as an error code and comment
@@ -51,6 +52,6 @@ public class ErrorHandler
     {
         ErrorCode = code;
         Comment = comment;
-        if (log && code != Error.Ok && comment != Utils.DefaultComment) GD.PrintRich("[color=gold]{Hazel Error Handler}[color=white] - [color=orange]" + Comment);
+        if (log && code != Error.Ok && comment != Utils.DefaultComment) GD.PrintRich("[color=gold]{Hazel Error Handler}[color=white] - [color=orange] " + Comment);
     }
 }

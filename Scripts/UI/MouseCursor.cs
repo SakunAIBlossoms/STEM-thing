@@ -7,7 +7,7 @@ public partial class MouseCursor : CanvasLayer
 	// Cursor sprite itself
 	Sprite2D Cursor;
 	// The particles that show up when moving your mouse
-	GpuParticles2D Particles;
+	static GpuParticles2D Particles;
 	Vector2 FinalPos = new Vector2(0,0);
 	// Make it so the lerp speed can be changed at will
 	int LerpSpeed = 12;

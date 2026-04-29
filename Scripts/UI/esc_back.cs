@@ -50,6 +50,16 @@ public partial class esc_back : Node2D
         }
     }
 
+    private void FullscreenStateChanged(bool state)
+    {
+        var DisplayResolution = DisplayServer.ScreenGetSize(DisplayServer.GetPrimaryScreen());
+        GetWindow().Mode = state ? Window.ModeEnum.ExclusiveFullscreen : Window.ModeEnum.Windowed;
+        if (!state)
+        {
+            GetWindow().Size = new Vector2I(DisplayResolution.X / 2, DisplayResolution.Y / 2);
+        }
+    }
+
     private void QuitOptions()
     {
         // b is the checkbox in the dictionary
