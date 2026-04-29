@@ -42,9 +42,9 @@ public partial class RandomSoundPlayer : Node
 
     private void MoveRandomLocation()
     {
-        float randomPosValue = (float)GD.RandRange(minPos, maxPos)
-        Godot.Vector3 randomPos = randomPosValue, randomPosValue, randomPosValue;
-        audio.Position = randomPos;
+        float randomPosValue = (float)GD.RandRange(minPos, maxPos);
+        //Godot.Vector3 randomPos = randomPosValue, randomPosValue, randomPosValue;
+        //audio.Position = randomPos;
     }
     private void StartRandomTimer()
     {

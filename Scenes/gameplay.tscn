@@ -526,6 +526,7 @@ spot_attenuation = -1.59
 spot_angle = 27.445684
 
 [node name="PS1" type="ColorRect" parent="." unique_id=190581032]
+visible = false
 material = SubResource("ShaderMaterial_r8bcl")
 offset_right = 1920.0
 offset_bottom = 1080.0

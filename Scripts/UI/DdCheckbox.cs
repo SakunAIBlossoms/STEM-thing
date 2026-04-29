@@ -10,6 +10,7 @@ public partial class DdCheckbox : Control
 
 	// Add all default variables
 	[Export]
+	/// Whether or not it is ticked
 	public bool Activated = false;
 	[Export]
 	public bool Disabled = false;
