@@ -1,22 +1,23 @@
 using Godot;
 using Godot.NativeInterop;
+using ImGuiNET;
 using System;
 using System.Collections.Generic;
 
 public partial class esc_back : Node2D
 {
     private Control Interactables;
+    bool Fullscreen = false;
 
-    public static bool IsOverlay = false;
+    public static bool IsOverlay = true;
 
-    Dictionary<string, Dictionary<string, Variant>> InteractableList = [];
-
+    Dictionary<string, DdCheckbox> InteractableCheckboxes = [];
+    Dictionary<string, Slider> InteractableSliders = [];
     public override void _Ready()
     {
+        Fullscreen = GetWindow().Mode == Window.ModeEnum.ExclusiveFullscreen ? true : false;
         // We add every button to a dictionary that we use later
         Interactables = GetNode("Interactables") as Control;
-        InteractableList.Add("Sliders", []);
-        InteractableList.Add("Checkboxes", []);
 
         foreach (var obj in Interactables.GetChildren())
         {
@@ -24,12 +25,12 @@ public partial class esc_back : Node2D
             string[] NameParts = name.Split("|");
             if (NameParts[1] == "Slider")
             {
-                InteractableList["Sliders"].Add(NameParts[0], obj);
+                InteractableSliders.Add(NameParts[0], obj as Slider);
                 GD.PrintRich("[color=gold]Successfully added slider " + NameParts[0] + " to the slider dictionary.");
             }
             else if (NameParts[1] == "Check")
             {
-                InteractableList["Checkboxes"].Add(NameParts[0], obj);
+                InteractableCheckboxes.Add(NameParts[0], obj as DdCheckbox);
                 GD.PrintRich("[color=gold]Successfully added checkbox " + NameParts[0] + " to the checkbox dictionary.");
             }
         }
@@ -50,23 +51,29 @@ public partial class esc_back : Node2D
         }
     }
 
-    private void FullscreenStateChanged(bool state)
+    public void FullscreenToggled(bool Toggle)
+    {
+        Fullscreen = !Fullscreen;
+        var DisplayResolution = DisplayServer.ScreenGetSize(DisplayServer.GetPrimaryScreen());
+        GetWindow().Size = new Vector2I(DisplayResolution.X / 2, DisplayResolution.Y / 2);
+        GetWindow().MoveToCenter();
+        GetWindow().Mode = Fullscreen ? Window.ModeEnum.Fullscreen : Window.ModeEnum.Windowed;
+        InteractableSliders.TryGetValue("UIScale", out var slider);
+        slider.Editable = !Fullscreen;
+    }
+
+    public void UIScaleValueChanged(float Value)
     {
         var DisplayResolution = DisplayServer.ScreenGetSize(DisplayServer.GetPrimaryScreen());
-        GetWindow().Mode = state ? Window.ModeEnum.ExclusiveFullscreen : Window.ModeEnum.Windowed;
-        if (!state)
+        if (!Fullscreen)
         {
-            GetWindow().Size = new Vector2I(DisplayResolution.X / 2, DisplayResolution.Y / 2);
+            GetWindow().Size = new Vector2I((int)(DisplayResolution.X * Value), (int)(DisplayResolution.Y * Value));
+            GetWindow().MoveToCenter();
         }
     }
 
     private void QuitOptions()
     {
-        // b is the checkbox in the dictionary
-        foreach (var b in InteractableList["Checkboxes"])
-        {
-            GD.Print(b.Key);
-        }
         GetTree().ChangeSceneToFile("res://Scenes/MainMenu.tscn");
     }
 }

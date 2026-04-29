@@ -64,6 +64,7 @@ public partial class DdCheckbox : Control
 				Sound.Play();
 			}
 			Tick.Visible = Activated;
+			EmitSignal(SignalName.Toggled, Activated);
 		}
 	}
 	private void GuiInputCallback(InputEvent @event)
