@@ -13,9 +13,6 @@ public partial class RandomSoundPlayer : Node
     private int maxDelay = 60;
     private int minPos = -20;
     private int maxPos = 20;
-    private float insideSubX = 1.7f; 
-    private float insideSubY = -1.7f; 
-    private float insideSubZ = 2.6f; 
 
     public override void _Ready()
     {
@@ -48,13 +45,11 @@ public partial class RandomSoundPlayer : Node
         int randomX = (int)GD.RandRange(minPos, maxPos);
         int randomY = (int)GD.RandRange(minPos, maxPos);
         int randomZ = (int)GD.RandRange(minPos, maxPos);
+
         Godot.Vector3 randomPos = new Godot.Vector3(randomX, randomY, randomZ);
         audio.Position = randomPos;
-        //if (audio.Position.X <= insideSub)
-        //{
-            MoveRandomLocation();
-        //}
         GD.Print("Sound position is ", randomPos);
+
     }
     private void StartRandomTimer()
     {
