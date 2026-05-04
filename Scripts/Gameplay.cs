@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public partial class Gameplay : Node
 {
+	Vector2I EnvironmentSize = new Vector2I(25, 25);
 	// Setup basic variables, give them a value in _Ready()
 	Node2D gui;
 	Node3D Env;
@@ -11,6 +12,11 @@ public partial class Gameplay : Node
 	AnimationPlayer Animations;
 	AudioStreamPlayer MenuMusic;
 	AudioStreamPlayer GameMusic;
+
+	int ObjectCountToSpawn = 8;
+	double MovementTime = 2.2;
+
+	Dictionary<string, Dictionary<string, Variant>>[] ScannableObjects = [];
 
 	// Custom variables WE make twin
 	// Make some camera stuff, we need to track the direction and i feel like an enum is the best way to do this
