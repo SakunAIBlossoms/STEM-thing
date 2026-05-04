@@ -6,6 +6,9 @@ public partial class MouseCursor : CanvasLayer
 	// Set variables
 	// Cursor sprite itself
 	Sprite2D Cursor;
+
+	public static bool ParticlesEnabled = true;
+
 	// The particles that show up when moving your mouse
 	static GpuParticles2D Particles;
 	Vector2 FinalPos = new Vector2(0,0);
@@ -47,7 +50,7 @@ public partial class MouseCursor : CanvasLayer
 		if (Pressed) Cursor.Scale = new Vector2((float) Mathf.Lerp(Cursor.Scale.X, PressedScale, LerpSpeed * delta), (float) Mathf.Lerp(Cursor.Scale.Y, PressedScale, LerpSpeed * delta));
 		else if (!Pressed) Cursor.Scale = new Vector2((float) Mathf.Lerp(Cursor.Scale.X, 0.5, LerpSpeed * delta), (float) Mathf.Lerp(Cursor.Scale.Y, 0.5, LerpSpeed * delta));
 		
-		if (Cursor.Position != FinalPos)
+		if (Cursor.Position != FinalPos && ParticlesEnabled)
 		{
 			if (!Particles.Emitting)
 			{
