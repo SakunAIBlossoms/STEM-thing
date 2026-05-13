@@ -29,6 +29,7 @@ stretch_mode = 5
 
 [node name="Sound" type="AudioStreamPlayer" parent="." unique_id=1413759820]
 stream = ExtResource("3_51lla")
+volume_db = -19.795
 bus = &"Sounds"
 
 [node name="Overlay" type="TextureRect" parent="." unique_id=365778047]

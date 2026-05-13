@@ -241,6 +241,7 @@ min_value = 0.3
 max_value = 0.9
 step = 0.05
 value = 0.5
+editable = false
 tick_count = 100
 ticks_position = 3
 script = ExtResource("4_3oclb")
@@ -293,7 +294,6 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="PS1Overlay" type="BackBufferCopy" parent="." unique_id=326960093]
-visible = false
 position = Vector2(-4.7683716e-07, -9.536743e-07)
 scale = Vector2(9.599999, 5.4)
 rect = Rect2(0, 0, 1920, 1080)

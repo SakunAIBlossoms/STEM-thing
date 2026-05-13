@@ -11,11 +11,12 @@ public partial class LightFlicker : SpotLight3D
 	private float maxFlicker = 0.4f;
 	private float minEnergy = 0f;
 	private float maxEnergy = 2f;
+	private float defaultEnergy = 4f;
 	public override void _Ready()
 	{
 		IntervalTimer = GetNode<Timer>("IntervalTimer");
 		FlickerTimer = GetNode<Timer>("FlickerTimer");
-		
+
 		IntervalTimer.Timeout += OnIntervalTimerTimeout;
 		FlickerTimer.Timeout += OnFlickerTimerTimeout;
 	}
@@ -32,7 +33,7 @@ public partial class LightFlicker : SpotLight3D
 
 	private void OnFlickerTimerTimeout()
 	{
-		LightEnergy = 4;
+		LightEnergy = defaultEnergy; 
 		float Interval = (float)GD.RandRange(minInterval, maxInterval);
 		IntervalTimer.WaitTime = Interval;
 		IntervalTimer.Start();
