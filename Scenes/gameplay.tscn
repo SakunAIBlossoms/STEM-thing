@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://cd3m7vq03dqio" path="res://Scripts/Gameplay/LightFlicker.cs" id="5_ifha0"]
 [ext_resource type="Shader" uid="uid://dlsyi36by4ge7" path="res://Shaders/Nebula.gdshader" id="5_r8bcl"]
 [ext_resource type="Shader" uid="uid://qnqsm7rui685" path="res://Shaders/3dWater.gdshader" id="5_urrcd"]
+[ext_resource type="AudioStream" uid="uid://bilgv26uupb4k" path="res://Sounds/Sound Effects/RadarPing.wav" id="8_kj63f"]
+[ext_resource type="Script" uid="uid://cnyxu4dtnqc8a" path="res://Scripts/PingSfx.cs" id="9_icchp"]
 [ext_resource type="AudioStream" uid="uid://dqjcllo3afcwe" path="res://Sounds/Ambience/Demon Whispers.mp3" id="10_v2eey"]
 [ext_resource type="Script" uid="uid://bia0houoklu0a" path="res://Scenes/RandomSoundPlayer.cs" id="11_decfu"]
 [ext_resource type="AudioStream" uid="uid://bo75meg33ykn7" path="res://Sounds/Ambience/Spirit Groan.mp3" id="13_ifha0"]
@@ -20,6 +22,7 @@
 [ext_resource type="Script" uid="uid://cs0a61fjdrp84" path="res://Scripts/Gameplay/ShipStats.cs" id="18_v2eey"]
 [ext_resource type="Shader" uid="uid://c5nc5rwigrosm" path="res://Shaders/Tiling.gdshader" id="19_gb8q7"]
 [ext_resource type="FontFile" uid="uid://c8o6pshvts5fk" path="res://Fonts/ModernDOS8x16.ttf" id="19_ifha0"]
+[ext_resource type="Texture2D" uid="uid://s0en44jtvvab" path="res://Images/TileBG.png" id="23_8ipd1"]
 
 [sub_resource type="Animation" id="Animation_wbxth"]
 resource_name = "CheckMap"
@@ -535,6 +538,14 @@ spot_range = 4.5885253
 spot_attenuation = -1.59
 spot_angle = 27.445684
 
+[node name="PingSFX" type="AudioStreamPlayer3D" parent="Environment" unique_id=1162743716]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2847336, -1.1062121)
+stream = ExtResource("8_kj63f")
+script = ExtResource("9_icchp")
+
+[node name="PingSoundLoop" type="Timer" parent="Environment/PingSFX" unique_id=2047394649]
+wait_time = 5.0
+
 [node name="PS1" type="ColorRect" parent="." unique_id=190581032]
 visible = false
 material = SubResource("ShaderMaterial_r8bcl")
@@ -621,8 +632,6 @@ vertical_alignment = 1
 [node name="TutorialShowLength" type="Timer" parent="GUI/Tutorials" unique_id=1454440405]
 wait_time = 5.0
 one_shot = true
-
-[node name="Coord" type="SubViewport" parent="." unique_id=1526367732]
 
 [node name="RandomSoundPlayer" type="Node" parent="." unique_id=1744003763]
 script = ExtResource("11_decfu")
@@ -812,6 +821,25 @@ one_shot = true
 wait_time = 7200.0
 one_shot = true
 
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1378141673]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Coord" type="SubViewport" parent="SubViewportContainer" unique_id=1526367732]
+size = Vector2i(1920, 1080)
+
+[node name="BG" type="TextureRect" parent="SubViewportContainer/Coord" unique_id=1806386254]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("23_8ipd1")
+stretch_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/Coord" unique_id=1243387971]
+
+[connection signal="timeout" from="Environment/PingSFX/PingSoundLoop" to="Environment/PingSFX" method="Ping"]
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
 [connection signal="mouse_entered" from="GUI/Controls/Left" to="." method="LeftSideEntered"]
 [connection signal="mouse_exited" from="GUI/Controls/Left" to="." method="LeftSideExited"]

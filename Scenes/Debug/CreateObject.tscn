@@ -1,0 +1,184 @@
+[gd_scene format=3 uid="uid://bebrrymkrf6km"]
+
+[ext_resource type="Texture2D" uid="uid://c31da10fm151r" path="res://icon.png" id="1_inqh2"]
+
+[sub_resource type="GDScript" id="GDScript_ikbfr"]
+resource_name = "Handler"
+script/source = "extends Control
+
+var defimg = \"res://icon.png\"
+var imglocation := \"res://icon.png\"
+
+func _on_open_pressed() -> void:
+	$OpenDialog.popup_centered()
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+
+func _on_open_dialog_file_selected(path: String) -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	var f = FileAccess.open(path, FileAccess.READ)
+	var js = JSON.parse_string(Marshalls.base64_to_utf8(f.get_as_text()))
+	
+	%Name.text = Marshalls.base64_to_utf8(js.get(\"n\"))
+	%Description.text = Marshalls.base64_to_utf8(js.get(\"d\"))
+	imglocation = Marshalls.base64_to_utf8(js.get(\"i\"))
+	%Image.icon = load(imglocation)
+	%Source.text = Marshalls.base64_to_utf8(js.get(\"s\"))
+	
+	print(\"Success open\")
+
+func _on_export_file_selected(path: String) -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	var f = FileAccess.open(path, FileAccess.WRITE)
+	var dict = {
+		n = Marshalls.utf8_to_base64(%Name.text),
+		d = Marshalls.utf8_to_base64(%Description.text),
+		i = Marshalls.utf8_to_base64(imglocation),
+		s = Marshalls.utf8_to_base64(%Source.text)
+	}
+	print(dict)
+	var js = JSON.stringify(dict)
+	print(js)
+	f.store_string(Marshalls.utf8_to_base64(js))
+
+func _on_export_pressed() -> void:
+	%ExportDialog.popup_centered()
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+
+func _on_reset_pressed() -> void:
+	%Name.text = \"\"
+	%Description.text = \"\"
+	%Image.icon = load(defimg)
+	%Source.text = \"\"
+	imglocation = defimg
+
+func _on_image_pressed() -> void:
+	%OpenImageDialog.popup_centered()
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+
+func _on_open_image_dialog_file_selected(path: String) -> void:
+	%Image.icon = load(path)
+	imglocation = path
+	print(\"New icon: \"+path)
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+"
+
+[node name="CreateObject" type="Control" unique_id=76562198]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_ikbfr")
+
+[node name="Stuffs" type="VBoxContainer" parent="." unique_id=129836922]
+custom_minimum_size = Vector2(560, 225)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -280.0
+offset_top = 65.0
+offset_right = 280.0
+offset_bottom = 290.0
+grow_horizontal = 2
+
+[node name="Name" type="LineEdit" parent="Stuffs" unique_id=257532996]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Name of the Object"
+
+[node name="Description" type="TextEdit" parent="Stuffs" unique_id=817794242]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+placeholder_text = "Description for Object goes here"
+scroll_smooth = true
+caret_blink = true
+
+[node name="Image" type="Button" parent="Stuffs" unique_id=792885113]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+text = "Attach Image"
+icon = ExtResource("1_inqh2")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
+
+[node name="Source" type="LineEdit" parent="Stuffs" unique_id=405578949]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Source link address for the Object"
+
+[node name="Buttons" type="HBoxContainer" parent="." unique_id=217576669]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -88.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="Open" type="Button" parent="Buttons" unique_id=281880586]
+custom_minimum_size = Vector2(265, 0)
+layout_mode = 2
+tooltip_text = "Opens an existing object and sets the boxes above to the values."
+theme_override_font_sizes/font_size = 30
+text = "Open File"
+
+[node name="Export" type="Button" parent="Buttons" unique_id=645203371]
+custom_minimum_size = Vector2(265, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Export File"
+
+[node name="Reset" type="Button" parent="Buttons" unique_id=884174128]
+custom_minimum_size = Vector2(265, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Reset Data"
+
+[node name="Update" type="Button" parent="Buttons" unique_id=1252176104]
+custom_minimum_size = Vector2(265, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Update Preview"
+
+[node name="OpenDialog" type="FileDialog" parent="." unique_id=2112272303]
+unique_name_in_owner = true
+oversampling_override = 1.0
+mode = 3
+title = "Open a File"
+size = Vector2i(1920, 1080)
+borderless = true
+force_native = true
+file_mode = 0
+root_subfolder = "res://Objects/"
+filters = PackedStringArray("*.ddobj; Object Data Files")
+
+[node name="OpenImageDialog" type="FileDialog" parent="." unique_id=578164574]
+unique_name_in_owner = true
+oversampling_override = 1.0
+mode = 3
+title = "Open a File"
+size = Vector2i(1920, 1080)
+borderless = true
+force_native = true
+file_mode = 0
+root_subfolder = "res://Images/"
+
+[node name="ExportDialog" type="FileDialog" parent="." unique_id=1775249451]
+unique_name_in_owner = true
+root_subfolder = "res://Objects/"
+filters = PackedStringArray("*.ddobj; Object Data Files")
+
+[connection signal="pressed" from="Stuffs/Image" to="." method="_on_image_pressed"]
+[connection signal="pressed" from="Buttons/Open" to="." method="_on_open_pressed"]
+[connection signal="pressed" from="Buttons/Export" to="." method="_on_export_pressed"]
+[connection signal="pressed" from="Buttons/Reset" to="." method="_on_reset_pressed"]
+[connection signal="file_selected" from="OpenDialog" to="." method="_on_open_dialog_file_selected"]
+[connection signal="file_selected" from="OpenImageDialog" to="." method="_on_open_image_dialog_file_selected"]
+[connection signal="file_selected" from="ExportDialog" to="." method="_on_export_file_selected"]

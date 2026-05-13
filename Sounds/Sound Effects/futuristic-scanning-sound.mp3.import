@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c8ja7wwirtald"
+path="res://.godot/imported/futuristic-scanning-sound.mp3-73071b96e66f9e61ef4794bc4073ff5c.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Sound Effects/futuristic-scanning-sound.mp3"
+dest_files=["res://.godot/imported/futuristic-scanning-sound.mp3-73071b96e66f9e61ef4794bc4073ff5c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
