@@ -5,6 +5,7 @@ editor/
 
 # Godot-specific ignores
 .import/
+imported/
 export.cfg
 export_credentials.cfg
 
