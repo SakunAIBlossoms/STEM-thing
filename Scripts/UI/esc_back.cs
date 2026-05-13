@@ -17,7 +17,7 @@ public partial class esc_back : Node2D
     Dictionary<string, Slider> InteractableSliders = [];
     public override void _Ready()
     {
-        Fullscreen = GetWindow().Mode == Window.ModeEnum.Fullscreen ? true : false;
+        Fullscreen = GetWindow().Mode == Window.ModeEnum.ExclusiveFullscreen ? true : false;
         // We add every button to a dictionary that we use later
         Interactables = GetNode("Interactables") as Control;
 
@@ -63,7 +63,7 @@ public partial class esc_back : Node2D
            GetWindow().Size = new Vector2I((int)(DisplayResolution.X * slider.Value), (int)(DisplayResolution.Y * slider.Value));
            GetWindow().MoveToCenter(); 
         }
-        GetWindow().Mode = Fullscreen ? Window.ModeEnum.Windowed : Window.ModeEnum.Fullscreen;
+        GetWindow().Mode = Fullscreen ? Window.ModeEnum.Windowed : Window.ModeEnum.ExclusiveFullscreen;
         slider.Editable = Fullscreen;
     }
 

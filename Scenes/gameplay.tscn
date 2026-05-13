@@ -23,6 +23,8 @@
 [ext_resource type="Shader" uid="uid://c5nc5rwigrosm" path="res://Shaders/Tiling.gdshader" id="19_gb8q7"]
 [ext_resource type="FontFile" uid="uid://c8o6pshvts5fk" path="res://Fonts/ModernDOS8x16.ttf" id="19_ifha0"]
 [ext_resource type="Texture2D" uid="uid://s0en44jtvvab" path="res://Images/TileBG.png" id="23_8ipd1"]
+[ext_resource type="Texture2D" uid="uid://c0y2cl2jbtt12" path="res://Images/Ship.png" id="24_8ipd1"]
+[ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="25_lavkw"]
 
 [sub_resource type="Animation" id="Animation_wbxth"]
 resource_name = "CheckMap"
@@ -309,6 +311,9 @@ viewport_path = NodePath("ShipStats")
 [sub_resource type="ViewportTexture" id="ViewportTexture_v2eey"]
 viewport_path = NodePath("LifeSupport")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_8ipd1"]
+viewport_path = NodePath("Coord")
+
 [sub_resource type="Environment" id="Environment_m34ki"]
 background_energy_multiplier = 0.0
 ambient_light_energy = 0.0
@@ -449,6 +454,36 @@ width = 800
 height = 600
 fill_to = Vector2(0, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bsu20"]
+shader = ExtResource("19_gb8q7")
+shader_parameter/tiling = Vector2(1, 1)
+shader_parameter/offset = Vector2(0, 1)
+shader_parameter/moving = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fhel8"]
+shader = ExtResource("25_lavkw")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.0870000041325
+shader_parameter/resolution = Vector2(960, 540)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.18000000855
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.015
+shader_parameter/vignette_opacity = 0.3850000182875
+
 [node name="Gameplay" type="Node" unique_id=88878252]
 script = ExtResource("1_m34ki")
 
@@ -500,6 +535,11 @@ material = SubResource("StandardMaterial3D_v2eey")
 transform = Transform3D(0.027799558, 0, -0.9996135, 0, 1, 0, 0.9996135, 0, 0.027799558, -0.0738312, 0, 0)
 pixel_size = 0.001
 texture = SubResource("ViewportTexture_v2eey")
+
+[node name="Sprite3D" type="Sprite3D" parent="Environment/Sub" unique_id=1746781780]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06687373, 0.80486333, -1.1869743)
+pixel_size = 0.001
+texture = SubResource("ViewportTexture_8ipd1")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1781664562]
 environment = SubResource("Environment_m34ki")
@@ -818,26 +858,85 @@ wait_time = 9.8
 one_shot = true
 
 [node name="OxygenLeft" type="Timer" parent="LifeSupport" unique_id=844607183]
-wait_time = 7200.0
+wait_time = 120.0
 one_shot = true
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1378141673]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Coord" type="SubViewport" parent="SubViewportContainer" unique_id=1526367732]
+[node name="Coord" type="SubViewport" parent="." unique_id=1526367732]
+handle_input_locally = false
 size = Vector2i(1920, 1080)
+render_target_update_mode = 4
 
-[node name="BG" type="TextureRect" parent="SubViewportContainer/Coord" unique_id=1806386254]
+[node name="Main" type="Control" parent="Coord" unique_id=1009773882]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="TextureRect" parent="Coord/Main" unique_id=1806386254]
+material = SubResource("ShaderMaterial_bsu20")
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 60.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("23_8ipd1")
 stretch_mode = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/Coord" unique_id=1243387971]
+[node name="Ship" type="Sprite2D" parent="Coord/Main" unique_id=1243387971]
+position = Vector2(960, 540)
+scale = Vector2(0.24050634, 0.24050634)
+texture = ExtResource("24_8ipd1")
+
+[node name="Starting" type="ColorRect" parent="Coord" unique_id=539510057]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="RichTextLabel" parent="Coord/Starting" unique_id=375885201]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 84.0
+offset_top = 19.0
+offset_right = -773.0
+offset_bottom = -954.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("19_ifha0")
+theme_override_font_sizes/normal_font_size = 35
+text = "> Awaiting start command_"
+
+[node name="Overlay" type="ColorRect" parent="Coord" unique_id=483050324]
+material = SubResource("ShaderMaterial_fhel8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Preview" type="SubViewportContainer" parent="." unique_id=1147860949]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="timeout" from="Environment/PingSFX/PingSoundLoop" to="Environment/PingSFX" method="Ping"]
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]

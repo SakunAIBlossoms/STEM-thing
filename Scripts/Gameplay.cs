@@ -17,7 +17,8 @@ public partial class Gameplay : Node
     int ObjectCountToSpawn = 8;
     double MovementTime = 2.2;
 
-    Dictionary<string, Variant> ScannableObjects = new Dictionary<string, Variant>{};
+    Dictionary<string, Variant> ScannableObjects = new Dictionary<string, Variant> { };
+    Dictionary<int, Vector2> ObstacleObjects = new Dictionary<int, Vector2> { };
 
     // Custom variables WE make twin
     // Make some camera stuff, we need to track the direction and i feel like an enum is the best way to do this
@@ -55,6 +56,13 @@ public partial class Gameplay : Node
     private void GenerateEnvironment()
     {
         GD.PrintRich("[color=gold]GENERATING ENVIRONMENT...");
+        Random rnd = new Random();
+        for (int i = 0; i < ObstacleCountToSpawn; i++)
+        {
+            var x = rnd.Next(0, EnvironmentSize.X);
+            var y = rnd.Next(0, EnvironmentSize.Y);
+            var Position = new Vector2(x, y);
+        }
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
