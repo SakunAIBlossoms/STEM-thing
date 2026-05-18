@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://c3bnat8qrq2kh"
-path="res://.godot/imported/HoverStopped.wav-23994d3b876c2d2616fc1aa8df1c1bdd.sample"
+path="res://.godot/imported/HoverStopped.wav-41a0620babad33c00ba0efc92395f82f.sample"
 
 [deps]
 
-source_file="res://Sounds/Sound Effects/HoverStopped.wav"
-dest_files=["res://.godot/imported/HoverStopped.wav-23994d3b876c2d2616fc1aa8df1c1bdd.sample"]
+source_file="res://Sounds/Sound Effects/UI/HoverStopped.wav"
+dest_files=["res://.godot/imported/HoverStopped.wav-41a0620babad33c00ba0efc92395f82f.sample"]
 
 [params]
 

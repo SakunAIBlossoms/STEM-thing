@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cjgb8plp2sx8o"
+path="res://.godot/imported/Rusty Pipe Scrape.mp3-d83d23f9069c4f18c1b0af0f90b3aa3f.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Ambience/Rusty Pipe Scrape.mp3"
+dest_files=["res://.godot/imported/Rusty Pipe Scrape.mp3-d83d23f9069c4f18c1b0af0f90b3aa3f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

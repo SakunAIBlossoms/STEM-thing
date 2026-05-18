@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bid20b1t5vujn"
+path="res://.godot/imported/Submarine Alarm.mp3-863fb7fee7cbb81cc4899609358a0938.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Sound Effects/Submarine/Submarine Alarm.mp3"
+dest_files=["res://.godot/imported/Submarine Alarm.mp3-863fb7fee7cbb81cc4899609358a0938.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

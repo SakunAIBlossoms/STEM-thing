@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cuop1y3d7fyas" path="res://Scripts/UI/DdCheckbox.cs" id="1_e77d2"]
 [ext_resource type="Texture2D" uid="uid://b3m7ib24utl2p" path="res://Images/UI/Checkbox.png" id="2_5hygc"]
-[ext_resource type="AudioStream" uid="uid://lw0f8e11wq1o" path="res://Sounds/Sound Effects/game-fx-clix.wav" id="3_51lla"]
+[ext_resource type="AudioStream" uid="uid://lw0f8e11wq1o" path="res://Sounds/Sound Effects/UI/game-fx-clix.wav" id="3_51lla"]
 [ext_resource type="Texture2D" uid="uid://b30ao70q1tosa" path="res://Images/UI/Tick.png" id="4_oly6s"]
 
 [node name="DdCheckbox" type="Control" unique_id=13832071]

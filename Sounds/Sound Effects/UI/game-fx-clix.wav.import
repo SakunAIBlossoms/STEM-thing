@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://lw0f8e11wq1o"
-path="res://.godot/imported/game-fx-clix.wav-3182921a0f8c88d39fcf32be09091ad1.sample"
+path="res://.godot/imported/game-fx-clix.wav-0d3015cf04ed6a8b0e50b619753bec31.sample"
 
 [deps]
 
-source_file="res://Sounds/Sound Effects/game-fx-clix.wav"
-dest_files=["res://.godot/imported/game-fx-clix.wav-3182921a0f8c88d39fcf32be09091ad1.sample"]
+source_file="res://Sounds/Sound Effects/UI/game-fx-clix.wav"
+dest_files=["res://.godot/imported/game-fx-clix.wav-0d3015cf04ed6a8b0e50b619753bec31.sample"]
 
 [params]
 

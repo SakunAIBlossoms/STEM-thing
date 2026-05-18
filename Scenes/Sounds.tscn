@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bfehjodm85p2n"]
 
-[ext_resource type="AudioStream" uid="uid://iqvihmxqsi4s" path="res://Sounds/Sound Effects/Click.wav" id="1_s6jvx"]
-[ext_resource type="AudioStream" uid="uid://lw0f8e11wq1o" path="res://Sounds/Sound Effects/game-fx-clix.wav" id="2_s6jvx"]
-[ext_resource type="AudioStream" uid="uid://dwwk2lag3khst" path="res://Sounds/Sound Effects/Hover.wav" id="3_bofxg"]
-[ext_resource type="AudioStream" uid="uid://c3bnat8qrq2kh" path="res://Sounds/Sound Effects/HoverStopped.wav" id="4_apyeh"]
+[ext_resource type="AudioStream" uid="uid://iqvihmxqsi4s" path="res://Sounds/Sound Effects/UI/Click.wav" id="1_s6jvx"]
+[ext_resource type="AudioStream" uid="uid://lw0f8e11wq1o" path="res://Sounds/Sound Effects/UI/game-fx-clix.wav" id="2_s6jvx"]
+[ext_resource type="AudioStream" uid="uid://dwwk2lag3khst" path="res://Sounds/Sound Effects/UI/Hover.wav" id="3_bofxg"]
+[ext_resource type="AudioStream" uid="uid://c3bnat8qrq2kh" path="res://Sounds/Sound Effects/UI/HoverStopped.wav" id="4_apyeh"]
 
 [node name="Sounds" type="Node" unique_id=113552010]
 
