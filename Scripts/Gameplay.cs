@@ -4,20 +4,22 @@ using System.Collections.Generic;
 
 public partial class Gameplay : Node
 {
-    Vector2I EnvironmentSize = new Vector2I(50, 50);
-    Vector2 GridSlotSize = new Vector2(0,0);
-
     // Setup basic variables, give them a value in _Ready()
-    Node2D gui;
-    Node3D Env;
-    Camera3D Plr;
-    AnimationPlayer Animations;
-    AudioStreamPlayer MenuMusic;
-    AudioStreamPlayer GameMusic;
+    private Node2D gui;
+    private Node3D Env;
+    private Camera3D Plr;
+    private AnimationPlayer Animations;
+    private AudioStreamPlayer MenuMusic;
+    private AudioStreamPlayer GameMusic;
 
-	int ObstacleCountToSpawn = 10;
-    int ObjectCountToSpawn = 8;
-    double MovementTime = 2.2;
+    // Map related variables
+    private Vector2I EnvironmentSize = new Vector2I(50, 50);
+    private Vector2 GridSlotSize = new Vector2();
+    private Vector2I SubPosition = new Vector2I();
+
+	private int ObstacleCountToSpawn = 10;
+    private int ObjectCountToSpawn = 8;
+    private double MovementTime = 2.2;
 
     Dictionary<string, Variant> ScannableObjects = new Dictionary<string, Variant> { };
     Dictionary<int, Vector2> ObstacleObjects = new Dictionary<int, Vector2> { };
@@ -39,21 +41,26 @@ public partial class Gameplay : Node
 
     public override void _Ready()
     {
+        // what the fuck is this spaghetti, and why is it so long
         GridSlotSize = new Vector2(((int)ProjectSettings.GetSetting("display/window/size/viewport_width") / EnvironmentSize.X), ((int)ProjectSettings.GetSetting("display/window/size/viewport_height") / EnvironmentSize.Y));
-        MenuMusic = GetNode("/root/MenuMusic") as AudioStreamPlayer;
-        MenuMusic.Stop();
-        GameMusic = GetNode<AudioStreamPlayer>("GameMusic");
-        GameMusic.Play();
+        SubPosition = new Vector2I(EnvironmentSize.X / 2, EnvironmentSize.Y / 2); // This should hopefully center the player
+
         // Give variables a value first
         gui = GetNode("GUI") as Node2D;
         Env = GetNode("Environment") as Node3D;
         Plr = Env.GetNode("Player") as Camera3D;
         Animations = GetNode("Animations") as AnimationPlayer;
         GD.PrintRich("Line 38 Gameplay.cs: animation is null? " + (Animations == null));
+
         // Then anything else important later
         if (!Plr.Current) Plr.Current = true;
         Animations.AnimationFinished += AnimationCompleted;
-	
+        
+        // Stop the menu music and play the music for when you're actually in-game
+        MenuMusic = GetNode("/root/MenuMusic") as AudioStreamPlayer;
+        MenuMusic.Stop();
+        GameMusic = GetNode<AudioStreamPlayer>("GameMusic");
+        GameMusic.Play();
     }
 
     // Randomly generates things for the player to find and obstacles that hitting causes the player to take damage.
@@ -84,14 +91,35 @@ public partial class Gameplay : Node
         var y = rnd.Next(0, EnvironmentSize.Y);
         return new Vector2(x, y);
     }
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-    {
-    }
+
     public override void _Input(InputEvent @event)
     {
+        MoveDirection(@event.AsText());
         base._Input(@event);
         //if (@event.AsText() == "")
+    }
+
+    private void MoveDirection(String direction, int amount = 1)
+    {
+        switch (direction)
+        {
+            case "W":
+                SubPosition.Y += amount;
+                break;
+            case "S":
+                SubPosition.Y -= amount;
+                break;
+            case "A":
+                SubPosition.X -= amount;
+                break;
+            case "D":
+                SubPosition.X += amount;
+                break;
+            default:
+                GD.PrintRaw("Cannot move, key [color=cyan]" + direction + " is not valid!");
+                break;
+        }
+        GD.PrintRaw("Move Sub Key [color=cyan]"+direction+"[/color] Pressed, moved that direction by [color=cyan]"+amount.ToString());
     }
 
     // Any Events we need to execute

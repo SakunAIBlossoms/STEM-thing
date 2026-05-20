@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://c1oo05qhm7ljq"]
 
 [ext_resource type="Script" uid="uid://car67o2d8aah5" path="res://Scripts/Gameplay.cs" id="1_m34ki"]
-[ext_resource type="Shader" uid="uid://gv7e567o7pcj" path="res://Shaders/Static.gdshader" id="1_wbxth"]
 [ext_resource type="Shader" uid="uid://bcs68mqkk2mtc" path="res://Shaders/PS1.gdshader" id="2_kwrm5"]
 [ext_resource type="PackedScene" uid="uid://qiorwxbtjv15" path="res://Scenes/Env/Sub.tscn" id="2_m34ki"]
 [ext_resource type="AudioStream" uid="uid://dage43iqaph4y" path="res://Sounds/Music/Tremors Of Doom - QuickSounds.com.mp3" id="2_puebw"]
@@ -27,6 +26,7 @@
 [ext_resource type="Script" uid="uid://ixu2urv3hyfl" path="res://Scripts/CoordinateScreenHandler.cs" id="23_lavkw"]
 [ext_resource type="Texture2D" uid="uid://c0y2cl2jbtt12" path="res://Images/Ship.png" id="24_8ipd1"]
 [ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="25_lavkw"]
+[ext_resource type="Shader" uid="uid://bs12ol7fesg4l" path="res://Shaders/Chromatic Aberration.gdshader" id="27_bsu20"]
 
 [sub_resource type="Animation" id="Animation_wbxth"]
 resource_name = "CheckMap"
@@ -287,26 +287,6 @@ _data = {
 &"StartingCutscene": SubResource("Animation_puebw")
 }
 
-[sub_resource type="Gradient" id="Gradient_kwrm5"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_r8bcl"]
-frequency = 1.0
-metadata/_preview_in_3d_space_ = true
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rlidi"]
-width = 1920
-height = 1080
-noise = SubResource("FastNoiseLite_r8bcl")
-color_ramp = SubResource("Gradient_kwrm5")
-seamless = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1qnfl"]
-shader = ExtResource("1_wbxth")
-shader_parameter/noise = SubResource("NoiseTexture2D_rlidi")
-shader_parameter/slow = 25.0
-shader_parameter/multiplier = 0.5
-shader_parameter/contrast = 2.0
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v2eey"]
 albedo_color = Color(0.21788684, 0.10991647, 0.010899377, 1)
 
@@ -317,7 +297,7 @@ viewport_path = NodePath("ShipStats")
 viewport_path = NodePath("LifeSupport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8ipd1"]
-viewport_path = NodePath("Coord")
+viewport_path = NodePath("SubViewportContainer/Coord")
 
 [sub_resource type="Environment" id="Environment_m34ki"]
 background_energy_multiplier = 0.0
@@ -503,6 +483,13 @@ shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.015
 shader_parameter/vignette_opacity = 0.3850000182875
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1qnfl"]
+shader = ExtResource("27_bsu20")
+shader_parameter/aberration_intensity = 5.90000008791708
+shader_parameter/r_displacement = Vector2(1, 0)
+shader_parameter/g_displacement = Vector2(0, 0)
+shader_parameter/b_displacement = Vector2(-1, 0)
+
 [node name="Gameplay" type="Node" unique_id=88878252]
 script = ExtResource("1_m34ki")
 
@@ -512,15 +499,6 @@ stream = ExtResource("2_puebw")
 [node name="Animations" type="AnimationPlayer" parent="." unique_id=221344512]
 libraries/ = SubResource("AnimationLibrary_kwrm5")
 autoplay = &"StartingCutscene"
-
-[node name="Shaders" type="CanvasLayer" parent="." unique_id=2073417179]
-
-[node name="Static" type="ColorRect" parent="Shaders" unique_id=583774937]
-visible = false
-material = SubResource("ShaderMaterial_1qnfl")
-offset_right = 1920.0
-offset_bottom = 1080.0
-mouse_filter = 2
 
 [node name="Environment" type="Node3D" parent="." unique_id=1079861258]
 
@@ -955,12 +933,19 @@ text = "WARNING"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Coord" type="SubViewport" parent="." unique_id=1526367732]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1860294473]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Coord" type="SubViewport" parent="SubViewportContainer" unique_id=1526367732]
 handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="Main" type="Control" parent="Coord" unique_id=1009773882]
+[node name="Main" type="Control" parent="SubViewportContainer/Coord" unique_id=1009773882]
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
 anchors_preset = 8
@@ -976,7 +961,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("23_lavkw")
 
-[node name="BG" type="TextureRect" parent="Coord/Main" unique_id=1806386254]
+[node name="BG" type="TextureRect" parent="SubViewportContainer/Coord/Main" unique_id=1806386254]
 material = SubResource("ShaderMaterial_bsu20")
 layout_mode = 1
 anchors_preset = 15
@@ -989,7 +974,7 @@ grow_vertical = 2
 texture = ExtResource("23_8ipd1")
 stretch_mode = 1
 
-[node name="Objects" type="Control" parent="Coord/Main" unique_id=743557424]
+[node name="Objects" type="Control" parent="SubViewportContainer/Coord/Main" unique_id=743557424]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -997,12 +982,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Ship" type="Sprite2D" parent="Coord/Main" unique_id=1243387971]
+[node name="Ship" type="Sprite2D" parent="SubViewportContainer/Coord/Main" unique_id=1243387971]
 position = Vector2(960, 540)
 scale = Vector2(0.24050634, 0.24050634)
 texture = ExtResource("24_8ipd1")
 
-[node name="Starting" type="ColorRect" parent="Coord" unique_id=539510057]
+[node name="Starting" type="ColorRect" parent="SubViewportContainer/Coord" unique_id=539510057]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -1011,7 +996,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Label" type="RichTextLabel" parent="Coord/Starting" unique_id=375885201]
+[node name="Label" type="RichTextLabel" parent="SubViewportContainer/Coord/Starting" unique_id=375885201]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1027,17 +1012,26 @@ theme_override_font_sizes/normal_font_size = 35
 text = "> Awaiting start command_"
 script = SubResource("GDScript_8ipd1")
 
-[node name="Timer" type="Timer" parent="Coord/Starting/Label" unique_id=1805966325]
+[node name="Timer" type="Timer" parent="SubViewportContainer/Coord/Starting/Label" unique_id=1805966325]
 wait_time = 0.6
 autostart = true
 
-[node name="Overlay" type="ColorRect" parent="Coord" unique_id=483050324]
+[node name="Overlay" type="ColorRect" parent="SubViewportContainer/Coord" unique_id=483050324]
 material = SubResource("ShaderMaterial_fhel8")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Shaders" type="CanvasLayer" parent="." unique_id=2073417179]
+layer = 10
+
+[node name="Static" type="ColorRect" parent="Shaders" unique_id=583774937]
+material = SubResource("ShaderMaterial_1qnfl")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
 
 [connection signal="timeout" from="Environment/PingSFX/PingSoundLoop" to="Environment/PingSFX" method="Ping"]
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
@@ -1048,4 +1042,4 @@ grow_vertical = 2
 [connection signal="timeout" from="GUI/Tutorials/TutorialShowLength" to="." method="OnTutorialShowLengthTimeout"]
 [connection signal="timeout" from="LifeSupport/wait" to="LifeSupport" method="OnWaitTimeout"]
 [connection signal="timeout" from="ShipStats/Timer" to="ShipStats" method="OnTimerTimeout"]
-[connection signal="timeout" from="Coord/Starting/Label/Timer" to="Coord/Starting/Label" method="_on_timer_timeout"]
+[connection signal="timeout" from="SubViewportContainer/Coord/Starting/Label/Timer" to="SubViewportContainer/Coord/Starting/Label" method="_on_timer_timeout"]
