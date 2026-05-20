@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 public partial class Gameplay : Node
 {
-    Vector2I EnvironmentSize = new Vector2I(25, 25);
+    Vector2I EnvironmentSize = new Vector2I(50, 50);
+    Vector2 GridSlotSize = new Vector2(0,0);
+
     // Setup basic variables, give them a value in _Ready()
     Node2D gui;
     Node3D Env;
@@ -37,6 +39,7 @@ public partial class Gameplay : Node
 
     public override void _Ready()
     {
+        GridSlotSize = new Vector2(((int)ProjectSettings.GetSetting("display/window/size/viewport_width") / EnvironmentSize.X), ((int)ProjectSettings.GetSetting("display/window/size/viewport_height") / EnvironmentSize.Y));
         MenuMusic = GetNode("/root/MenuMusic") as AudioStreamPlayer;
         MenuMusic.Stop();
         GameMusic = GetNode<AudioStreamPlayer>("GameMusic");
@@ -53,18 +56,34 @@ public partial class Gameplay : Node
 	
     }
 
+    // Randomly generates things for the player to find and obstacles that hitting causes the player to take damage.
     private void GenerateEnvironment()
     {
         GD.PrintRich("[color=gold]GENERATING ENVIRONMENT...");
-        Random rnd = new Random();
         for (int i = 0; i < ObstacleCountToSpawn; i++)
         {
-            var x = rnd.Next(0, EnvironmentSize.X);
-            var y = rnd.Next(0, EnvironmentSize.Y);
-            var Position = new Vector2(x, y);
+            var Position = GetRandomPos();
+            if (ObstacleObjects.Count > 0)
+            {
+                foreach (var data in ObstacleObjects)
+                {
+                    if (data.Value == Position)
+                    {
+                        Position = GetRandomPos();
+                        GD.Print(Position);
+                    }
+                }
+            }
+            ObstacleObjects.Add(i, Position);
         }
     }
 
+    private Vector2 GetRandomPos() {
+        Random rnd = new Random();
+        var x = rnd.Next(0, EnvironmentSize.X);
+        var y = rnd.Next(0, EnvironmentSize.Y);
+        return new Vector2(x, y);
+    }
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
