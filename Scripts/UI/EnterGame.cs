@@ -5,15 +5,20 @@ public partial class EnterGame : Node2D
 {
 	private AnimationPlayer _animationplayer;
 	private Timer TransitionTimer;
-	private AudioStreamPlayer _soundplayer;
+	private AudioStreamPlayer TransitionSound;
 	private ColorRect OverlayFade;
+	private AudioStreamPlayer MenuMusic;
+	private AudioStreamPlayer InterludeMusic;
 	public override void _Ready()
 	{
+		InterludeMusic = GetNode("InterludeMusic") as AudioStreamPlayer;
+		MenuMusic = GetNode("/root/MenuMusic") as AudioStreamPlayer;
+		MenuMusic.Stop();
 		OverlayFade = GetNode("/root/Overlay/Fade") as ColorRect;
 		_animationplayer = GetNode<AnimationPlayer>("FadeToBlack");
 		TransitionTimer = GetNode<Timer>("TransitionTimer");
 		TransitionTimer.Timeout += OnTimerTimeOut;
-		_soundplayer = GetNode<AudioStreamPlayer>("TransitionSound");
+		TransitionSound = GetNode<AudioStreamPlayer>("TransitionSound");
 		if (OverlayFade != null)
 		{
 			Tween twn = GetTree().CreateTween();
@@ -22,11 +27,12 @@ public partial class EnterGame : Node2D
 	}
 	private void OnDialogPlayerDialogEnded()
 	{
-		_soundplayer.Play();
+		InterludeMusic.Stop();
+		TransitionSound.Play();
 		TransitionTimer.Start();
 	}
-
-	private void OnTimerTimeOut()
+         
+ 	private void OnTimerTimeOut()
 	{
 		_animationplayer.Play("FadeToBlack");
 	}

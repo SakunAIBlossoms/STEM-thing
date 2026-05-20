@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://dav047247xlce"]
 
 [ext_resource type="Script" uid="uid://c5pg41faei8kd" path="res://Scripts/UI/EnterGame.cs" id="1_76spq"]
+[ext_resource type="AudioStream" uid="uid://drfl6qsg3qrsd" path="res://Sounds/Sound Effects/UI/Submarine Submerging - QuickSounds.com.mp3" id="2_76spq"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="2_324y2"]
 [ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="4_kom6h"]
 [ext_resource type="Resource" uid="uid://c5qthib7nqa43" path="res://Dialogues/Interlude.tres" id="5_tmao8"]
-[ext_resource type="AudioStream" uid="uid://c4766ybrt6vny" path="res://Sounds/Sound Effects/Weird Flange - QuickSounds.com.mp3" id="6_kom6h"]
+[ext_resource type="AudioStream" uid="uid://gbqtiunxqhmd" path="res://Sounds/Sound Effects/Submarine/Submarine Sonar Ping Classic - QuickSounds.com.mp3" id="6_kom6h"]
 
 [sub_resource type="Animation" id="Animation_76spq"]
 resource_name = "FadeToBlack"
-length = 3.0
+length = 4.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -16,7 +17,7 @@ tracks/0/path = NodePath("ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 3),
+"times": PackedFloat32Array(0, 1.7666667, 4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
@@ -78,7 +79,7 @@ shader_parameter/backGroundDirY = 0.00500000349738
 script = ExtResource("1_76spq")
 
 [node name="TransitionSound" type="AudioStreamPlayer" parent="." unique_id=586290346]
-stream = ExtResource("6_kom6h")
+stream = ExtResource("2_76spq")
 
 [node name="TransitionTimer" type="Timer" parent="." unique_id=1653833059]
 wait_time = 0.5
@@ -112,6 +113,16 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
+
+[node name="InterludeMusic" type="AudioStreamPlayer" parent="." unique_id=1886192378]
+stream = ExtResource("6_kom6h")
+volume_db = -10.757
+autoplay = true
+parameters/looping = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=870060348]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="timeout" from="TransitionTimer" to="." method="OnTimerTimeOut"]
 [connection signal="animation_finished" from="FadeToBlack" to="." method="OnFadeAnimationFinished"]
