@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://beq0qujgfecpy"
+path="res://.godot/imported/Submarine Heavy Metallic Rumble Ambience - QuickSounds.com.mp3-4e01a7b00f1d13164c38e2c91add5830.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Sound Effects/Submarine/Submarine Heavy Metallic Rumble Ambience - QuickSounds.com.mp3"
+dest_files=["res://.godot/imported/Submarine Heavy Metallic Rumble Ambience - QuickSounds.com.mp3-4e01a7b00f1d13164c38e2c91add5830.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
