@@ -11,6 +11,8 @@ public partial class Gameplay : Node
     private AnimationPlayer Animations;
     private AudioStreamPlayer MenuMusic;
     private AudioStreamPlayer GameMusic;
+    private TextureRect HACKEDUI;
+    private Button ResetButton;
 
     // Map related variables
     private Vector2I EnvironmentSize = new Vector2I(50, 50);
@@ -39,6 +41,9 @@ public partial class Gameplay : Node
 
     Dictionary<string, bool> Hovered = new Dictionary<string, bool> { { "Left", false }, { "Right", false } };
 
+    // who hacked me bruh im crine
+    public bool HACKED {get; set;} = true;
+
     public override void _Ready()
     {
         // what the fuck is this spaghetti, and why is it so long
@@ -50,6 +55,8 @@ public partial class Gameplay : Node
         Env = GetNode("Environment") as Node3D;
         Plr = Env.GetNode("Player") as Camera3D;
         Animations = GetNode("Animations") as AnimationPlayer;
+        HACKEDUI = GetNode("PWNED/PWNED") as TextureRect;
+        ResetButton = GetNode("GUI/RESET") as Button;
         GD.PrintRich("Line 38 Gameplay.cs: animation is null? " + (Animations == null));
 
         // Then anything else important later
@@ -61,6 +68,12 @@ public partial class Gameplay : Node
         MenuMusic.Stop();
         GameMusic = GetNode<AudioStreamPlayer>("GameMusic");
         GameMusic.Play();
+    }
+
+    public override void _Process(double delta)
+    {
+        HACKEDUI.Visible = HACKED;
+        ResetButton.Visible = HACKED;
     }
 
     // Randomly generates things for the player to find and obstacles that hitting causes the player to take damage.
@@ -94,7 +107,7 @@ public partial class Gameplay : Node
 
     public override void _Input(InputEvent @event)
     {
-        MoveDirection(@event.AsText());
+        if (!HACKED) MoveDirection(@event.AsText());
         base._Input(@event);
         //if (@event.AsText() == "")
     }
@@ -136,6 +149,19 @@ public partial class Gameplay : Node
             GetTree().Quit((int)Error.DoesNotExist);
         }
         tutorial?.QueueFree();
+    }
+    private void ResetButtonPressed()
+    {
+        HACKED = false;
+    }
+    private void HackedChanceTrigger()
+    {
+        var rng = new Random();
+        var num = rng.Next(0, 1);
+        if (num == 0)
+        {
+            HACKED = true;
+        }
     }
     // Animation hook
     private void AnimationCompleted(StringName name)

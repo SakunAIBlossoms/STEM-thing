@@ -4,7 +4,7 @@ using System;
 public partial class LifeSupport : SubViewport
 {
 
-	private double oxygenlimit = 7200;
+	private double oxygenlimit = 3600;
 	TimeSpan oxygentimespan;
 	private Timer wait;
 	private RichTextLabel timeremaining;

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://v1fd0f2ycjdb"
+path="res://.godot/imported/PWNEDLAUGH.wav-75cfc5d549b2993df611d168e4341b09.sample"
+
+[deps]
+
+source_file="res://Sounds/Sound Effects/PWNEDLAUGH.wav"
+dest_files=["res://.godot/imported/PWNEDLAUGH.wav-75cfc5d549b2993df611d168e4341b09.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -16,5 +16,5 @@ uniform float contrast = 2.0;
 void fragment() {
 	vec4 noise_sample = texture(noise, texture(noise, UV).xy + mod(TIME, 1.0) / slow);
 	noise_sample.rgb = pow(noise_sample.rgb, vec3(contrast));
-	COLOR = texture(screen_texture, SCREEN_UV) + (noise_sample * multiplier);
+		COLOR = texture(screen_texture, SCREEN_UV) + (noise_sample * multiplier);
 }
