@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="4_kom6h"]
 [ext_resource type="Resource" uid="uid://c5qthib7nqa43" path="res://Dialogues/Interlude.tres" id="5_tmao8"]
 [ext_resource type="AudioStream" uid="uid://gbqtiunxqhmd" path="res://Sounds/Sound Effects/Submarine/Submarine Sonar Ping Classic - QuickSounds.com.mp3" id="6_kom6h"]
+[ext_resource type="FontFile" uid="uid://bikok3bvdtce6" path="res://Fonts/Retro Computer.otf" id="7_tmao8"]
 
 [sub_resource type="Animation" id="Animation_76spq"]
 resource_name = "FadeToBlack"
@@ -123,6 +124,19 @@ parameters/looping = true
 [node name="TextureRect" type="TextureRect" parent="." unique_id=870060348]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=10416260]
+offset_left = 488.0
+offset_top = 136.0
+offset_right = 1496.0
+offset_bottom = 248.0
+theme_override_colors/default_color = Color(0.15091202, 0.3518015, 2.4065375e-07, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 7
+theme_override_fonts/normal_font = ExtResource("7_tmao8")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "[shake rate=10.0 level=20 connected=1]Locating Destination...[/shake]"
 
 [connection signal="timeout" from="TransitionTimer" to="." method="OnTimerTimeOut"]
 [connection signal="animation_finished" from="FadeToBlack" to="." method="OnFadeAnimationFinished"]
