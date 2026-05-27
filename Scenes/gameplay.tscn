@@ -907,7 +907,6 @@ expand_mode = 1
 stretch_mode = 4
 
 [node name="RESET" type="Button" parent="GUI" unique_id=842569633]
-visible = false
 offset_left = 834.0
 offset_top = 1007.0
 offset_right = 1083.0
@@ -919,6 +918,19 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_pseqe")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_6twl4")
 theme_override_styles/focus = SubResource("StyleBoxFlat_j57t2")
 text = "RESET SYSTEM"
+
+[node name="Info" type="Panel" parent="GUI" unique_id=1757813679]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 1520.0
+offset_top = 65.0
+offset_right = 1905.0
+offset_bottom = 1015.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="RandomSoundPlayer" type="Node" parent="." unique_id=1744003763]
 script = ExtResource("11_decfu")
@@ -936,6 +948,7 @@ transparent_bg = true
 size = Vector2i(800, 600)
 
 [node name="PWNED" type="TextureRect" parent="PWNED" unique_id=1271746111]
+visible = false
 material = SubResource("ShaderMaterial_j57t2")
 anchors_preset = 15
 anchor_right = 1.0
@@ -1157,14 +1170,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1860294473]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="ShipStats" type="SubViewport" parent="." unique_id=516557392]
 handle_input_locally = false
 size = Vector2i(800, 600)
@@ -1253,6 +1258,13 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("ViewportTexture_f0fbv")
 
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1860294473]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="PwnedText" type="SubViewport" parent="." unique_id=93112848]
 transparent_bg = true
 size = Vector2i(260, 35)
@@ -1281,6 +1293,8 @@ mouse_filter = 2
 wait_time = 30.0
 autostart = true
 
+[connection signal="HackFixed" from="." to="LifeSupport" method="HackFixed"]
+[connection signal="PlayerPwned" from="." to="LifeSupport" method="PlayerBeenPwned"]
 [connection signal="timeout" from="Environment/PingSFX/PingSoundLoop" to="Environment/PingSFX" method="Ping"]
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
 [connection signal="mouse_entered" from="GUI/Controls/Left" to="." method="LeftSideEntered"]

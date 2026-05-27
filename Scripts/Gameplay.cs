@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 public partial class Gameplay : Node
 {
+    [Signal]
+    public delegate void PlayerPwnedEventHandler();
+    [Signal]
+    public delegate void HackFixedEventHandler();
+
     // Setup basic variables, give them a value in _Ready()
     private Node2D gui;
     private Node3D Env;
@@ -107,9 +112,7 @@ public partial class Gameplay : Node
 
     public override void _Input(InputEvent @event)
     {
-        if (!HACKED) MoveDirection(@event.AsText());
-        base._Input(@event);
-        //if (@event.AsText() == "")
+        if (!HACKED && @event is InputEventKey) MoveDirection(@event.AsText());
     }
 
     private void MoveDirection(String direction, int amount = 1)
