@@ -4,6 +4,14 @@ using System.Collections.Generic;
 
 public partial class Gameplay : Node
 {
+    /*
+    Positions for scan screen:
+    Open:
+    X: 1485
+    Closed:
+    X: 1965
+    */
+
     [Signal]
     public delegate void PlayerPwnedEventHandler();
     [Signal]

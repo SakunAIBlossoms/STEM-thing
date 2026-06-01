@@ -13,8 +13,11 @@
 [ext_resource type="AudioStream" uid="uid://dqjcllo3afcwe" path="res://Sounds/Ambience/Demon Whispers.mp3" id="10_v2eey"]
 [ext_resource type="Script" uid="uid://bia0houoklu0a" path="res://Scenes/RandomSoundPlayer.cs" id="11_decfu"]
 [ext_resource type="Texture2D" uid="uid://s0x2h86fuk2m" path="res://Images/Document.png" id="11_mqnyj"]
+[ext_resource type="Texture2D" uid="uid://b6vw8oox07pkt" path="res://Images/UI/Info.png" id="12_pseqe"]
+[ext_resource type="FontFile" uid="uid://bds567huybajy" path="res://Fonts/times_new_yorker.ttf" id="13_6twl4"]
 [ext_resource type="AudioStream" uid="uid://bo75meg33ykn7" path="res://Sounds/Ambience/Spirit Groan.mp3" id="13_ifha0"]
 [ext_resource type="AudioStream" uid="uid://b4ckppkfk1ykp" path="res://Sounds/Ambience/Dragon's Roar - QuickSounds.com.mp3" id="13_v2eey"]
+[ext_resource type="Texture2D" uid="uid://c31da10fm151r" path="res://icon.png" id="14_6twl4"]
 [ext_resource type="AudioStream" uid="uid://cajmab15gl085" path="res://Sounds/Ambience/Stone Grinding.mp3" id="14_gb8q7"]
 [ext_resource type="AudioStream" uid="uid://dcmqscydh6jd3" path="res://Sounds/Ambience/Scary Alien Breathing 2 - QuickSounds.com.mp3" id="14_ifha0"]
 [ext_resource type="AudioStream" uid="uid://hb285s8rsji2" path="res://Sounds/Ambience/Water Tunnel.mp3" id="15_1ff3a"]
@@ -513,6 +516,19 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j57t2"]
+texture = ExtResource("12_pseqe")
+texture_margin_bottom = 59.63016
+expand_margin_left = 30.0
+expand_margin_top = 30.0
+expand_margin_right = 30.0
+expand_margin_bottom = 30.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_avk15"]
+content_margin_top = 5.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j57t2"]
 shader = ExtResource("19_gb8q7")
 shader_parameter/tiling = Vector2(1, 1)
@@ -925,12 +941,85 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 1520.0
+offset_left = 1485.0
 offset_top = 65.0
-offset_right = 1905.0
+offset_right = 1870.0
 offset_bottom = 1015.0
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_j57t2")
+
+[node name="Title" type="RichTextLabel" parent="GUI/Info" unique_id=21994691]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("13_6twl4")
+theme_override_font_sizes/normal_font_size = 40
+text = "SCANNED:"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Name" type="RichTextLabel" parent="GUI/Info" unique_id=1007311433]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 246.0
+offset_bottom = 292.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("13_6twl4")
+theme_override_font_sizes/normal_font_size = 40
+text = "Name"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="GUI/Info" unique_id=795122285]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 292.0
+offset_bottom = 542.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("13_6twl4")
+theme_override_font_sizes/normal_font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxEmpty_avk15")
+text = "The description for the found item"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Image" type="TextureRect" parent="GUI/Info" unique_id=1070952453]
+layout_mode = 0
+offset_top = 46.0
+offset_right = 385.0
+offset_bottom = 246.0
+texture = ExtResource("14_6twl4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Dismiss" type="Button" parent="GUI/Info" unique_id=702228517]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Dismiss Scan"
+
+[node name="Source" type="Button" parent="GUI/Info" unique_id=1789058864]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -77.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Source Link"
 
 [node name="RandomSoundPlayer" type="Node" parent="." unique_id=1744003763]
 script = ExtResource("11_decfu")
@@ -1259,6 +1348,7 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_f0fbv")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1860294473]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
