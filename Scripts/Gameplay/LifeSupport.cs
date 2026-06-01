@@ -1,10 +1,10 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class LifeSupport : SubViewport
 {
-
-	private double oxygenlimit = 3600;
+	private double oxygenlimit = 1800;
 	TimeSpan oxygentimespan;
 	private Timer wait;
 	private RichTextLabel timeremaining;
@@ -12,7 +12,9 @@ public partial class LifeSupport : SubViewport
 	private TextureRect Loading;
 	private ProgressBar bar;
 	private Timer OxygenLeft;
-	// Called when the node enters the scene tree for the first time.
+
+	private bool CanUpdate = true;
+
 	public override void _Ready()
 	{
 		wait = GetNode("wait") as Timer;
@@ -30,12 +32,26 @@ public partial class LifeSupport : SubViewport
 		wait.QueueFree();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		bar.Value = OxygenLeft.TimeLeft;
-		oxygentimespan = TimeSpan.FromSeconds(OxygenLeft.TimeLeft);
-		timeremaining.Text = oxygentimespan.ToString(@"hh\:mm\:ss");
-		oxygenpercent.Text = Mathf.Round(OxygenLeft.TimeLeft / oxygenlimit * 100).ToString() + "%";
+		if (CanUpdate)
+		{
+			bar.Value = OxygenLeft.TimeLeft;
+			oxygentimespan = TimeSpan.FromSeconds(OxygenLeft.TimeLeft);
+			timeremaining.Text = oxygentimespan.ToString(@"hh\:mm\:ss");
+			oxygenpercent.Text = Mathf.Round(OxygenLeft.TimeLeft / oxygenlimit * 100).ToString() + "%";
+		}
+	}
+
+	private void PlayerBeenPwned()
+	{
+		CanUpdate = false;
+		timeremaining.Text = "99:99:99";
+		oxygenpercent.Text = "999%";
+	}
+
+	private void HackFixed()
+	{
+		CanUpdate = true;
 	}
 }
