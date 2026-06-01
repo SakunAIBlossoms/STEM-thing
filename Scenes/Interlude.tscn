@@ -3,47 +3,12 @@
 [ext_resource type="Script" uid="uid://c5pg41faei8kd" path="res://Scripts/UI/EnterGame.cs" id="1_76spq"]
 [ext_resource type="AudioStream" uid="uid://drfl6qsg3qrsd" path="res://Sounds/Sound Effects/UI/Submarine Submerging - QuickSounds.com.mp3" id="2_76spq"]
 [ext_resource type="Shader" uid="uid://damgpsq68kp3e" path="res://Shaders/Water.gdshader" id="2_324y2"]
-[ext_resource type="Script" uid="uid://1mxdpoyob13n" path="res://addons/sprouty_dialogs/nodes/dialog_player.gd" id="4_kom6h"]
-[ext_resource type="Resource" uid="uid://c5qthib7nqa43" path="res://Dialogues/Interlude.tres" id="5_tmao8"]
 [ext_resource type="AudioStream" uid="uid://gbqtiunxqhmd" path="res://Sounds/Sound Effects/Submarine/Submarine Sonar Ping Classic - QuickSounds.com.mp3" id="6_kom6h"]
+[ext_resource type="Script" uid="uid://66rxym4i0om1" path="res://Scripts/DottedTextScriptThatsReallyJanky.cs" id="7_bc6bl"]
 [ext_resource type="FontFile" uid="uid://bikok3bvdtce6" path="res://Fonts/Retro Computer.otf" id="7_tmao8"]
-
-[sub_resource type="Animation" id="Animation_76spq"]
-resource_name = "FadeToBlack"
-length = 4.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.7666667, 4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_kom6h"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tmao8"]
-_data = {
-&"FadeToBlack": SubResource("Animation_76spq"),
-&"RESET": SubResource("Animation_kom6h")
-}
+[ext_resource type="FontFile" uid="uid://c8o6pshvts5fk" path="res://Fonts/ModernDOS8x16.ttf" id="8_bc6bl"]
+[ext_resource type="Shader" uid="uid://qgo2emvmbrlg" path="res://Shaders/VHS.gdshader" id="8_hjrnd"]
+[ext_resource type="Script" uid="uid://b3ghvrqmkqgaq" path="res://Scenes/InterludeText.cs" id="9_bc6bl"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_b1gpx"]
 noise_type = 4
@@ -76,21 +41,38 @@ shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
 shader_parameter/backGroundDirX = 0.00500000349738
 shader_parameter/backGroundDirY = 0.00500000349738
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bc6bl"]
+shader = ExtResource("8_hjrnd")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.0490000023275
+shader_parameter/aberration = 0.20500005723749992
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hjrnd"]
+content_margin_left = 45.0
+content_margin_top = 45.0
+content_margin_right = 45.0
+content_margin_bottom = 45.0
+
 [node name="Interlude" type="Node2D" unique_id=596893763]
 script = ExtResource("1_76spq")
-
-[node name="TransitionSound" type="AudioStreamPlayer" parent="." unique_id=586290346]
-stream = ExtResource("2_76spq")
-
-[node name="TransitionTimer" type="Timer" parent="." unique_id=1653833059]
-wait_time = 0.5
-
-[node name="FadeToBlack" type="AnimationPlayer" parent="." unique_id=1191073186]
-libraries/ = SubResource("AnimationLibrary_tmao8")
-
-[node name="Panel" type="Panel" parent="." unique_id=1919771089]
-offset_right = 1920.0
-offset_bottom = 1080.0
 
 [node name="Water" type="ColorRect" parent="." unique_id=565680730]
 material = SubResource("ShaderMaterial_pg4sc")
@@ -98,22 +80,15 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 
-[node name="DialogPlayer" type="Node" parent="." unique_id=154706743]
-script = ExtResource("4_kom6h")
-_dialog_data_uid = 6912703267215568518
-_dialog_file_name = "Interlude"
-_dialog_data = ExtResource("5_tmao8")
-_start_id = "1"
-_play_on_ready = true
-_destroy_on_end = true
-_print_debug = false
-metadata/_custom_type_script = "uid://1mxdpoyob13n"
+[node name="TransitionSound" type="AudioStreamPlayer" parent="." unique_id=586290346]
+stream = ExtResource("2_76spq")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1932231631]
+[node name="TransitionTimer" type="Timer" parent="." unique_id=1653833059]
+wait_time = 6.0
+
+[node name="Panel" type="Panel" parent="." unique_id=1919771089]
 offset_right = 1920.0
 offset_bottom = 1080.0
-mouse_filter = 2
-color = Color(0, 0, 0, 0)
 
 [node name="InterludeMusic" type="AudioStreamPlayer" parent="." unique_id=1886192378]
 stream = ExtResource("6_kom6h")
@@ -137,7 +112,85 @@ theme_override_fonts/normal_font = ExtResource("7_tmao8")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[shake rate=10.0 level=20 connected=1]Locating Destination...[/shake]"
+script = ExtResource("7_bc6bl")
+
+[node name="DotDelay" type="Timer" parent="RichTextLabel" unique_id=1870100493]
+wait_time = 0.4
+autostart = true
+
+[node name="CRT" type="CanvasLayer" parent="." unique_id=1853523181]
+layer = 100
+
+[node name="Buffer" type="BackBufferCopy" parent="CRT" unique_id=37691317]
+position = Vector2(960, 540.00006)
+scale = Vector2(9.599999, 5.4000006)
+copy_mode = 2
+
+[node name="Shader" type="ColorRect" parent="CRT/Buffer" unique_id=883695035]
+material = SubResource("ShaderMaterial_bc6bl")
+offset_left = -100.00001
+offset_top = -100.0
+offset_right = 99.99999
+offset_bottom = 99.999954
+
+[node name="InterludeText" type="RichTextLabel" parent="CRT" unique_id=1923001355]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.50006
+offset_top = -540.0
+offset_right = 959.99976
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("8_bc6bl")
+theme_override_font_sizes/normal_font_size = 37
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hjrnd")
+text = "Hello researcher, you have been sent on an important mission in the deepest parts of the Mariana Trench to locate and photograph various unidentified objects/creatures. You have only a coordinate system to guide you on your expedition. Make sure to keep an eye on your equipment, as malfunctions may occur. Good luck out there, and do not fail us."
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClickToContinue" type="RichTextLabel" parent="CRT" unique_id=2096009165]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -976.0
+offset_top = -396.0
+offset_right = 944.49976
+offset_bottom = 684.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("8_bc6bl")
+theme_override_font_sizes/normal_font_size = 37
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hjrnd")
+text = "CLICK TO CONTINUE"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_bc6bl")
+
+[node name="FlashingText" type="Timer" parent="CRT/ClickToContinue" unique_id=2015303386]
+wait_time = 0.45
+autostart = true
+
+[node name="Button" type="Button" parent="CRT" unique_id=68472805]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
 
 [connection signal="timeout" from="TransitionTimer" to="." method="OnTimerTimeOut"]
-[connection signal="animation_finished" from="FadeToBlack" to="." method="OnFadeAnimationFinished"]
-[connection signal="dialog_ended" from="DialogPlayer" to="." method="OnDialogPlayerDialogEnded"]
+[connection signal="timeout" from="RichTextLabel/DotDelay" to="RichTextLabel" method="ChangeTextTimeout"]
+[connection signal="timeout" from="CRT/ClickToContinue/FlashingText" to="CRT/ClickToContinue" method="FlashingTimeout"]
+[connection signal="pressed" from="CRT/Button" to="." method="OnClick"]

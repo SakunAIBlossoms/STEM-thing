@@ -20,13 +20,20 @@ signal dialogue_processed(
 	character_name: String,
 	translated_name: String,
 	portrait: String,
-	dialog: String,
+	dialog_data: Dictionary,
 	next_node: String
 )
 ## Emitted when a options node was processed.
-signal options_processed(options: Array, next_nodes: Array)
+signal options_processed(options: Array, next_nodes: Array, option_keys: Array, disabled_flags: Array)
 ## Emitted when a signal node was processed.
 signal signal_processed(signal_id: String, args: Array, next_node: String)
+## Emitted when a jump node was processed.
+signal jump_to_node(
+	start_node: String,
+	start_id: String,
+	return_node: String,
+	dialog_data: SproutyDialogsDialogueData
+)
 
 ## Node processors reference dictionary.
 ## This dictionary maps the node type to its processing method.
@@ -39,7 +46,8 @@ var node_processors: Dictionary = {
 	"set_variable_node": _process_set_variable,
 	"signal_node": _process_signal,
 	"wait_node": _process_wait,
-	"call_method_node": _process_call_method
+	"call_method_node": _process_call_method,
+	"jump_to_node": _process_jump_to
 }
 ## # If true, will print debug messages to the console
 var print_debug: bool = true
@@ -59,7 +67,8 @@ func _process_dialogue(node_data: Dictionary) -> void:
 	# Get the translated dialog and parse variables
 	var dialog = SproutyDialogsTranslationManager.get_translated_dialog(
 			node_data["dialog_key"], get_parent().get_dialog_data())
-	dialog = _sprouty_dialogs.Variables.parse_variables(dialog)
+	var parser: SproutyDialogsTagsParser = SproutyDialogsTagsParser.new(dialog, _sprouty_dialogs.Variables)
+#	dialog = parser.bbcode_text
 
 	# Get the translated character name
 	var character_data = get_parent().get_character_data(node_data["character"])
@@ -75,17 +84,62 @@ func _process_dialogue(node_data: Dictionary) -> void:
 			portrait = character_data.default_portrait
 
 	dialogue_processed.emit(node_data["character"], display_name,
-			portrait, dialog, node_data["to_node"][0])
+			portrait, parser.dialog_data, node_data["to_node"][0])
 
 
 func _process_options(node_data: Dictionary) -> void:
 	if print_debug: print("[Sprouty Dialogs] Processing options node...")
-	options_processed.emit(node_data.options_keys.map(
-		func(key): # Return the translated and parsed options
-			return _sprouty_dialogs.Variables.parse_variables(
-				SproutyDialogsTranslationManager.get_translated_dialog(
-					key, get_parent().get_dialog_data()))
-	), node_data.to_node)
+
+	var filtered_options: Array = []
+	var filtered_next_nodes: Array = []
+	var filtered_option_keys: Array = []
+	var disabled_flags: Array = []
+	var options_conditions: Array = node_data.get("options_conditions", [])
+
+	for i in range(node_data.options_keys.size()):
+		var key = node_data.options_keys[i]
+		var option_text = _sprouty_dialogs.Variables.parse_variables(
+			SproutyDialogsTranslationManager.get_translated_dialog(
+				key, get_parent().get_dialog_data()
+			)
+		)
+
+		var condition_data: Dictionary = {}
+		if i < options_conditions.size() and options_conditions[i] is Dictionary:
+			condition_data = options_conditions[i].duplicate(true)
+
+		var show_option := true
+		var disable_option := false
+
+		if not condition_data.is_empty() and condition_data.get("enabled", false):
+			var result = _sprouty_dialogs.Variables.get_comparison_result(
+				condition_data.get("first_var", {}),
+				condition_data.get("second_var", {}),
+				condition_data.get("operator", OP_EQUAL)
+			)
+
+			var condition_met = result == true
+			var visibility = int(condition_data.get("visibility", 0))
+
+			if not condition_met:
+				if visibility == 0:
+					show_option = false
+				else:
+					show_option = true
+					disable_option = true
+
+		if show_option:
+			filtered_options.append(option_text)
+			filtered_next_nodes.append(node_data.to_node[i])
+			filtered_option_keys.append(key)
+			disabled_flags.append(disable_option)
+
+	options_processed.emit(
+		filtered_options,
+		filtered_next_nodes,
+		filtered_option_keys,
+		disabled_flags
+	)
 
 
 func _process_condition(node_data: Dictionary) -> void:
@@ -136,7 +190,7 @@ func _process_call_method(node_data: Dictionary) -> void:
 					node_data.autoload + "' autoload. Check that the method exist.")
 	else:
 		printerr("[Sprouty Dialogs] Autoload '" + node_data.autoload + "' not found. "
-				+ "Check that your script is register as an autoload in Project > Project Settings > Globals.")
+				+ "Make sure the autoload is registered in Project > Project Settings > Globals > Autoload.")
 	
 	continue_to_node.emit(node_data.to_node[0])
 
@@ -149,10 +203,66 @@ func _process_signal(node_data: Dictionary) -> void:
 		node_data["extra_args"] = []
 	
 	var args = SproutyDialogsVariableUtils.get_array_from_data(node_data.extra_args)
-	signal_processed.emit(node_data.signal_id, args, node_data.to_node[0])
+	get_parent().signal_event.emit(node_data.signal_id, args)
+	continue_to_node.emit(node_data.to_node[0])
 
 
 func _process_wait(node_data: Dictionary) -> void:
 	if print_debug: print("[Sprouty Dialogs] Processing wait node...")
+	var dialog_box = get_parent().get_current_dialog_box()
+
+	if node_data.get("close_dialog", false): # Close the dialog box
+		dialog_box.stop_dialog(true)
+	else: # Stop the dialog, but keeps the dialog box visible
+		dialog_box.stop_dialog()
+		dialog_box.show()
+	
 	await get_tree().create_timer(node_data.wait_time).timeout
 	continue_to_node.emit(node_data.to_node[0])
+
+
+func _process_jump_to(node_data: Dictionary) -> void:
+	if print_debug: print("[Sprouty Dialogs] Processing jump to node...")
+
+	var target_id := str(node_data.get("to_id", "")).to_upper()
+	var return_node := "END"
+	if node_data.has("to_node") and node_data["to_node"].size() > 0:
+		return_node = node_data["to_node"][0]
+	var dialog_data: SproutyDialogsDialogueData = get_parent().get_dialog_data()
+
+	# Handle when jump to another dialogue file
+	if node_data.get("jump_to_dialogue", false):
+		if SproutyDialogsFileUtils.check_valid_uid_path(node_data.get("to_dialogue_uid", -1)):
+			var path = ResourceUID.get_id_path(node_data["to_dialogue_uid"])
+			dialog_data = load(path)
+		else:
+			push_warning("[Sprouty Dialogs] Jump To Node #" + str(node_data.node_index)
+			+ " cannot find the dialogue file '" + node_data["to_dialogue_path"] + "' to jump to.")
+			continue_to_node.emit(return_node)
+			return
+
+	if target_id.is_empty() or dialog_data == null:
+		push_warning("[Sprouty Dialogs] Jump To Node #" + str(node_data.node_index)
+			+ " does not have a valid target ID.")
+		continue_to_node.emit(return_node)
+		return
+
+	if not dialog_data.graph_data.has(target_id):
+		push_warning("[Sprouty Dialogs] Jump To Node #" + str(node_data.node_index)
+			+ " cannot find dialog branch '" + target_id + "'.")
+		continue_to_node.emit(return_node)
+		return
+
+	var start_node := ""
+	for node_name in dialog_data.graph_data[target_id].keys():
+		if dialog_data.graph_data[target_id][node_name].get("node_type", "") == "start_node":
+			start_node = node_name
+			break
+
+	if start_node.is_empty():
+		push_warning("[Sprouty Dialogs] Jump To Node #" + str(node_data.node_index)
+			+ " cannot find a start node for dialog branch '" + target_id + "'.")
+		continue_to_node.emit(return_node)
+		return
+
+	jump_to_node.emit(start_node, target_id, return_node, dialog_data)

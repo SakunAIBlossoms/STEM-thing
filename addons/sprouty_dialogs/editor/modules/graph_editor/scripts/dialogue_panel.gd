@@ -15,8 +15,8 @@ signal new_dialog_file_pressed
 ## Emitted when the open dialog file button is pressed
 signal open_dialog_file_pressed
 
-## Emitted when is requesting to open a character file
-signal open_character_file_request(path: String)
+## Emitted when is requesting to open a file
+signal open_file_request(path: String)
 ## Emitted when is requesting to play a dialog from a start node
 signal play_dialog_request(start_id: String)
 
@@ -24,6 +24,9 @@ signal play_dialog_request(start_id: String)
 signal translation_enabled_changed(enabled: bool)
 ## Emitted when the locales change
 signal locales_changed
+
+## Emitted when variables are saved
+signal variables_changed
 
 ## Start panel reference
 @onready var _start_panel: Panel = $StartPanel
@@ -51,6 +54,7 @@ func _ready() -> void:
 	_graph_toolbar.play_dialog_request.connect(play_dialog_request.emit)
 	_graph_toolbar.toolbar_collapsed.connect(_on_toolbar_collapsed)
 	_text_editor.text_editor_closed.connect(_on_text_editor_closed)
+	variables_changed.connect(_text_editor.update_variables)
 
 	_new_dialog_button.icon = get_theme_icon("Add", "EditorIcons")
 	_open_dialog_button.icon = get_theme_icon("Folder", "EditorIcons")
@@ -77,15 +81,16 @@ func switch_current_graph(new_graph: EditorSproutyDialogsGraphEditor) -> void:
 	if not new_graph.is_connected("open_text_editor", _show_text_editor):
 		new_graph.open_text_editor.connect(_show_text_editor)
 		new_graph.update_text_editor.connect(_text_editor.update_text_editor)
-		new_graph.open_character_file_request.connect(open_character_file_request.emit)
+		new_graph.open_file_request.connect(open_file_request.emit)
 		new_graph.play_dialog_request.connect(play_dialog_request.emit)
 		new_graph.toolbar_expanded.connect(_on_toolbar_expanded)
 		new_graph.nodes_selection_changed.connect(_graph_toolbar.update_node_options)
 		new_graph.paste_selection_changed.connect(_graph_toolbar.update_paste_button)
 
 		_graph_toolbar.node_option_pressed.connect(new_graph.on_node_option_selected)
-		translation_enabled_changed.connect(new_graph.on_translation_enabled_changed)
-		locales_changed.connect(new_graph.on_locales_changed)
+		translation_enabled_changed.connect(new_graph.translation_enabled_changed.emit)
+		locales_changed.connect(new_graph.locales_changed.emit)
+		variables_changed.connect(new_graph.variables_changed.emit)
 	
 	new_graph.undo_redo = undo_redo
 	_graph_panel.add_child(new_graph)

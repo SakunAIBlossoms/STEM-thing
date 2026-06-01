@@ -8,29 +8,33 @@ graph_data = {
 "1": {
 "dialogue_node_1": {
 "char_expand": true,
-"character": "",
+"character": "intro person dude idk ",
 "dialog_key": "1_DIALOG_1",
 "node_index": 1,
 "node_type": "dialogue_node",
 "offset": Vector2(240, 213.5),
 "portrait": "",
-"size": Vector2(250.00034, 394),
+"size": Vector2(276, 46),
+"to_dialog": "",
 "to_node": ["signal_node_1"]
 },
 "signal_node_1": {
+"extra_args": [],
 "node_index": 1,
 "node_type": "signal_node",
 "offset": Vector2(620, 320),
-"signal_argument": "",
-"size": Vector2(180.0003, 114.00003),
+"signal_id": "",
+"size": Vector2(180.00037, 44),
+"to_dialog": "",
 "to_node": ["END"]
 },
 "start_node_1": {
 "node_index": 1,
 "node_type": "start_node",
 "offset": Vector2(-180, 280),
-"size": Vector2(190.00018, 75),
+"size": Vector2(190.00018, 46),
 "start_id": "1",
+"to_dialog": "",
 "to_node": ["dialogue_node_1"]
 }
 }
@@ -42,5 +46,7 @@ dialogs = {
 }
 }
 characters = {
-"1": {}
+"1": {
+"intro person dude idk ": 2238779576706176986
+}
 }

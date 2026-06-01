@@ -35,14 +35,17 @@ const FILE_FIELD_PATH := "res://addons/sprouty_dialogs/editor/components/file_fi
 ## If a type is specified, it returns only the variables of that type.
 ## If no type is specified, it returns all variables.
 ## If no variables are found, it returns an empty array.
-static func get_variables_of_type(type: int = -1, metadata: Dictionary = {}, group: Dictionary = {}) -> Array:
-	if group.is_empty(): # Get all variables
-		group = SproutyDialogsSettingsManager.get_setting("variables")
-	
+static func get_variables_of_type(type: int = -1, metadata: Dictionary = {}, group: Dictionary = {}, _is_initial_call: bool = true) -> Array:
+	if group.is_empty() and _is_initial_call: # Get all variables (only on initial call)
+		var all_variables = SproutyDialogsSettingsManager.get_setting("variables")
+		if all_variables == null:
+			return []
+		group = all_variables
+    
 	var variable_list: Array = []
 	for key in group.keys():
 		if group[key].has("variables"): # Recursively check in groups
-			var sub_variables = get_variables_of_type(type, metadata, group[key].variables)
+			var sub_variables = get_variables_of_type(type, metadata, group[key].variables, false)
 			for sub_key in sub_variables:
 				variable_list.append(key + "/" + sub_key)
 		# Check if the variable type matches or if no type is specified
@@ -259,6 +262,9 @@ static func new_field_by_type(
 			line_edit.placeholder_text = "Write text here..."
 			line_edit.text_changed.connect(on_value_changed.bind(type, field))
 			line_edit.focus_exited.connect(on_modified_callable)
+			
+			if type == TYPE_STRING_NAME:
+				property_data["hint"] = PROPERTY_HINT_NONE
 			
 			if not property_data.is_empty():
 				# File path string

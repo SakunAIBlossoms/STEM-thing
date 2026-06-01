@@ -9,7 +9,7 @@ extends SproutyDialogsBaseNode
 # -----------------------------------------------------------------------------
 
 ## Emitted when is requesting to open a character file
-signal open_character_file_request(path: String)
+signal open_file_request(path: String)
 ## Emitted when press the expand button in a text box field
 signal open_text_editor(text_box: TextEdit)
 ## Emitted when a text box field gains focus and should update the text editor
@@ -45,6 +45,8 @@ var _default_text_modified: bool = false
 
 ## Previous selected portrait index (for UndoRedo)
 var _previous_portrait_index: int = 0
+## Cache of the current portrait list to avoid unnecessary updates
+var _current_portrait_list: Array = []
 
 ## Collapse/Expand icons
 var _collapse_up_icon = preload("res://addons/sprouty_dialogs/editor/icons/interactable/collapse-up.svg")
@@ -97,9 +99,7 @@ func set_data(dict: Dictionary) -> void:
 	node_type = dict["node_type"]
 	node_index = dict["node_index"]
 	to_node = dict["to_node"]
-	
-	if dict.has("to_dialog"):
-		to_dialog = dict["to_dialog"]
+	to_dialog = dict.get("to_dialog", "")
 	
 	# Show or hide character section
 	_character_expand_button.button_pressed = dict["char_expand"]
@@ -138,7 +138,7 @@ func load_character(path: String) -> void:
 		_clear_character_field()
 		return
 	
-	var character = load(path)
+	var character = ResourceLoader.load(path, "", ResourceLoader.CACHE_MODE_IGNORE)
 	if not character is SproutyDialogsCharacterData:
 		printerr("[Sprouty Dialogs] Invalid character resource: " + path)
 		_clear_character_field()
@@ -147,8 +147,9 @@ func load_character(path: String) -> void:
 	# Show the character's display name and set the portrait dropdown
 	_character_button.disabled = false
 	_character_button.text = character.key_name.capitalize()
-	if not _character_button.pressed.is_connected(open_character_file_request.emit.bind(path)):
-		_character_button.pressed.connect(open_character_file_request.emit.bind(path))
+	if _character_button.pressed.is_connected(open_file_request.emit.bind(path)):
+		_character_button.pressed.disconnect(open_file_request.emit.bind(path))
+	_character_button.pressed.connect(open_file_request.emit.bind(path))
 	_set_portrait_dropdown(character)
 	_character_data = character
 
@@ -160,7 +161,24 @@ func load_portrait(portrait: String) -> void:
 		return
 	
 	var portrait_index = _find_dropdown_item(_portrait_dropdown, portrait)
-	_portrait_dropdown.select(portrait_index)
+	if portrait_index == -1:
+		_portrait_dropdown.select(0) # Select "(No one)"
+	else:
+		_portrait_dropdown.select(portrait_index)
+
+
+## Update the portrait dropdown when the character's portrait list changes
+func on_character_changed(character: SproutyDialogsCharacterData) -> void:
+	if (character == null or _character_data == null) \
+			or (character.key_name != _character_data.key_name):
+		return # Different or null character, no need to update portraits
+	
+	if _get_portrait_list(character.portraits) == _current_portrait_list:
+		return # Portrait list hasn't changed, no need to update
+	
+	var previous_portrait = get_portrait()
+	_set_portrait_dropdown(character)
+	load_portrait(previous_portrait)
 
 
 ## Set the character resource picker
@@ -251,6 +269,9 @@ func _set_portrait_dropdown(character_data: SproutyDialogsCharacterData) -> void
 	for portrait in portrait_list:
 		_portrait_dropdown.add_item(portrait)
 
+	_current_portrait_list = portrait_list
+	_current_portrait_list.erase("(No one)")
+
 
 ## Get the list of portrait paths from the portrait dictionary
 func _get_portrait_list(portrait_dict: Dictionary) -> Array:
@@ -312,7 +333,7 @@ func get_dialogs_text() -> Dictionary:
 func load_dialogs(dialogs: Dictionary) -> void:
 	if dialogs.size() > 1: # There are translations
 		_dialog_without_translation = false
-	
+
 	if _translations_enabled and dialogs.has(_default_locale):
 		_default_text_box.set_text(dialogs[_default_locale])
 		_default_text = dialogs[_default_locale]
