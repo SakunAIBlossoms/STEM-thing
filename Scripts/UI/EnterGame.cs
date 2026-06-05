@@ -11,6 +11,9 @@ public partial class EnterGame : Node2D
 	private AudioStreamPlayer InterludeMusic;
 	private RichTextLabel InterludeText;
 	private RichTextLabel ClickToContinue;
+	private RichTextLabel LocatingDestination;
+	private Timer DotDelay;
+	private Timer FlashingText;
 	public override void _Ready()
 	{
 		InterludeMusic = GetNode("InterludeMusic") as AudioStreamPlayer;
@@ -20,8 +23,12 @@ public partial class EnterGame : Node2D
 		TransitionTimer = GetNode<Timer>("TransitionTimer");
 		TransitionTimer.Timeout += OnTimerTimeOut;
 		TransitionSound = GetNode<AudioStreamPlayer>("TransitionSound");
-		InterludeText = GetNode<RichTextLabel>("CRT/Label");
-		ClickToContinue = GetNode<RichTextLabel>("ClickToContine");
+		InterludeText = GetNode<RichTextLabel>("CRT/InterludeText");
+		ClickToContinue = GetNode<RichTextLabel>("CRT/ClickToContinue");
+		LocatingDestination = GetNode<RichTextLabel>("LocatingDestination");
+		DotDelay = LocatingDestination.GetNode<Timer>("DotDelay");
+		FlashingText = ClickToContinue.GetNode<Timer>("FlashingText");
+
 		if (OverlayFade != null)
 		{
 			Tween twn = GetTree().CreateTween();
@@ -36,6 +43,11 @@ public partial class EnterGame : Node2D
 		TransitionTimer.Start();
 		Tween twn = GetTree().CreateTween();
 		twn.TweenProperty(OverlayFade, "color:a", 1, 3);
+		DotDelay.Stop();
+		FlashingText.Stop();
+		LocatingDestination.Text = "     Location Found";
+		ClickToContinue.Text = " ";
+		InterludeText.Text = " ";
 	}
          
  	private void OnTimerTimeOut()

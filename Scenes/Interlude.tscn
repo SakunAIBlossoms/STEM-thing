@@ -100,7 +100,7 @@ parameters/looping = true
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=10416260]
+[node name="LocatingDestination" type="RichTextLabel" parent="." unique_id=10416260]
 offset_left = 488.0
 offset_top = 136.0
 offset_right = 1496.0
@@ -114,9 +114,8 @@ bbcode_enabled = true
 text = "[shake rate=10.0 level=20 connected=1]Locating Destination...[/shake]"
 script = ExtResource("7_bc6bl")
 
-[node name="DotDelay" type="Timer" parent="RichTextLabel" unique_id=1870100493]
+[node name="DotDelay" type="Timer" parent="LocatingDestination" unique_id=1870100493]
 wait_time = 0.4
-autostart = true
 
 [node name="CRT" type="CanvasLayer" parent="." unique_id=1853523181]
 layer = 100
@@ -180,7 +179,6 @@ script = ExtResource("9_bc6bl")
 
 [node name="FlashingText" type="Timer" parent="CRT/ClickToContinue" unique_id=2015303386]
 wait_time = 0.45
-autostart = true
 
 [node name="Button" type="Button" parent="CRT" unique_id=68472805]
 anchors_preset = 15
@@ -191,6 +189,6 @@ grow_vertical = 2
 flat = true
 
 [connection signal="timeout" from="TransitionTimer" to="." method="OnTimerTimeOut"]
-[connection signal="timeout" from="RichTextLabel/DotDelay" to="RichTextLabel" method="ChangeTextTimeout"]
+[connection signal="timeout" from="LocatingDestination/DotDelay" to="LocatingDestination" method="ChangeTextTimeout"]
 [connection signal="timeout" from="CRT/ClickToContinue/FlashingText" to="CRT/ClickToContinue" method="FlashingTimeout"]
 [connection signal="pressed" from="CRT/Button" to="." method="OnClick"]

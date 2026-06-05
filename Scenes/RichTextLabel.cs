@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class LocatingDestination : Godot.RichTextLabel
 {
@@ -8,7 +9,6 @@ public partial class LocatingDestination : Godot.RichTextLabel
 	{
 		Interval = GetNode<Timer>("IntervalTimer");
 	}
-
 	private void OnTimerTimeout()
 	{
 

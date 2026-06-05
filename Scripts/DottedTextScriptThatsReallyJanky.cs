@@ -1,17 +1,22 @@
 using Godot;
 using System;
-using System.Threading;
 
 public partial class DottedTextScriptThatsReallyJanky : RichTextLabel
 {
 	private int count = 0;
+	private Timer DotDelay;
+
+	public override void _Ready()
+	{
+		DotDelay = GetNode<Timer>("DotDelay");
+		DotDelay.Start();
+	}
 	string[] textlist = [
 		"[shake rate=10.0 level=20 connected=1]Locating Destination[/shake]",
 		"[shake rate=10.0 level=20 connected=1]Locating Destination.[/shake]",
 		"[shake rate=10.0 level=20 connected=1]Locating Destination..[/shake]",
 		"[shake rate=10.0 level=20 connected=1]Locating Destination...[/shake]"
 	];
-	// Called when the node enters the scene tree for the first time.
 	private void ChangeTextTimeout()
 	{
 		count++;

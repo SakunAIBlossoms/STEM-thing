@@ -4,7 +4,14 @@ using System;
 public partial class InterludeText : RichTextLabel
 {
 	private int count = 0;
-	string[] textlist = [
+	private Timer FlashingText;
+
+	public override void _Ready()
+	{
+		FlashingText = GetNode<Timer>("FlashingText");
+		FlashingText.Start();
+	}
+	public static string[] Textlist = [
 		"CLICK TO CONTINUE",
 		"",
 	];
@@ -13,6 +20,6 @@ public partial class InterludeText : RichTextLabel
 	{
 		count++;
 		if (count > 1) count = 0;
-		Text = textlist.GetValue(count) as string;
+		Text = Textlist.GetValue(count) as string;
 	}
 }
