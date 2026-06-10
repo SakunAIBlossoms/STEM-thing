@@ -19,6 +19,11 @@ signal all_dialog_files_closed
 ## Emitted when all character files have been closed
 signal all_character_files_closed
 
+## Emitted when a dialogue has changed
+signal dialogue_changed(dialogue: SproutyDialogsDialogueData)
+## Emitted when a character has changed
+signal character_changed(character: SproutyDialogsCharacterData)
+
 ## New dialog button
 @onready var _new_dialog_button: Button = %NewDialogButton
 ## New character button
@@ -36,6 +41,8 @@ signal all_character_files_closed
 @onready var save_file_dialog: FileDialog = $PopupDialogs/SaveFile
 ## Close editor warning dialog
 @onready var _close_editor_warning: AcceptDialog = %CloseEditorWarning
+## Missing character references dialog
+@onready var _missing_chars_dialog: ConfirmationDialog = $PopupDialogs/MissingCharacters
 
 ## File list manager
 @onready var _file_list: Control = $FileList
@@ -52,6 +59,9 @@ var _char_scene := preload("res://addons/sprouty_dialogs/editor/modules/characte
 
 ## Save shortcut (Command/Ctrl-S)
 var _save_shortcut: Shortcut = Shortcut.new()
+
+## File index to save as
+var _save_as_file_index: int = -1
 
 ## Editor main reference
 var plugin_editor: Control = null
@@ -74,14 +84,19 @@ func _ready() -> void:
 	_save_file_button.pressed.connect(save_file)
 
 	open_file_dialog.file_selected.connect(load_file)
-	save_file_dialog.file_selected.connect(save_file)
+	save_file_dialog.file_selected.connect(func(path): save_file(_save_as_file_index, path))
 	new_dialog_file_dialog.file_selected.connect(new_dialog_file)
 	new_char_file_dialog.file_selected.connect(new_character_file)
 
 	_file_list.file_selected.connect(switch_to_selected_file)
 	_file_list.file_closed.connect(_on_file_closed)
 	_file_list.request_save_file.connect(save_file)
-	_file_list.request_save_file_as.connect(save_file_dialog.popup_centered)
+	_file_list.request_save_file_as.connect((func(index):
+			_save_as_file_index=index
+			save_file_dialog.current_path=_file_list.get_item_metadata(index)["file_path"]
+			save_file_dialog.popup_centered()
+			)
+		)
 
 	_close_editor_warning.custom_action.connect(_on_confirm_closing_editor_action)
 	_close_editor_warning.canceled.connect(func(): return null)
@@ -174,6 +189,8 @@ func new_dialog_file(path: String) -> void:
 ## Create a new graph instance and load the data from a resource
 func _new_graph_from_resource(resource: SproutyDialogsDialogueData) -> EditorSproutyDialogsGraphEditor:
 	var graph = _graph_scene.instantiate()
+	dialogue_changed.connect(graph.dialogue_changed.emit)
+	character_changed.connect(graph.character_changed.emit)
 	graph.modified.connect(_on_data_modified)
 	graph.undo_redo = undo_redo
 	add_child(graph)
@@ -228,7 +245,7 @@ func _new_character_from_resource(resource: SproutyDialogsCharacterData) -> Cont
 #region === Save and Load ======================================================
 
 ## Load data from a dialog or character resource file
-func load_file(path: String) -> void:
+func load_file(path: String, check_resources: bool = true) -> void:
 	if _file_list.is_file_loaded(path):
 		_file_list.switch_to_file_path(path)
 		return
@@ -247,6 +264,8 @@ func load_file(path: String) -> void:
 			_file_list.new_file_item(path, resource, graph, csv_path)
 			request_to_switch_tab.emit(0)
 			_save_file_button.disabled = false
+			if check_resources:
+				_check_missing_characters(resource)
 		
 		elif resource is SproutyDialogsCharacterData:
 			SproutyDialogsFileUtils.set_recent_file_path("character_files", path)
@@ -277,6 +296,7 @@ func save_file(index: int = _file_list.get_current_index(), path: String = "") -
 		data.graph_data = graph_editor_data["nodes_data"]
 		data.dialogs = graph_editor_data["dialogs"]
 		data.characters = graph_editor_data["characters"]
+		dialogue_changed.emit(data)
 
 		# Set the CSV file path if exists
 		if SproutyDialogsFileUtils.check_valid_extension(_csv_file_field.get_value(), ["*.csv"]) \
@@ -298,6 +318,7 @@ func save_file(index: int = _file_list.get_current_index(), path: String = "") -
 	elif data is SproutyDialogsCharacterData:
 		data = file_metadata["cache_node"].get_character_data()
 		file_metadata["data"] = data
+		character_changed.emit(data)
 
 		# Save character names on csv file
 		if SproutyDialogsSettingsManager.get_setting("translate_character_names") \
@@ -307,7 +328,21 @@ func save_file(index: int = _file_list.get_current_index(), path: String = "") -
 			SproutyDialogsCSVFileManager.save_character_names_on_csv(data.key_name, data.display_name)
 	
 	# Save file on the given path
-	ResourceSaver.save(file_metadata["data"], save_path)
+	if file_metadata["data"] is SproutyDialogsCharacterData:
+		file_metadata["data"].take_over_path(save_path)
+	
+	var result = ResourceSaver.save(file_metadata["data"], save_path)
+	if result != OK:
+		print("[Sprouty Dialogs] File '" + file_metadata.file_name + "' could not be saved.")
+		return
+	
+	# Update the character resources in the inspector
+	var inspector = Engine.get_singleton("EditorInterface").get_inspector()
+	var current_edited = inspector.get_edited_object()
+	if current_edited is SproutyDialogsCharacterData and file_metadata["data"] is SproutyDialogsCharacterData:
+		if current_edited.key_name == file_metadata["data"].key_name:
+			EditorInterface.edit_resource(file_metadata["data"])
+	
 	_file_list.set_item_metadata(index, file_metadata)
 	_file_list.set_file_as_modified(index, false)
 
@@ -315,8 +350,68 @@ func save_file(index: int = _file_list.get_current_index(), path: String = "") -
 
 #endregion
 
-#region === File options buttons ===============================================
+#region === Check missing resources ============================================
 
+## Check for missing character references in a dialogue resource
+func _check_missing_characters(dialog_data: SproutyDialogsDialogueData) -> void:
+	var char_references = dialog_data.get_all_character_references()
+	var missing_chars = []
+	var char_list = ""
+
+	for id in dialog_data.characters.keys():
+		for char in dialog_data.characters[id].keys():
+			if not SproutyDialogsFileUtils.check_valid_uid_path(dialog_data.characters[id][char]):
+				if not missing_chars.has(char):
+					missing_chars.append(char)
+					char_list += "\n - " + char.capitalize() + " (References: " + str(char_references[char]) + ")"
+	
+	if not missing_chars.is_empty():
+		if _missing_chars_dialog.confirmed.is_connected(_reassign_missing_characters.bind(dialog_data)):
+			_missing_chars_dialog.confirmed.disconnect(_reassign_missing_characters.bind(dialog_data))
+		_missing_chars_dialog.confirmed.connect(_reassign_missing_characters.bind(dialog_data))
+		_missing_chars_dialog.dialog_text = _missing_chars_dialog.dialog_text.replace("[dialogue]", dialog_data.resource_path)
+		_missing_chars_dialog.dialog_text = _missing_chars_dialog.dialog_text.replace("[list]", char_list)
+		_missing_chars_dialog.popup_centered()
+
+
+## Search and reassign missing characters in a dialogue resource
+func _reassign_missing_characters(dialog_data: SproutyDialogsDialogueData) -> void:
+	# Get all character resources
+	var characters: Dictionary = {}
+	var character_resources = SproutyDialogsFileUtils.get_resources_of_type("character")
+
+	for res in character_resources:
+		var uid = ResourceSaver.get_resource_id_for_path(res.resource_path, true)
+		characters[res.key_name] = uid
+	
+	# Reassign missing characters
+	var chars_not_found = []
+	for id in dialog_data.characters.keys():
+		for char in dialog_data.characters[id].keys():
+			if not SproutyDialogsFileUtils.check_valid_uid_path(dialog_data.characters[id][char]):
+				if characters.has(char):
+					dialog_data.characters[id][char] = characters[char]
+				else:
+					chars_not_found.append(char)
+	
+	if not chars_not_found.is_empty():
+		push_warning("[Sprouty Dialogs] Some characters were not found in the project: " \
+				+ str(chars_not_found).replace("[", "").replace("]", "") \
+				+ ". Please check if the character files exist.")
+	
+	# Update the dialogue resource
+	var result = ResourceSaver.save(dialog_data, dialog_data.resource_path)
+	if result != OK:
+		print("[Sprouty Dialogs] File '" + dialog_data.file_name + "' could not be saved.")
+		return
+	
+	# Reload the dialogue
+	await _file_list.close_file(_file_list.get_current_index())
+	load_file(dialog_data.resource_path, false)
+
+#endregion
+
+#region === File options buttons ===============================================
 ## Open file dialog to select a file
 func on_open_file_pressed() -> void:
 	open_file_dialog.set_current_dir(SproutyDialogsFileUtils.get_recent_file_path("sprouty_files"))

@@ -82,7 +82,7 @@ public partial class Gameplay : Node
         // Then anything else important later
         if (!Plr.Current) Plr.Current = true;
         Animations.AnimationFinished += AnimationCompleted;
-        
+
         // Stop the menu music and play the music for when you're actually in-game
         MenuMusic = GetNode("/root/MenuMusic") as AudioStreamPlayer;
         MenuMusic.Stop();

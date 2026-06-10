@@ -14,8 +14,8 @@ signal modified(modified: bool)
 ## Triggered when all the nodes are loaded
 signal nodes_loaded
 
-## Emitted when is requesting to open a character file
-signal open_character_file_request(path: String)
+## Emitted when is requesting to open a file
+signal open_file_request(path: String)
 ## Emitted when is requesting to play a dialog from a start node
 signal play_dialog_request(start_id: String)
 
@@ -23,6 +23,13 @@ signal play_dialog_request(start_id: String)
 signal open_text_editor(text_box: TextEdit)
 ## Emitted when change the focus to another text box while the text editor is open
 signal update_text_editor(text_box: TextEdit)
+
+## Emitted when a dialogue has changed
+signal dialogue_changed(dialogue: SproutyDialogsDialogueData)
+## Emitted when a character is changed
+signal character_changed(character: SproutyDialogsCharacterData)
+## Emitted when variables are saved
+signal variables_changed
 
 ## Emitted when the locales are changed
 signal locales_changed
@@ -111,16 +118,6 @@ func _input(_event):
 	if (not _add_node_menu.visible) and _request_port > -1:
 		_request_node = ""
 		_request_port = -1
-
-
-## Notify the nodes that the locales have changed
-func on_locales_changed():
-	locales_changed.emit()
-
-
-## Notify the nodes that the translation enabled state has changed
-func on_translation_enabled_changed(enabled: bool):
-	translation_enabled_changed.emit(enabled)
 
 
 ## Returns all the start ids in the graph
@@ -218,11 +215,26 @@ func _connect_node_signals(node: SproutyDialogsBaseNode) -> void:
 			not is_connected("translation_enabled_changed", node.on_translation_enabled_changed):
 		translation_enabled_changed.connect(node.on_translation_enabled_changed)
 	
-	match node.node_type: # Connect specific node signals
-		"start_node":
-			node.play_dialog_request.connect(play_dialog_request.emit)
-		"dialogue_node":
-			node.open_character_file_request.connect(open_character_file_request.emit)
+	# Connect dialogue changed signal
+	if node.has_method("on_dialogue_changed") and \
+			not is_connected("dialogue_changed", node.on_dialogue_changed):
+		dialogue_changed.connect(node.on_dialogue_changed)
+
+	# Connect character changed signal
+	if node.has_method("on_character_changed") and \
+			not is_connected("character_changed", node.on_character_changed):
+		character_changed.connect(node.on_character_changed)
+
+	# Connect variables changed signal
+	if node.has_method("on_variables_changed") and \
+			not is_connected("variables_changed", node.on_variables_changed):
+		variables_changed.connect(node.on_variables_changed)
+	
+	# Connect other signals
+	if node.has_signal("open_file_request"):
+		node.open_file_request.connect(open_file_request.emit)
+	if node.has_signal("play_dialog_request"):
+		node.play_dialog_request.connect(play_dialog_request.emit)
 
 
 ## Disconnect node signals
@@ -236,17 +248,29 @@ func _disconnect_node_signals(node: SproutyDialogsBaseNode) -> void:
 	if node.has_signal("update_text_editor"):
 		node.update_text_editor.disconnect(update_text_editor.emit)
 	
-	# Connect translation signals
-	if node.has_signal("on_locales_changed"):
+	# Disconnect translation signals
+	if node.has_method("on_locales_changed"):
 		locales_changed.disconnect(node.on_locales_changed)
-	if node.has_signal("on_translation_enabled_changed"):
+	if node.has_method("on_translation_enabled_changed"):
 		translation_enabled_changed.disconnect(node.on_translation_enabled_changed)
 	
-	match node.node_type: # Disconnect specific node signals
-		"start_node":
-			node.play_dialog_request.disconnect(play_dialog_request.emit)
-		"dialogue_node":
-			node.open_character_file_request.disconnect(open_character_file_request.emit)
+	# Disconnect dialogue changed signal
+	if node.has_method("on_dialogue_changed"):
+		dialogue_changed.disconnect(node.on_dialogue_changed)
+	
+	# Disconnect character changed signal
+	if node.has_method("on_character_changed"):
+		character_changed.disconnect(node.on_character_changed)
+
+	# Disconnect variables changed signal
+	if node.has_method("on_variables_changed"):
+		variables_changed.disconnect(node.on_variables_changed)
+
+	# Disconnect other signals
+	if node.has_signal("open_file_request"):
+		node.open_file_request.disconnect(open_file_request.emit)
+	if node.has_signal("play_dialog_request"):
+		node.play_dialog_request.disconnect(play_dialog_request.emit)
 
 #endregion
 
@@ -1071,12 +1095,12 @@ func _set_node_actions_menu(has_selection: bool = false, paste_enabled: bool = f
 	_node_actions_menu.add_icon_item(get_theme_icon("Add", "EditorIcons"), "Add Node", 0)
 	_node_actions_menu.add_separator()
 	if has_selection:
-		_node_actions_menu.add_icon_item(get_theme_icon("Remove", "EditorIcons"), "Remove Node(s)")
-		_node_actions_menu.add_icon_item(get_theme_icon("Duplicate", "EditorIcons"), "Duplicate Node(s)")
-		_node_actions_menu.add_icon_item(get_theme_icon("ActionCopy", "EditorIcons"), "Copy Node(s)")
-		_node_actions_menu.add_icon_item(get_theme_icon("ActionCut", "EditorIcons"), "Cut Node(s)")
+		_node_actions_menu.add_icon_item(get_theme_icon("Remove", "EditorIcons"), "Remove Node(s)", 1)
+		_node_actions_menu.add_icon_item(get_theme_icon("Duplicate", "EditorIcons"), "Duplicate Node(s)", 2)
+		_node_actions_menu.add_icon_item(get_theme_icon("ActionCopy", "EditorIcons"), "Copy Node(s)", 3)
+		_node_actions_menu.add_icon_item(get_theme_icon("ActionCut", "EditorIcons"), "Cut Node(s)", 4)
 	if paste_enabled:
-		_node_actions_menu.add_icon_item(get_theme_icon("ActionPaste", "EditorIcons"), "Paste Node(s)")
+		_node_actions_menu.add_icon_item(get_theme_icon("ActionPaste", "EditorIcons"), "Paste Node(s)", 5)
 
 
 ## Show a pop-up menu at a given position

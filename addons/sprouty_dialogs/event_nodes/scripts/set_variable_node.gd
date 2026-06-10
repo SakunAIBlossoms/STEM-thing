@@ -80,11 +80,9 @@ func set_data(dict: Dictionary) -> void:
 	node_type = dict["node_type"]
 	node_index = dict["node_index"]
 	to_node = dict["to_node"]
+	to_dialog = dict.get("to_dialog", "")
 	position_offset = dict["offset"]
 	size = dict["size"]
-
-	if dict.has("to_dialog"):
-		to_dialog = dict["to_dialog"]
 
 	# Set the type on the dropdown
 	var type_index = _type_dropdown.get_item_index(dict["var_type"])
@@ -109,6 +107,14 @@ func set_data(dict: Dictionary) -> void:
 	_var_name = dict["var_name"]
 
 #endregion
+
+
+## Handle when the variables have changed to update the variable dropdown options
+func on_variables_changed() -> void:
+	# Update the variable dropdown options based on the current type
+	var type = _type_dropdown.get_item_id(_type_dropdown.selected)
+	var metadata = _type_dropdown.get_item_metadata(_type_dropdown.selected)
+	_name_input.set_options(SproutyDialogsVariableUtils.get_variables_of_type(type, metadata))
 
 
 ## Handle when the type is selected from the dropdown

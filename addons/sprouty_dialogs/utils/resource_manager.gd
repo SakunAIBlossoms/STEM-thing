@@ -114,6 +114,7 @@ func get_character_data(key_name: String) -> SproutyDialogsCharacterData:
 ## that are no longer needed by any dialog player.
 func release_resources(dialog_data: SproutyDialogsDialogueData, start_id: String) -> void:
 	if not dialog_data: return
+	if not dialog_data.graph_data.has(start_id): return
 	var portraits = dialog_data.get_portraits_on_dialog(start_id)
 
 	if not dialog_data.characters.has(start_id):
@@ -171,6 +172,7 @@ func _new_canvas_layer(name: String, layer: int) -> CanvasLayer:
 ## This only loads the resources to use them later, it does not instantiate them.
 func load_resources(dialog_data: SproutyDialogsDialogueData, start_id: String) -> void:
 	if not dialog_data: return
+	if not dialog_data.graph_data.has(start_id): return
 	var portraits = dialog_data.get_portraits_on_dialog(start_id)
 
 	if not dialog_data.characters.has(start_id):
@@ -358,7 +360,7 @@ func _set_portrait_properties(character_name: String,
 
 	# Add the parent transform
 	if not transform_settings.ignore_main_transform:
-		transform_settings.scale += main_transform.scale
+		transform_settings.scale *= main_transform.scale
 		transform_settings.offset += main_transform.offset
 		transform_settings.rotation += main_transform.rotation
 		transform_settings.mirror = not main_transform.mirror \
