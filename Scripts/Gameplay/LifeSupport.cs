@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 public partial class LifeSupport : SubViewport
 {
-	private double oxygenlimit = 1800;
+	private double oxygenlimit = 1200;
 	TimeSpan oxygentimespan;
 	private Timer wait;
 	private RichTextLabel timeremaining;
@@ -43,6 +43,11 @@ public partial class LifeSupport : SubViewport
 		}
 	}
 
+	private void OnShutdownEverything()
+	{
+		GetNode<ColorRect>("Overlay").Visible = true;
+	}
+
 	private void PlayerBeenPwned()
 	{
 		CanUpdate = false;
@@ -53,5 +58,6 @@ public partial class LifeSupport : SubViewport
 	private void HackFixed()
 	{
 		CanUpdate = true;
+		GetNode<ColorRect>("Overlay").Visible = false;
 	}
 }

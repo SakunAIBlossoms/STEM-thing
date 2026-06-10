@@ -333,6 +333,7 @@ _data = {
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v2eey"]
+transparency = 1
 albedo_color = Color(0.21788684, 0.10991647, 0.010899377, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ifha0"]
@@ -606,6 +607,10 @@ func _on_timer_timeout() -> void:
 		text = \"> Awaiting start command_\"
 	else:
 		text = \"> Awaiting start command\"
+
+
+func OnShipLoaded():
+	get_parent().visible = false
 "
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_f0fbv"]
@@ -634,6 +639,19 @@ shader_parameter/warp_amount = 0.18000000855
 shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.015
 shader_parameter/vignette_opacity = 0.3850000182875
+
+[sub_resource type="GDScript" id="GDScript_6twl4"]
+resource_name = "A"
+script/source = "extends ColorRect
+
+
+
+func _on_gameplay_shutdown_everything() -> void:
+	visible = true
+
+func _on_gameplay_hack_fixed() -> void:
+	visible = false
+"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kj63f"]
 bg_color = Color(0.53333336, 0, 0, 0.27450982)
@@ -744,7 +762,6 @@ radius = 0.1382299
 material = SubResource("StandardMaterial3D_mqnyj")
 
 [node name="PS1" type="ColorRect" parent="." unique_id=190581032]
-visible = false
 material = SubResource("ShaderMaterial_r8bcl")
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -918,15 +935,17 @@ offset_right = 1445.0
 offset_bottom = 2057.0
 grow_horizontal = 2
 grow_vertical = 0
+rotation = 0.034906585
 texture = ExtResource("11_mqnyj")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="RESET" type="Button" parent="GUI" unique_id=842569633]
+visible = false
 offset_left = 834.0
-offset_top = 1007.0
+offset_top = 928.0
 offset_right = 1083.0
-offset_bottom = 1054.0
+offset_bottom = 975.0
 theme_override_fonts/font = ExtResource("4_kwrm5")
 theme_override_styles/normal = SubResource("StyleBoxFlat_mqnyj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q7v04")
@@ -1019,7 +1038,7 @@ offset_top = -77.0
 offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Source Link"
+text = "Learn more"
 
 [node name="RandomSoundPlayer" type="Node" parent="." unique_id=1744003763]
 script = ExtResource("11_decfu")
@@ -1067,7 +1086,6 @@ autostart = true
 [node name="LifeSupport" type="SubViewport" parent="." unique_id=1386996782]
 handle_input_locally = false
 size = Vector2i(800, 600)
-render_target_update_mode = 4
 script = ExtResource("18_ifha0")
 
 [node name="BG" type="ColorRect" parent="LifeSupport" unique_id=1925776691]
@@ -1131,9 +1149,9 @@ offset_right = 730.0
 offset_bottom = 218.0
 theme_override_styles/background = SubResource("StyleBoxFlat_gb8q7")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1ff3a")
-max_value = 7200.0
+max_value = 1200.0
 step = 1.0
-value = 7200.0
+value = 1200.0
 show_percentage = false
 
 [node name="Loading" type="TextureRect" parent="LifeSupport" unique_id=1961917337]
@@ -1160,7 +1178,7 @@ wait_time = 9.8
 one_shot = true
 
 [node name="OxygenLeft" type="Timer" parent="LifeSupport" unique_id=844607183]
-wait_time = 120.0
+wait_time = 1200.0
 one_shot = true
 
 [node name="pwned" type="TextureRect" parent="LifeSupport" unique_id=1844988637]
@@ -1169,6 +1187,15 @@ offset_bottom = 600.0
 texture = SubResource("ViewportTexture_yl3i8")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="Overlay" type="ColorRect" parent="LifeSupport" unique_id=1111594810]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Coord" type="SubViewport" parent="." unique_id=1526367732]
 handle_input_locally = false
@@ -1218,7 +1245,6 @@ scale = Vector2(0.24050634, 0.24050634)
 texture = ExtResource("24_8ipd1")
 
 [node name="Starting" type="ColorRect" parent="Coord" unique_id=539510057]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1259,6 +1285,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Dark" type="ColorRect" parent="Coord" unique_id=1939385036]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = SubResource("GDScript_6twl4")
+
 [node name="ShipStats" type="SubViewport" parent="." unique_id=516557392]
 handle_input_locally = false
 size = Vector2i(800, 600)
@@ -1284,11 +1320,10 @@ offset_bottom = 133.0
 grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_gb8q7")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1ff3a")
-value = 50.0
 rounded = true
 show_percentage = false
 indeterminate = true
-editor_preview_indeterminate = false
+editor_preview_indeterminate = true
 
 [node name="Title" type="RichTextLabel" parent="ShipStats" unique_id=1128516610]
 offset_left = 4.0
@@ -1347,6 +1382,10 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("ViewportTexture_f0fbv")
 
+[node name="Dark" type="ColorRect" parent="ShipStats" unique_id=2002474991]
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1860294473]
 visible = false
 anchors_preset = 15
@@ -1383,8 +1422,15 @@ mouse_filter = 2
 wait_time = 30.0
 autostart = true
 
+[node name="FixTime" type="Timer" parent="." unique_id=2003533789]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="HackFixed" from="." to="LifeSupport" method="HackFixed"]
+[connection signal="HackFixed" from="." to="Coord/Dark" method="_on_gameplay_hack_fixed"]
 [connection signal="PlayerPwned" from="." to="LifeSupport" method="PlayerBeenPwned"]
+[connection signal="ShutdownEverything" from="." to="LifeSupport" method="OnShutdownEverything"]
+[connection signal="ShutdownEverything" from="." to="Coord/Dark" method="_on_gameplay_shutdown_everything"]
 [connection signal="timeout" from="Environment/PingSFX/PingSoundLoop" to="Environment/PingSFX" method="Ping"]
 [connection signal="mouse_entered" from="GUI/Map" to="." method="CheckMap"]
 [connection signal="mouse_entered" from="GUI/Controls/Left" to="." method="LeftSideEntered"]
@@ -1396,5 +1442,7 @@ autostart = true
 [connection signal="timeout" from="PWNED/PWNED/Timer" to="PWNED/PWNED" method="OnTimerTimeout"]
 [connection signal="timeout" from="LifeSupport/wait" to="LifeSupport" method="OnWaitTimeout"]
 [connection signal="timeout" from="Coord/Starting/Label/Timer" to="Coord/Starting/Label" method="_on_timer_timeout"]
+[connection signal="ShipStatsLoaded" from="ShipStats" to="Coord/Starting/Label" method="OnShipLoaded"]
 [connection signal="timeout" from="ShipStats/Timer" to="ShipStats" method="OnTimerTimeout"]
 [connection signal="timeout" from="HackedChance" to="." method="HackedChanceTrigger"]
+[connection signal="timeout" from="FixTime" to="." method="OnFixTime"]

@@ -15,6 +15,8 @@ public partial class Gameplay : Node
     [Signal]
     public delegate void PlayerPwnedEventHandler();
     [Signal]
+    public delegate void ShutdownEverythingEventHandler();
+    [Signal]
     public delegate void HackFixedEventHandler();
 
     // Setup basic variables, give them a value in _Ready()
@@ -26,6 +28,7 @@ public partial class Gameplay : Node
     private AudioStreamPlayer GameMusic;
     private TextureRect HACKEDUI;
     private Button ResetButton;
+    private SubViewport Coord;
 
     // Map related variables
     private Vector2I EnvironmentSize = new Vector2I(50, 50);
@@ -55,12 +58,16 @@ public partial class Gameplay : Node
     Dictionary<string, bool> Hovered = new Dictionary<string, bool> { { "Left", false }, { "Right", false } };
 
     // who hacked me bruh im crine
-    public bool HACKED {get; set;} = true;
+    public bool HACKED {get; set;} = false;
 
     public override void _Ready()
     {
+        Coord = GetNode("Coord") as SubViewport;
         // what the fuck is this spaghetti, and why is it so long
-        GridSlotSize = new Vector2(((int)ProjectSettings.GetSetting("display/window/size/viewport_width") / EnvironmentSize.X), ((int)ProjectSettings.GetSetting("display/window/size/viewport_height") / EnvironmentSize.Y));
+        // WHY AM I GETTING THE VIEWPORT OF THE PROJECT
+        //GridSlotSize = new Vector2(((int)ProjectSettings.GetSetting("display/window/size/viewport_width") / EnvironmentSize.X), ((int)ProjectSettings.GetSetting("display/window/size/viewport_height") / EnvironmentSize.Y));
+        // enough of that garbage heres the right one and I will keep the old one commented as shame.
+        GridSlotSize = new Vector2(((int) Coord.Size.X / EnvironmentSize.X), ((int) Coord.Size.Y / EnvironmentSize.Y));
         SubPosition = new Vector2I(EnvironmentSize.X / 2, EnvironmentSize.Y / 2); // This should hopefully center the player
 
         // Give variables a value first
@@ -86,7 +93,6 @@ public partial class Gameplay : Node
     public override void _Process(double delta)
     {
         HACKEDUI.Visible = HACKED;
-        ResetButton.Visible = HACKED;
     }
 
     // Randomly generates things for the player to find and obstacles that hitting causes the player to take damage.
@@ -120,7 +126,11 @@ public partial class Gameplay : Node
 
     public override void _Input(InputEvent @event)
     {
-        if (!HACKED && @event is InputEventKey) MoveDirection(@event.AsText());
+        if (!HACKED && @event is InputEventKey)
+        {
+            MoveDirection(@event.AsText());
+            GD.Print("Key hit: " + @event.AsText());
+        }
     }
 
     private void MoveDirection(String direction, int amount = 1)
@@ -163,7 +173,14 @@ public partial class Gameplay : Node
     }
     private void ResetButtonPressed()
     {
+        GetNode<Timer>("FixTime").Start();
+        EmitSignal("ShutdownEverything");
+        ResetButton.Visible = false;
         HACKED = false;
+    }
+    private void OnFixTime()
+    {
+        EmitSignal("HackFixed");
     }
     private void HackedChanceTrigger()
     {
@@ -172,6 +189,8 @@ public partial class Gameplay : Node
         if (num == 0)
         {
             HACKED = true;
+            EmitSignal("PlayerPwned");
+            ResetButton.Visible = true;
         }
     }
     // Animation hook
