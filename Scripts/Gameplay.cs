@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 
 public partial class Gameplay : Node
 {
@@ -42,6 +44,8 @@ public partial class Gameplay : Node
     Dictionary<string, Variant> ScannableObjects = new Dictionary<string, Variant> { };
     Dictionary<int, Vector2> ObstacleObjects = new Dictionary<int, Vector2> { };
 
+    Dictionary<string, Variant>[] LoadedObjects = [];
+
     // Custom variables WE make twin
     // Make some camera stuff, we need to track the direction and i feel like an enum is the best way to do this
     enum CameraFocus
@@ -77,7 +81,20 @@ public partial class Gameplay : Node
         Animations = GetNode("Animations") as AnimationPlayer;
         HACKEDUI = GetNode("PWNED/PWNED") as TextureRect;
         ResetButton = GetNode("GUI/RESET") as Button;
-        GD.PrintRich("Line 38 Gameplay.cs: animation is null? " + (Animations == null));
+        
+        // lets get all those objects
+        var folder = DirAccess.GetFilesAt("res://Objects/");
+        string[] encryptedstrings = [];
+        var index = -1;
+        foreach (var filename in folder) {
+            if (filename.Split(".")[1] == "ddobj") {
+                GD.Print("I FOUND A FILE:\n", filename);
+                var file = Godot.FileAccess.Open("res://Objects/"+filename, Godot.FileAccess.ModeFlags.Read);
+                GD.Print("Loaded Obfuscated: "+file.GetAsText());
+                encryptedstrings = file.GetAsText();
+                file.Close();
+            }
+        }
 
         // Then anything else important later
         if (!Plr.Current) Plr.Current = true;
@@ -102,18 +119,10 @@ public partial class Gameplay : Node
         for (int i = 0; i < ObstacleCountToSpawn; i++)
         {
             var Position = GetRandomPos();
-            if (ObstacleObjects.Count > 0)
-            {
-                foreach (var data in ObstacleObjects)
-                {
-                    if (data.Value == Position)
-                    {
-                        Position = GetRandomPos();
-                        GD.Print(Position);
-                    }
-                }
-            }
             ObstacleObjects.Add(i, Position);
+        }
+        for (int i = 0; i < ObjectCountToSpawn; i++) {
+            var Object = LoadedObjects[i];
         }
     }
 

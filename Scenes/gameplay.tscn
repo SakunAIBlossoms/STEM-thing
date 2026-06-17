@@ -334,7 +334,7 @@ _data = {
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v2eey"]
 transparency = 1
-albedo_color = Color(0.21788684, 0.10991647, 0.010899377, 1)
+albedo_color = Color(0.21802102, 0.11207495, 0.012920001, 0)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ifha0"]
 viewport_path = NodePath("ShipStats")
@@ -822,7 +822,6 @@ offset_bottom = 1080.0
 mouse_behavior_recursive = 2
 
 [node name="Tutorials" type="Control" parent="GUI" unique_id=889320543]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
@@ -918,6 +917,19 @@ bbcode_enabled = true
 text = "[pulse]Use A or D to move the submarine left or right."
 horizontal_alignment = 1
 
+[node name="ScanCoordinate" type="RichTextLabel" parent="GUI/Tutorials" unique_id=294099143]
+modulate = Color(1, 1, 1, 0.47058824)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 158.0
+offset_bottom = 229.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 49
+bbcode_enabled = true
+text = "[pulse]Press Space to scan the current coordinate you are at."
+horizontal_alignment = 1
+
 [node name="TutorialShowLength" type="Timer" parent="GUI/Tutorials" unique_id=1454440405]
 wait_time = 5.0
 one_shot = true
@@ -931,8 +943,8 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = 761.0
 offset_top = 1089.0
-offset_right = 1445.0
-offset_bottom = 2057.0
+offset_right = 1567.0374
+offset_bottom = 2229.7078
 grow_horizontal = 2
 grow_vertical = 0
 rotation = 0.034906585
