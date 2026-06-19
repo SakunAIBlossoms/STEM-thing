@@ -1,8 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.IO;
+using System.Security.AccessControl;
 
 public partial class Gameplay : Node
 {
@@ -44,7 +43,7 @@ public partial class Gameplay : Node
     Dictionary<string, Variant> ScannableObjects = new Dictionary<string, Variant> { };
     Dictionary<int, Vector2> ObstacleObjects = new Dictionary<int, Vector2> { };
 
-    Dictionary<string, Variant>[] LoadedObjects = [];
+    Variant[] LoadedObjects = [];
 
     // Custom variables WE make twin
     // Make some camera stuff, we need to track the direction and i feel like an enum is the best way to do this
@@ -83,18 +82,7 @@ public partial class Gameplay : Node
         ResetButton = GetNode("GUI/RESET") as Button;
         
         // lets get all those objects
-        var folder = DirAccess.GetFilesAt("res://Objects/");
-        string[] encryptedstrings = [];
-        var index = -1;
-        foreach (var filename in folder) {
-            if (filename.Split(".")[1] == "ddobj") {
-                GD.Print("I FOUND A FILE:\n", filename);
-                var file = Godot.FileAccess.Open("res://Objects/"+filename, Godot.FileAccess.ModeFlags.Read);
-                GD.Print("Loaded Obfuscated: "+file.GetAsText());
-                encryptedstrings = file.GetAsText();
-                file.Close();
-            }
-        }
+        DoFileScan();
 
         // Then anything else important later
         if (!Plr.Current) Plr.Current = true;
@@ -105,6 +93,22 @@ public partial class Gameplay : Node
         MenuMusic.Stop();
         GameMusic = GetNode<AudioStreamPlayer>("GameMusic");
         GameMusic.Play();
+    }
+    private void DoFileScan()
+    {
+        var folder = DirAccess.GetFilesAt("res://Objects/");
+        Array.Resize(ref LoadedObjects, folder.Length);
+        int index = -1;
+        foreach (var filename in folder)
+        {
+            index++;
+            if (filename.Split(".")[1] == "ddobj")
+            {
+                var file = Godot.FileAccess.Open("res://Objects/" + filename, Godot.FileAccess.ModeFlags.Read);
+                LoadedObjects[index] = Json.ParseString(file.GetAsText());
+            }
+        }
+        GenerateEnvironment();
     }
 
     public override void _Process(double delta)
@@ -121,8 +125,10 @@ public partial class Gameplay : Node
             var Position = GetRandomPos();
             ObstacleObjects.Add(i, Position);
         }
-        for (int i = 0; i < ObjectCountToSpawn; i++) {
+        for (int i = 0; i < LoadedObjects.Length; i++)
+        {
             var Object = LoadedObjects[i];
+            
         }
     }
 
@@ -142,7 +148,7 @@ public partial class Gameplay : Node
         }
     }
 
-    private void MoveDirection(String direction, int amount = 1)
+    private void MoveDirection(string direction, int amount = 1)
     {
         switch (direction)
         {
